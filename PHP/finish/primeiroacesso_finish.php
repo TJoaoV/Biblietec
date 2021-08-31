@@ -49,7 +49,7 @@
     ?>
     <br><br>
     <div>
-        <a href="../../index.html">Voltar</a>
+        <a href="../../index.php">Voltar</a>
     </div>
     <br><br>
 </body>

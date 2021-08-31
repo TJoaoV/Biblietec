@@ -18,24 +18,27 @@ $nome = $_SESSION['nome'];
         <script>
             window.addEventListener("load", () => {
                 document.querySelector("#btnProcurar").addEventListener("click", e => {
-                    alert("procurar!");
-                    // Can also cancel the event and manually navigate
-                    // e.preventDefault();
-                    // window.location = e.target.href;
+                    btnProcurar();
                 });
                 document.querySelector("#btnEmprestimos").addEventListener("click", e => {
-                    alert("emprestimos!");
-                    // Can also cancel the event and manually navigate
-                    // e.preventDefault();
-                    // window.location = e.target.href;
+                    btnEmprestimos();
                 });
                 document.querySelector("#btnPlaceholder").addEventListener("click", e => {
-                    alert("placeholder!");
-                    // Can also cancel the event and manually navigate
-                    // e.preventDefault();
-                    // window.location = e.target.href;
+                    btnPlaceholder();
                 });
             });
+            function btnProcurar() {
+                document.getElementById('teste').innerHTML =
+                    "<h1> teste </h1>";
+            };
+            function btnEmprestimos(){
+                document.getElementById('teste').innerHTML =
+                    "<label > Emprestimos: </label>";
+            };
+            function btnPlaceholder(){
+                document.getElementById('teste').innerHTML =
+                    "<label > placeholder: </label>";
+            };
         </script>
     </head>
     <body>
@@ -50,8 +53,10 @@ $nome = $_SESSION['nome'];
             <hr>
             <a href="" id='btnPlaceholder'>Placeholder</a>
         </div>
-        <div class="main">
-          <h1> teste </h1>
+        <div id="main">
+            <div id="teste">
+                
+            </div>
         </div>
     </body>
 </html> 

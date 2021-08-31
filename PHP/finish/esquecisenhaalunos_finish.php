@@ -88,6 +88,6 @@ if($btncontinuar){
 	echo "Error!";
 }
 ?>
-<input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.html';">
+<input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
 </body>
 </html>
