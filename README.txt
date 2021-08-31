@@ -1,0 +1,25 @@
+APP USADO: XAMPP
+USUÁRIO BANCO DE DADOS: "biblietec"
+SENHA BANCO DE DADOS: "" (PS: EM BRANCO MESMO)
+
+PÁGINAS EM ANDAMENTO:
+HOME.PHP 
+INDEX.HTML (esqueci a senha)
+
+PÁGINAS FINALIZADAS:
+PRIMEIROACESSO.PHP
+CONEXAO.PHP
+LOGINADMINISTRACAO.PHP
+LOGINALUNOS.PHP
+
+
+CSS:
+Index.html
+Primeiro acesso.php
+
+
+
+
+Email:
+naorespondabiblietec@gmail.com
+senha: biblietec123
