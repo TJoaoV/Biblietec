@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="pt">
     <head>
-        <title>Biblietec - Login</title>
+        <title>Biblietec - Login Administração</title>
         <?php include('imports.php'); ?>
     </head>
     <body>
