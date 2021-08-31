@@ -4,18 +4,8 @@ session_start();
 <!DOCTYPE html>
 <html lang="pt">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../CSS/global.css">
-        <link rel="stylesheet" href="../CSS/style.css">
         <title>Biblietec - Login</title>
-
-        <!-- Importando fonte Roboto -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-
-        
+        <?php include('imports.php'); ?>
     </head>
     <body>
         <form action='PHP/valida.php' method='POST' name='login' class=''> 
