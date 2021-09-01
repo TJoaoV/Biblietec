@@ -9,6 +9,7 @@ $resultado = mysqli_query($conn, $sql);
 <head>
     <title> Biblietec - Esqueci a senha </title>
     <?php include('imports.php'); ?>
+    ghrçiohbtgadkjadgbçgadgafdadgajdl
     <script type="text/javascript" src="../JS/esquecisenhaalunosjs.js"></script>
 </head>
 <body>
