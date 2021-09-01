@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 APP USADO: XAMPP
 USUÁRIO BANCO DE DADOS: "biblietec"
 SENHA BANCO DE DADOS: "" (PS: EM BRANCO MESMO)
@@ -17,6 +18,8 @@ CSS:
 Index.html
 Primeiro acesso.php
 
+=======
+>>>>>>> faa77822df1cf719da829a2c9521089173a4482e
 
 
 
