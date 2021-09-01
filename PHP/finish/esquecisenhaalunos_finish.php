@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="PT">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinição de Senha</title>
 </head>
+
 <body>
-<?php
+    <?php
 session_start();
 include_once("../../src/PHPMailer.php");
 include_once("../../src/SMTP.php");
@@ -88,6 +90,7 @@ if($btncontinuar){
 	echo "Error!";
 }
 ?>
-<input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
+    <input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
 </body>
+
 </html>

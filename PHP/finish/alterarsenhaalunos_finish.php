@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar Senha</title>
 </head>
+
 <body>
-<?php
+    <?php
 session_start();
 include_once("../conexao.php");
 $senhaantiga = filter_input(INPUT_POST, 'txtsenhaatual', FILTER_SANITIZE_STRING);
@@ -30,6 +32,7 @@ if($resultado_usuario == TRUE){
     
 }
 ?>
-<input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
+    <input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
 </body>
+
 </html>

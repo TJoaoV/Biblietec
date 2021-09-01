@@ -58,7 +58,7 @@ $resultado = mysqli_query($conn, $sql);
             <br>
             <br>
             <div class="alinharmeio">
-            <input id='btnlogin' type='submit' name='btnlogin' value='Cadastrar'>
+                <input id='btnlogin' type='submit' name='btnlogin' value='Cadastrar'>
             </div>
         </form>
     </div>
