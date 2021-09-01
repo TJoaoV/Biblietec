@@ -28,7 +28,7 @@ session_start();
                 <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
                 <h2>Login - Alunos</h2>
                 <h3>CPF:</h3>
-                <input type='text' name='txtCPF' id='txtCPF' placeholder='Digite o CPF SEM PONTUAÇÃO'><br>
+                <input type='text' name='txtCPF' id='txtCPF' placeholder='Digite o CPF (Sem pontuação)'><br>
                 <h3>Senha:</h3>
                 <input type='password' name='txtsenha' id='txtsenha' placeholder='Digite sua senha'><br><br>    
                 <input class="botLoginbox" id='btncadastro' type='button' name='btncadastro' value='Primeiro Acesso? Clique aqui!' onClick="location.href = 'PHP/primeiroacesso.php';">

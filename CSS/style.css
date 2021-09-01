@@ -11,6 +11,9 @@
 	transform: translate(-50%, -50%);
 	text-align: center;
 }
+.login-box.esquecitela {
+	height: 55vh !important;
+}
 .login-box h1 {
 	margin-top: -6rem;
 	font-size: 4rem;
@@ -31,7 +34,8 @@
 	color: #000000;
 }
 
-.login-box #btnlogin, .corpoCadastro #btnlogin {
+.login-box #btnlogin, 
+.corpoCadastro #btnlogin {
 	margin-top: 1rem;
 	font-size: 3rem;
 	height: 4rem;
@@ -46,7 +50,7 @@
 }
 .login-box #btnlogin:hover,
 .corpoCadastro #btnlogin:hover {
-    animation: botao 0.3s ease-in-out 0s both alternate;
+    animation: botao 0.2s ease-in-out 0s both alternate;
 }
 @keyframes botao {
     0% { background: hsl(0, 93%, 48%);}
