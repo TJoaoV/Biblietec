@@ -9,10 +9,9 @@ PÁGINAS EM ANDAMENTO: <br>
 HOME.PHP <br>
 INDEX.HTML (esqueci a senha) <br>
 
-tezet
 PÁGINAS FINALIZADAS: <br>
 PRIMEIROACESSO.PHP <br>
-CONEXAO.PHP <br>
+CONEXououououuoAO.PHP <br>
 LOGINADMINISTRACAO.PHP <br>
 LOGINALUNOS.PHP <br>
 
