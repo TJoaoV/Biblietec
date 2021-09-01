@@ -23,10 +23,10 @@ session_start();
                 unset($_SESSION['msgcad']);
             }
         ?>
-        <form method='POST' name='login' onsubmit="return validar(this);" action='PHP/loginalunos.php'> 
-            <div class="login-box" style="height:58vh;">
-                <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
-                <h2>Login - Alunos</h2>
+        <div class="login-box" style="height:58vh;">
+        <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+        <h2>Login - Alunos</h2>
+        <form method='POST' name='login' onsubmit="return validar(this);" action='PHP/loginalunos.php'>      
                 <h3>CPF:</h3>
                 <input type='text' name='txtCPF' id='txtCPF' placeholder='Digite o CPF (Sem pontuação)'><br>
                 <h3>Senha:</h3>
