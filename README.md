@@ -1,20 +1,20 @@
 # Biblietec
 Trabalho de Conclusão de Curso - ETEC
 
-APP USADO: XAMPP
-USUÁRIO BANCO DE DADOS: "biblietec" <br>
-SENHA BANCO DE DADOS: "" (PS: EM BRANCO MESMO)
+App usado: XAMPP
+Usuário do banco de dados: "biblietec" <br>
+Senha banco de dados: "" (Ps: Em branco mesmo)
 
-PÁGINAS EM ANDAMENTO: <br>
-HOME.PHP <br>
-INDEX.HTML (esqueci a senha) <br>
+Páginas em andamento: <br>
+home.php <br>
+index.html (esqueci a senha) <br>
 
-PÁGINAS FINALIZADAS: <br>
-PRIMEIROACESSO.PHP <br>
-CONEXAO.PHP<br>
-LOGINADMINISTRACAO.PHP <br>
-LOGINALUNOS.PHP <br>
+Páginas Finalizadas: <br>
+primeiroacesso.php <br>
+conexao.php<br>
+loginadministracao.php <br>
+loginalunos.php <br>
 
 CSS: <br>
-Index.html <br>
-Primeiro acesso.php <br>
+index.html <br>
+primeiroacesso.php <br>
