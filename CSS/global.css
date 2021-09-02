@@ -2,7 +2,7 @@ html {
 	--background: hsl(0, 0%, 85%);
 	--titlecolor1: hsl(0, 0%, 81%);
 	--titlecolor2: hsl(0, 93%, 48%);
-	--titlecolor3: hsl(202, 10%, 31%);
+	--titlecolor3: hsl(203, 10%, 31%);
 }
 
 body {
@@ -27,7 +27,7 @@ body {
 	padding: 1rem;
 	text-decoration: none;
 	font-size: 25px;
-	color: #818181;
+	color: hsl(0, 0%, 51%);
 	display: block;
 	text-align: center;
 }

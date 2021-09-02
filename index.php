@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Biblietec - Login</title>
     <?php include('importindex.php'); ?>
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="icon.ico" />
     <link rel="stylesheet" href="CSS/global.css?v=1">
     <link rel="stylesheet" href="CSS/style.css?v=1">
     <script type="text/javascript" src="JS/indexjs.js"></script>
