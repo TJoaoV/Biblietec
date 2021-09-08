@@ -23,18 +23,18 @@ $nome = $_SESSION['nome'];
 
     function btnProcurar() {
         document.getElementById('teste').innerHTML =
-            "<label> Quantidade Prestações: </label>" +
-            "<h1> teste </h1>";
+        `<label> teste1 </label>
+        <h2> tsophdakhnagdkagdnladgadgnkl</h2>`;
     };
 
     function btnEmprestimos() {
         document.getElementById('teste').innerHTML =
-            "<label > Emprestimos: </label>";
+            `<label > Emprestimos: </label>`;
     };
 
     function btnPlaceholder() {
         document.getElementById('teste').innerHTML =
-            "<label > placeholder: </label>";
+        `<label > placeholder: </label>`;
     };
     </script>
 </head>
