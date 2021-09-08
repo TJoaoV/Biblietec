@@ -23,6 +23,7 @@ $nome = $_SESSION['nome'];
 
     function btnProcurar() {
         document.getElementById('teste').innerHTML =
+            "<label> Quantidade Prestações: </label>" +
             "<h1> teste </h1>";
     };
 
@@ -45,16 +46,14 @@ $nome = $_SESSION['nome'];
         <hr class='full'>
         <a>Aluno: <?php echo $nome ?></a>
         <hr class='full'>
-        <a href="" id='btnProcurar'>Procurar</a>
+        <a id='btnProcurar' style="cursor:pointer">Procurar</a>
         <hr>
-        <a href="" id='btnEmprestimos'>Empréstimos</a>
+        <a id='btnEmprestimos' style="cursor:pointer">Empréstimos</a>
         <hr>
-        <a href="" id='btnPlaceholder'>Placeholder</a>
+        <a id='btnPlaceholder' style="cursor:pointer">Placeholder</a>
     </div>
-    <div id="main">
-        <div id="teste">
+    <div id='teste' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
 
-        </div>
     </div>
 </body>
 
