@@ -1,0 +1,74 @@
+html {
+	--background: hsl(0, 0%, 85%);
+	--titlecolor1: hsl(0, 0%, 81%);
+	--titlecolor2: hsl(0, 93%, 48%);
+	--titlecolor3: hsl(203, 10%, 31%);
+}
+
+body {
+	background-color: var(--background);
+	font-family: "Roboto", sans-serif;
+}
+/* Nav da esquerda */
+.sidenav {
+	height: 100%;
+	width: 19rem;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.sidenav a {
+	font-family: "Roboto", sans-serif;
+	padding: 1rem;
+	text-decoration: none;
+	font-size: 25px;
+	color: hsl(0, 0%, 51%);
+	display: block;
+	text-align: center;
+}
+
+.sidenav a:hover {
+	color: #f1f1f1;
+}
+
+.main {
+	margin-left: 19rem;
+	font-size: 28px;
+	padding: 0px 10px;
+}
+.sidenav .full {
+	width: 100%;
+}
+.sidenav hr {
+	width: 75%;
+	border: 1px solid #383838;
+}
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+/* Fazer cores do logo
+<span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span> */
+.titulo {
+	font-family: "Roboto", sans-serif;
+	font-size: 2.5rem;
+	margin-top: 0;
+}
+.cor1 {
+	color: var(--titlecolor1);
+}
+.cor2 {
+	color: var(--titlecolor2);
+}
+.cor3 {
+	color: var(--titlecolor3);
+}
