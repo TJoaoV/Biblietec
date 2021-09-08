@@ -8,7 +8,7 @@ Senha banco de dados: "" (Ps: Em branco mesmo)
 
 Páginas em andamento: <br>
 home.php <br>
-index.html (esqueci a senha) sasas<br>
+index.html (esqueci a senha)<br>
 
 Páginas Finalizadas: <br>
 primeiroacesso.php <br>
@@ -19,5 +19,3 @@ loginalunos.php <br>
 CSS: <br>
 index.html <br>
 primeiroacesso.php <br>
-
-testando 123
