@@ -27,7 +27,7 @@ $resultado = mysqli_query($conn, $sql);
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-        `<label> Procurar Livros </label><br>
+            `<label> Procurar Livros </label><br>
         <p> Selecione o Livro que deseja saber mais!</p>
         <?php echo "<select name='livro'>";
         echo "<option value='-'> Selecione o Fadad </option>";
@@ -47,12 +47,12 @@ $resultado = mysqli_query($conn, $sql);
     function btnPlaceholder() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-        `<label > placeholder: </label>`;
+            `<label > placeholder: </label>`;
     };
-    
+
     function VerLivro() {
         document.getElementById('main2').innerHTML =
-        `<label> Nome do Livro: </label>
+            `<label> Nome do Livro: </label>
         <?php 
         echo "<input type='number' value='$exibir[liv_codi]'>"?>`;
         // NÃO FUNCIONOU ESTA PARTE, VERIFICAR AMANHA
@@ -67,11 +67,11 @@ $resultado = mysqli_query($conn, $sql);
         <hr class='full'>
         <a>Aluno: <?php echo $nome ?></a>
         <hr class='full'>
-        <a id='btnProcurar' style="cursor:pointer">Procurar</a>
+        <a class="btnsidenav" id='btnProcurar'>Procurar</a>
         <hr>
-        <a id='btnEmprestimos' style="cursor:pointer">Empréstimos</a>
+        <a class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
         <hr>
-        <a id='btnPlaceholder' style="cursor:pointer">Placeholder</a>
+        <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
     </div>
     <div id='main1' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
         <!-- FUNÇÃO DOS BOTÕES -->

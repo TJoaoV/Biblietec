@@ -23,13 +23,13 @@ body {
 }
 
 .sidenav a {
-	font-family: "Roboto", sans-serif;
 	padding: 1rem;
 	text-decoration: none;
-	font-size: 25px;
+	font-size: 1.5rem;
 	color: hsl(0, 0%, 51%);
 	display: block;
 	text-align: center;
+	user-select: none;
 }
 
 .sidenav a:hover {
@@ -48,6 +48,9 @@ body {
 	width: 75%;
 	border: 1px solid #383838;
 }
+.btnsidenav {
+	cursor: pointer;
+}
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
@@ -59,7 +62,6 @@ body {
 /* Fazer cores do logo
 <span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span> */
 .titulo {
-	font-family: "Roboto", sans-serif;
 	font-size: 2.5rem;
 	margin-top: 0;
 }
