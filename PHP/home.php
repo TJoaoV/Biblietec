@@ -1,6 +1,9 @@
 <?php
 session_start();
 $nome = $_SESSION['nome'];
+include_once("conexao.php");
+$sql = "SELECT * FROM livros";
+$resultado = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -22,20 +25,38 @@ $nome = $_SESSION['nome'];
     });
 
     function btnProcurar() {
-        document.getElementById('teste').innerHTML =
-        `<label> teste1 </label>
-        <h2> tsophdakhnagdkagdnladgadgnkl</h2>`;
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
+        `<label> Procurar Livros </label><br>
+        <p> Selecione o Livro que deseja saber mais!</p>
+        <?php echo "<select name='livro'>";
+        echo "<option value='-'> Selecione o Fadad </option>";
+        while ($exibir = mysqli_fetch_assoc($resultado)) {
+            echo "<option value='$exibir[liv_codi]'> $exibir[liv_titu] - Autor: $exibir[liv_auto]</option>";
+        }?>
+        <input onClick="VerLivro()" type="button" value="Ver sobre"><!-- Queria colocar um BR, mas nao consegui kkkk -->
+        `;
     };
 
     function btnEmprestimos() {
-        document.getElementById('teste').innerHTML =
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
             `<label > Emprestimos: </label>`;
     };
 
     function btnPlaceholder() {
-        document.getElementById('teste').innerHTML =
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
         `<label > placeholder: </label>`;
     };
+    
+    function VerLivro() {
+        document.getElementById('main2').innerHTML =
+        `<label> Nome do Livro: </label>
+        <?php 
+        echo "<input type='number' value='$exibir[liv_codi]'>"?>`;
+        // NÃO FUNCIONOU ESTA PARTE, VERIFICAR AMANHA
+    }
     </script>
 </head>
 
@@ -52,8 +73,13 @@ $nome = $_SESSION['nome'];
         <hr>
         <a id='btnPlaceholder' style="cursor:pointer">Placeholder</a>
     </div>
-    <div id='teste' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
-
+    <div id='main1' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
+        <!-- FUNÇÃO DOS BOTÕES -->
+        <!-- NÃO APAGAR! -->
+    </div>
+    <div id='main2' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
+        <!-- SOBRE O LIVRO -->
+        <!-- NÃO APAGAR! -->
     </div>
 </body>
 
