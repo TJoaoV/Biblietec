@@ -7,14 +7,12 @@ $resultado = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
     <title>Biblietec - Procura</title>
     <?php include('imports.php'); ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    
     <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/listagem.css">
+    <link rel="stylesheet" href="../css/home.css">
     <script type="text/javascript" language="javascript">
 
     window.addEventListener("load", () => {
@@ -33,39 +31,41 @@ $resultado = mysqli_query($conn, $sql);
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
             `<label> Procurar Livros </label><br>
-        <p> Selecione o Livro que deseja saber mais!</p>
-        <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
-        <ul class="lista">
-        <?php
-            while ($exibir3 = mysqli_fetch_assoc($resultado)) {
-                $exibir4 = strtolower($exibir3['liv_titu']);
-                echo "<li nome='$exibir4' id='$exibir3[liv_codi]'> <a href='lista_clientes.php?id=$exibir3[liv_codi]'> $exibir3[liv_titu]</li></a>";
-            }
-        ?>
-        </ul>`;
-        pesquisa_input = document.querySelectorAll(".pesquisa");    
-        for(i in pesquisa_input){
-            
-            pesquisa_input[i].onkeyup=function(e){
-                reg = new RegExp(this.value.toLowerCase(),"g");
-                lis = this.parentElement.querySelector(".lista");
+            <p> Selecione o Livro que deseja saber mais!</p>
+            <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
+            <ul class="lista">
+            <?php 
+                while ($exibir3 = mysqli_fetch_assoc($resultado)) {
+                    $exibir4 = strtolower($exibir3['liv_titu']);
+                    echo "<li class='btnsidenav' nome='$exibir4' id='$exibir3[liv_codi]'> <a onClick='VerLivro($exibir3[liv_codi])' > $exibir3[liv_titu]</li></a>";
+                }
+            ?>
+            </ul>`;
+            // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
+            pesquisa_input = document.querySelectorAll(".pesquisa");    
+            for(i in pesquisa_input){
+                
+                pesquisa_input[i].onkeyup=function(e){
+                    document.getElementById('main2').innerHTML = "";
+                    reg = new RegExp(this.value.toLowerCase(),"g");
+                    lis = this.parentElement.querySelector(".lista");
 
-                console.log(lis);
+                    console.log(lis);
 
-                for(j of lis.children){
-                    if( !j.getAttribute("nome").match(reg) )
-                        j.style.display="none";
-                    else
-                        j.removeAttribute("style");
+                    for(j of lis.children){
+                        if( !j.getAttribute("nome").match(reg) )
+                            j.style.display="none";
+                        else
+                            j.removeAttribute("style");
+                    };
                 };
-            };
         };
     };
 
     function btnEmprestimos() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<label > Emprestimos: </label>`;
+            `<label > Selecione o livro que quer pegar: </label>`;
     };
 
     function btnPlaceholder() {
@@ -74,8 +74,8 @@ $resultado = mysqli_query($conn, $sql);
             `<label > placeholder: </label>`;
     };
 
-    function VerLivro() {
-        var idlivro = document.getElementById('livro_escolhido').value;
+    function VerLivro(id) {
+        var idlivro = id;
         if(idlivro == "-"){
             document.getElementById('main2').innerHTML = "";
             alert("Selecione um livro!"); 
@@ -131,5 +131,4 @@ $resultado = mysqli_query($conn, $sql);
         <!-- NÃO APAGAR! -->
     </div>
 </body>
-
 </html>
