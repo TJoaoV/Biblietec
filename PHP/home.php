@@ -11,7 +11,12 @@ $resultado = mysqli_query($conn, $sql);
 <head>
     <title>Biblietec - Procura</title>
     <?php include('imports.php'); ?>
-    <script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/listagem.css">
+    <script type="text/javascript" language="javascript">
+
     window.addEventListener("load", () => {
         document.querySelector("#btnProcurar").addEventListener("click", e => {
             btnProcurar();
@@ -29,13 +34,32 @@ $resultado = mysqli_query($conn, $sql);
         document.getElementById('main1').innerHTML =
             `<label> Procurar Livros </label><br>
         <p> Selecione o Livro que deseja saber mais!</p>
-        <?php echo "<select name='livro'>";
-        echo "<option value='-'> Selecione o Fadad </option>";
-        while ($exibir = mysqli_fetch_assoc($resultado)) {
-            echo "<option value='$exibir[liv_codi]'> $exibir[liv_titu] - Autor: $exibir[liv_auto]</option>";
-        }?>
-        <input onClick="VerLivro()" type="button" value="Ver sobre"><!-- Queria colocar um BR, mas nao consegui kkkk -->
-        `;
+        <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
+        <ul class="lista">
+        <?php
+            while ($exibir3 = mysqli_fetch_assoc($resultado)) {
+                $exibir4 = strtolower($exibir3['liv_titu']);
+                echo "<li nome='$exibir4' id='$exibir3[liv_codi]'> <a href='lista_clientes.php?id=$exibir3[liv_codi]'> $exibir3[liv_titu]</li></a>";
+            }
+        ?>
+        </ul>`;
+        pesquisa_input = document.querySelectorAll(".pesquisa");    
+        for(i in pesquisa_input){
+            
+            pesquisa_input[i].onkeyup=function(e){
+                reg = new RegExp(this.value.toLowerCase(),"g");
+                lis = this.parentElement.querySelector(".lista");
+
+                console.log(lis);
+
+                for(j of lis.children){
+                    if( !j.getAttribute("nome").match(reg) )
+                        j.style.display="none";
+                    else
+                        j.removeAttribute("style");
+                };
+            };
+        };
     };
 
     function btnEmprestimos() {
@@ -51,13 +75,38 @@ $resultado = mysqli_query($conn, $sql);
     };
 
     function VerLivro() {
-        document.getElementById('main2').innerHTML =
-            `<label> Nome do Livro: </label>
-        <?php 
-        echo "<input type='number' value='$exibir[liv_codi]'>"?>`;
-        // NÃO FUNCIONOU ESTA PARTE, VERIFICAR AMANHA
-    }
-    </script>
+        var idlivro = document.getElementById('livro_escolhido').value;
+        if(idlivro == "-"){
+            document.getElementById('main2').innerHTML = "";
+            alert("Selecione um livro!"); 
+        }else{
+            $.ajax({
+                url: 'verlivro.php',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    idlivro:idlivro,
+                    tabela: 'livros'},
+                success : function(dados) {
+                    document.getElementById('main2').innerHTML =
+                        `<label> Nome do Livro: </label>
+                        <label> `+ dados.nome + ` </label> <br><br>
+                        <label> Autor: </label>
+                        <label> `+ dados.autor + ` </label><br><br>
+                        <label> Editora: </label>
+                        <label> `+ dados.editora + ` </label><br><br>
+                        <label> Categoria: </label>
+                        <label> `+ dados.categoria + ` </label><br><br>
+                        <label> Sinopse: </label>
+                        <label> `+ dados.sinopse + ` </label>`;
+                }, 
+                error : function(jqXHR, textStatus) {
+                    console.log('error '+ textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+    </script>  
 </head>
 
 <body>
