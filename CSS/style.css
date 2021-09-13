@@ -141,3 +141,8 @@
 	width: 90%;
 	text-align: center;
 }
+/* ------------------Css do corpo da main page--------------- */
+.corpoMain.title {
+	font-size: 2.5rem;
+	margin-top: 0;
+}

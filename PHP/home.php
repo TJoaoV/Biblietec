@@ -7,6 +7,7 @@ $resultado = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <title>Biblietec - Procura</title>
     <?php include('imports.php'); ?>
@@ -14,7 +15,6 @@ $resultado = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/home.css">
     <script type="text/javascript" language="javascript">
-
     window.addEventListener("load", () => {
         document.querySelector("#btnProcurar").addEventListener("click", e => {
             btnProcurar();
@@ -30,7 +30,7 @@ $resultado = mysqli_query($conn, $sql);
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<label> Procurar Livros </label><br>
+            `<h3 class="title"> Procurar Livros </h3><br><hr><br>
             <p> Selecione o Livro que deseja saber mais!</p>
             <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
             <ul class="lista" style="list-style-type:none;">
@@ -41,21 +41,21 @@ $resultado = mysqli_query($conn, $sql);
                 }
             ?>
             </ul>`;
-            // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
-            pesquisa_input = document.querySelectorAll(".pesquisa");    
-            for(i in pesquisa_input){ 
-                pesquisa_input[i].onkeyup=function(e){
-                    document.getElementById('main2').innerHTML = "";
-                    reg = new RegExp(this.value.toLowerCase(),"g");
-                    lis = this.parentElement.querySelector(".lista");
-                    //console.log(lis);
-                    for(j of lis.children){
-                        if( !j.getAttribute("nome").match(reg) )
-                            j.style.display="none";
-                        else
-                            j.removeAttribute("style");
-                    };
+        // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
+        pesquisa_input = document.querySelectorAll(".pesquisa");
+        for (i in pesquisa_input) {
+            pesquisa_input[i].onkeyup = function(e) {
+                document.getElementById('main2').innerHTML = "";
+                reg = new RegExp(this.value.toLowerCase(), "g");
+                lis = this.parentElement.querySelector(".lista");
+                //console.log(lis);
+                for (j of lis.children) {
+                    if (!j.getAttribute("nome").match(reg))
+                        j.style.display = "none";
+                    else
+                        j.removeAttribute("style");
                 };
+            };
         };
     };
 
@@ -73,37 +73,38 @@ $resultado = mysqli_query($conn, $sql);
 
     function VerLivro(id) {
         var idlivro = id;
-        if(idlivro == "-"){
+        if (idlivro == "-") {
             document.getElementById('main2').innerHTML = "";
-            alert("Selecione um livro!"); 
-        }else{
+            alert("Selecione um livro!");
+        } else {
             $.ajax({
                 url: 'verlivro.php',
                 dataType: 'json',
                 type: 'POST',
                 data: {
-                    idlivro:idlivro,
-                    tabela: 'livros'},
-                success : function(dados) {
+                    idlivro: idlivro,
+                    tabela: 'livros'
+                },
+                success: function(dados) {
                     document.getElementById('main2').innerHTML =
                         `<label> Título do Livro: </label>
-                        <label> `+ dados.nome + ` </label> <br><br>
+                        <label> ` + dados.nome + ` </label> <br><br>
                         <label> Autor: </label>
-                        <label> `+ dados.autor + ` </label><br><br>
+                        <label> ` + dados.autor + ` </label><br><br>
                         <label> Editora: </label>
-                        <label> `+ dados.editora + ` </label><br><br>
+                        <label> ` + dados.editora + ` </label><br><br>
                         <label> Categoria: </label>
-                        <label> `+ dados.categoria + ` </label><br><br>
+                        <label> ` + dados.categoria + ` </label><br><br>
                         <label> Sinopse: </label>
-                        <label> `+ dados.sinopse + ` </label>`;
-                }, 
-                error : function(jqXHR, textStatus) {
-                    console.log('error '+ textStatus + " " + jqXHR);
+                        <label> ` + dados.sinopse + ` </label>`;
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
                 }
             });
         }
     };
-    </script>  
+    </script>
 </head>
 
 <body>
@@ -119,13 +120,14 @@ $resultado = mysqli_query($conn, $sql);
         <hr>
         <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
     </div>
-    <div id='main1' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
+    <div class="corpoMain" id='main1' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
         <!-- FUNÇÃO DOS BOTÕES -->
         <!-- NÃO APAGAR! -->
     </div>
-    <div id='main2' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
+    <div class="corpoMain" id='main2' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
         <!-- SOBRE O LIVRO -->
         <!-- NÃO APAGAR! -->
     </div>
 </body>
+
 </html>
