@@ -197,6 +197,7 @@
 .horNav {
 	width: 100%;
 	text-align: center;
+	margin-bottom: -0.9vh;
 }
 .horNav ul {
 	list-style-type: none;
@@ -209,7 +210,7 @@
 	display: inline;
 	margin: -0.2vw;
 	background-color: hsl(0, 0%, 73%);
-	box-shadow: 0.1vw -0.1vh 0.2vw #000000;
+	border-bottom: 0.2vw solid hsl(0, 0%, 55%);
 	border-top-left-radius: 1vh 1vh;
 	border-top-right-radius: 1vh 1vh;
 	cursor: pointer;
@@ -218,13 +219,31 @@
 	display: inline-block;
 	color: hsl(0, 0%, 50%);
 	padding: 1vh 1.5vw 1vh 1.5vw;
-
 	text-align: center;
 	text-decoration: none;
 }
 .navActive {
 	background-color: hsl(0, 0%, 95%) !important;
+	border-bottom: 0.2vh solid hsl(0, 0%, 95%) !important;
 }
 .navActive a {
 	color: black !important;
+}
+/* tabelas emprestimo */
+.empTableDiv {
+	padding-top: 1vh;
+	border-top-left-radius: 1vh 1vh;
+	border-top-right-radius: 1vh 1vh;
+	background-color: hsl(0, 0%, 95%);
+	text-align: center;
+}
+.empTableDiv table {
+	border-collapse: collapse;
+	width: 100%;
+}
+.empTableDiv table th {
+	border-bottom: 1px solid hsl(0, 0%, 50%);
+}
+.empTableDiv table td {
+	border-right: 1px solid hsl(0, 0%, 50%);
 }

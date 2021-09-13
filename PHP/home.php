@@ -19,6 +19,7 @@ $resultado = mysqli_query($conn, $sql);
         });
         document.querySelector("#btnEmprestimos").addEventListener("click", e => {
             btnEmprestimos();
+            EmpEmProgresso();
         });
         document.querySelector("#btnPlaceholder").addEventListener("click", e => {
             btnPlaceholder();
@@ -61,28 +62,61 @@ $resultado = mysqli_query($conn, $sql);
     };
 
     function btnEmprestimos() {
+
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
             `<h3 class="corpoTitle"> Empréstimos </h3><br>
             <hr class="hrTitle"><br>
             <div class="horNav">
                 <ul>
-                    <li class="navActive"><a onClick="EmpEmProgresso()"> Em Progresso </a></li>
-                    <li class=""><a onClick="EmpCompleto()"> Completo </a></li>
+                    <li id="empLi"><a onClick="EmpEmProgresso()"> Em Progresso </a></li>
+                    <li id="comLi"><a onClick="EmpCompleto()"> Completo </a></li>
                 </ul>
             </div>`;
+
     };
 
     function EmpEmProgresso() {
+        // Essas colunas são só enfeite tem que pensar noq vai colocar
         document.getElementById('main2').innerHTML = `
-        <table>
-            <tr>
-                <th>Placeholder</th>
-                <th>Placeholder</th>
-                <th>Placeholder</th>
-            </tr>
-        </table>
+        <div class="empTableDiv">
+            <table>
+                <tr>
+                    <th style="width:10%;">ID</th>
+                    <th style="width:60%;">Título</th>
+                    <th style="width:30%;">Data</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>O Pequeno Principe</td>
+                    <td>15/03/2000</td>
+                </tr>
+            </table>
+        </div>
         `;
+        document.getElementById("empLi").classList.add('navActive');
+        document.getElementById("comLi").classList.remove('navActive');
+    }
+
+    function EmpCompleto() {
+        document.getElementById('main2').innerHTML = `
+        <div class="empTableDiv">
+            <table>
+                <tr>
+                    <th>Placeholder2</th>
+                    <th>Placeholder2</th>
+                    <th>Placeholder2</th>
+                </tr>
+                <tr>
+                    <td>Placeholder2</td>
+                    <td>Placeholder2</td>
+                    <td>Placeholder2</td>
+                </tr>
+            </table>
+        </div>
+        `;
+        document.getElementById("comLi").classList.add('navActive');
+        document.getElementById("empLi").classList.remove('navActive');
     }
 
     function btnPlaceholder() {
