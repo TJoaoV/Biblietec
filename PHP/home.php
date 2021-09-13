@@ -33,7 +33,7 @@ $resultado = mysqli_query($conn, $sql);
             `<label> Procurar Livros </label><br>
             <p> Selecione o Livro que deseja saber mais!</p>
             <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
-            <ul class="lista" style="list-style-type:none;">
+            <ul class="lista" style="list-style-type:none; ">
             <?php 
                 while ($exibir3 = mysqli_fetch_assoc($resultado)) {
                     $exibir4 = strtolower($exibir3['liv_titu']);
@@ -118,6 +118,8 @@ $resultado = mysqli_query($conn, $sql);
         <a class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
         <hr>
         <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
+        <hr>
+        <a class="btnsidenav" href='../index.php' id='btnSair'>Sair</a>
     </div>
     <div id='main1' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
         <!-- FUNÇÃO DOS BOTÕES -->
