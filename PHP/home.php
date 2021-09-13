@@ -62,7 +62,7 @@ $resultado = mysqli_query($conn, $sql);
     function btnEmprestimos() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<label > Selecione o livro que quer pegar: </label>`;
+            `<label> Selecione o livro que quer pegar: </label>`;
     };
 
     function btnPlaceholder() {
