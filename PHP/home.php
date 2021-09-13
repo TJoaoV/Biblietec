@@ -132,6 +132,14 @@ $resultado = mysqli_query($conn, $sql);
         <a class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
+        <p> Seja bem vindo a Biblietec!!</p>
+        <p> Aqui você poderá fazer a reserva do seu livro, para depois apenas pega-lo na bilioteca!!</p>
+        <p> Abaixo temos um breve tutorial, para ajudar a se ambientar no sistema, ok?</p>
+        <p> Caso você clique no seu próprio nome, irá para a página de configurações do seu perfil</p>
+        <p> Procurar - Para navegar e caso queira, adicionar no carrinho o(s) livro(s) selecionado(s)</p>
+        <p> Empréstimos - É possível verificar todos seus empréstimos feitos, em andamento e Finalizados</p>
+        <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
+        <p> Sair - Volta para a página de login</p>
         <!-- FUNÇÃO DOS BOTÕES -->
         <!-- NÃO APAGAR! -->
     </div>
