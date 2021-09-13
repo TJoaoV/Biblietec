@@ -62,9 +62,15 @@ $resultado = mysqli_query($conn, $sql);
     function btnEmprestimos() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<label > Selecione o livro que quer pegar: </label>`;
+            `<label > Veja seus empréstimos abaixo: </label><br>
+            <a onClick="EmpEmProgresso()"> Em Progresso </a><br>
+            <a onClick="EmpCompleto()"> Completo </a><br>`;
     };
-
+    function EmpEmProgresso() {
+        document.getElementById('main2').innerHTML = `
+        <table>
+        </table>`;
+    }
     function btnPlaceholder() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
