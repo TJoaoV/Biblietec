@@ -12,8 +12,6 @@ $resultado = mysqli_query($conn, $sql);
     <title>Biblietec - Procura</title>
     <?php include('imports.php'); ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/home.css">
     <script type="text/javascript" language="javascript">
     window.addEventListener("load", () => {
         document.querySelector("#btnProcurar").addEventListener("click", e => {
@@ -33,14 +31,16 @@ $resultado = mysqli_query($conn, $sql);
             `<h3 class="corpoTitle"> Procurar Livros </h3><br><hr class="hrTitle"><br>
             <p class="corpoText"><b>Selecione o Livro que deseja saber mais!</b></p>
             <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o nome aqui!" >
-            <ul class="lista" style="list-style-type:none; ">
+            <table>
+            <ul class="lista" style="list-style-type:none;  ">
             <?php 
                 while ($exibir3 = mysqli_fetch_assoc($resultado)) {
                     $exibir4 = strtolower($exibir3['liv_titu']);
                     echo "<li class='listaOpcao' onClick='VerLivro($exibir3[liv_codi])' nome='$exibir4' id='$exibir3[liv_codi]'> $exibir3[liv_titu]</li>";
                 }
             ?>
-            </ul>`;
+            </ul>
+            </table>`;
         // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
         pesquisa_input = document.querySelectorAll(".pesquisa");
         for (i in pesquisa_input) {
@@ -129,7 +129,7 @@ $resultado = mysqli_query($conn, $sql);
         <!-- FUNÇÃO DOS BOTÕES -->
         <!-- NÃO APAGAR! -->
     </div>
-    <div class="corpoMain" id='main2'>
+    <div class="corpoMain" id='main2' style='overflow-y: hidden;'>
         <!-- SOBRE O LIVRO -->
         <!-- NÃO APAGAR! -->
     </div>

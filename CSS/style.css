@@ -188,3 +188,9 @@
 .result b {
 	padding-left: 1rem;
 }
+
+.lista {
+	height: 25vh;
+	overflow: scroll;
+	overflow-x: hidden;
+}
