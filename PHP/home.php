@@ -33,7 +33,7 @@ $resultado = mysqli_query($conn, $sql);
             `<label> Procurar Livros </label><br>
             <p> Selecione o Livro que deseja saber mais!</p>
             <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
-            <ul class="lista">
+            <ul class="lista" style="list-style-type:none;">
             <?php 
                 while ($exibir3 = mysqli_fetch_assoc($resultado)) {
                     $exibir4 = strtolower($exibir3['liv_titu']);
@@ -43,15 +43,12 @@ $resultado = mysqli_query($conn, $sql);
             </ul>`;
             // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
             pesquisa_input = document.querySelectorAll(".pesquisa");    
-            for(i in pesquisa_input){
-                
+            for(i in pesquisa_input){ 
                 pesquisa_input[i].onkeyup=function(e){
                     document.getElementById('main2').innerHTML = "";
                     reg = new RegExp(this.value.toLowerCase(),"g");
                     lis = this.parentElement.querySelector(".lista");
-
-                    console.log(lis);
-
+                    //console.log(lis);
                     for(j of lis.children){
                         if( !j.getAttribute("nome").match(reg) )
                             j.style.display="none";
@@ -89,7 +86,7 @@ $resultado = mysqli_query($conn, $sql);
                     tabela: 'livros'},
                 success : function(dados) {
                     document.getElementById('main2').innerHTML =
-                        `<label> Nome do Livro: </label>
+                        `<label> Título do Livro: </label>
                         <label> `+ dados.nome + ` </label> <br><br>
                         <label> Autor: </label>
                         <label> `+ dados.autor + ` </label><br><br>
