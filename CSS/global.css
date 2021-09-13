@@ -12,7 +12,7 @@ body {
 /* Nav da esquerda */
 .sidenav {
 	height: 100%;
-	width: 19rem;
+	width: 16vw;
 	position: fixed;
 	z-index: 1;
 	top: 0;
@@ -59,11 +59,17 @@ body {
 		font-size: 18px;
 	}
 }
+#btnSair {
+	position: absolute;
+	bottom: 2vh;
+	left: 5vw;
+}
 /* Fazer cores do logo
 <span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span> */
 .titulo {
 	font-size: 2.5rem;
 	margin-top: 0;
+	user-select: none;
 }
 .cor1 {
 	color: var(--titlecolor1);

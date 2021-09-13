@@ -30,14 +30,14 @@ $resultado = mysqli_query($conn, $sql);
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<h3 class="title"> Procurar Livros </h3><br><hr><br>
-            <p> Selecione o Livro que deseja saber mais!</p>
-            <input type="text" class="form-control pesquisa" id="inlineFormInputGroup" placeholder="Digite o nome aqui" >
+            `<h3 class="corpoTitle"> Procurar Livros </h3><br><hr class="hrTitle"><br>
+            <p class="corpoText"><b>Selecione o Livro que deseja saber mais!</b></p>
+            <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o nome aqui!" >
             <ul class="lista" style="list-style-type:none; ">
             <?php 
                 while ($exibir3 = mysqli_fetch_assoc($resultado)) {
                     $exibir4 = strtolower($exibir3['liv_titu']);
-                    echo "<li class='btnsidenav' nome='$exibir4' id='$exibir3[liv_codi]'> <a onClick='VerLivro($exibir3[liv_codi])' > $exibir3[liv_titu]</li></a>";
+                    echo "<li class='listaOpcao' onClick='VerLivro($exibir3[liv_codi])' nome='$exibir4' id='$exibir3[liv_codi]'> $exibir3[liv_titu]</li>";
                 }
             ?>
             </ul>`;
@@ -87,16 +87,19 @@ $resultado = mysqli_query($conn, $sql);
                 },
                 success: function(dados) {
                     document.getElementById('main2').innerHTML =
-                        `<label> Título do Livro: </label>
-                        <label> ` + dados.nome + ` </label> <br><br>
-                        <label> Autor: </label>
-                        <label> ` + dados.autor + ` </label><br><br>
-                        <label> Editora: </label>
-                        <label> ` + dados.editora + ` </label><br><br>
-                        <label> Categoria: </label>
-                        <label> ` + dados.categoria + ` </label><br><br>
-                        <label> Sinopse: </label>
-                        <label> ` + dados.sinopse + ` </label>`;
+                        `<div class="result">
+                        <hr>
+                        <label><b> Título do Livro: </b></label>
+                        <label> ` + dados.nome + ` </label> <br>
+                        <label><b> Autor: </b></label>
+                        <label> ` + dados.autor + ` </label><br>
+                        <label><b> Editora: </b></label>
+                        <label> ` + dados.editora + ` </label><br>
+                        <label><b> Categoria: </b></label>
+                        <label> ` + dados.categoria + ` </label><br>
+                        <label><b> Sinopse: </b></label>
+                        <label> ` + dados.sinopse + ` </label>
+                        </div>`;
                 },
                 error: function(jqXHR, textStatus) {
                     console.log('error ' + textStatus + " " + jqXHR);
@@ -120,13 +123,13 @@ $resultado = mysqli_query($conn, $sql);
         <hr>
         <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
         <hr>
-        <a class="btnsidenav" href='../index.php' id='btnSair'>Sair</a>
+        <a class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>
-    <div class="corpoMain" id='main1' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
+    <div class="corpoMain" id='main1'>
         <!-- FUNÇÃO DOS BOTÕES -->
         <!-- NÃO APAGAR! -->
     </div>
-    <div class="corpoMain" id='main2' style='margin-left: 19rem; font-size: 28px; padding: 0px 10px;'>
+    <div class="corpoMain" id='main2'>
         <!-- SOBRE O LIVRO -->
         <!-- NÃO APAGAR! -->
     </div>
