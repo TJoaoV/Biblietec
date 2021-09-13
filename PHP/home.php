@@ -28,7 +28,8 @@ $resultado = mysqli_query($conn, $sql);
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<h3 class="corpoTitle"> Procurar Livros </h3><br><hr class="hrTitle"><br>
+            `<h3 class="corpoTitle"> Procurar Livros </h3><br>
+            <hr class="hrTitle"><br>
             <p class="corpoText"><b>Selecione o Livro que deseja saber mais!</b></p>
             <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o nome aqui!" >
             <table>
@@ -62,8 +63,27 @@ $resultado = mysqli_query($conn, $sql);
     function btnEmprestimos() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<label> Selecione o livro que quer pegar: </label>`;
+            `<h3 class="corpoTitle"> Empréstimos </h3><br>
+            <hr class="hrTitle"><br>
+            <div class="horNav">
+                <ul>
+                    <li class="navActive"><a onClick="EmpEmProgresso()"> Em Progresso </a></li>
+                    <li class=""><a onClick="EmpCompleto()"> Completo </a></li>
+                </ul>
+            </div>`;
     };
+
+    function EmpEmProgresso() {
+        document.getElementById('main2').innerHTML = `
+        <table>
+            <tr>
+                <th>Placeholder</th>
+                <th>Placeholder</th>
+                <th>Placeholder</th>
+            </tr>
+        </table>
+        `;
+    }
 
     function btnPlaceholder() {
         document.getElementById('main2').innerHTML = "";
@@ -126,6 +146,14 @@ $resultado = mysqli_query($conn, $sql);
         <a class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
+        <p> Seja bem vindo a Biblietec!!</p>
+        <p> Aqui você poderá fazer a reserva do seu livro, para depois apenas pega-lo na bilioteca!!</p>
+        <p> Abaixo temos um breve tutorial, para ajudar a se ambientar no sistema, ok?</p>
+        <p> Caso você clique no seu próprio nome, irá para a página de configurações do seu perfil</p>
+        <p> Procurar - Para navegar e caso queira, adicionar no carrinho o(s) livro(s) selecionado(s)</p>
+        <p> Empréstimos - É possível verificar todos seus empréstimos feitos, em andamento e Finalizados</p>
+        <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
+        <p> Sair - Volta para a página de login</p>
         <!-- FUNÇÃO DOS BOTÕES -->
         <!-- NÃO APAGAR! -->
     </div>

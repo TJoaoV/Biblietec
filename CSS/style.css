@@ -188,9 +188,43 @@
 .result b {
 	padding-left: 1rem;
 }
-
 .lista {
 	height: 25vh;
 	overflow: scroll;
 	overflow-x: hidden;
+}
+/* CSS pra empréstimos */
+.horNav {
+	width: 100%;
+	text-align: center;
+}
+.horNav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+.horNav li {
+	text-align: center;
+	display: inline;
+	margin: -0.2vw;
+	background-color: hsl(0, 0%, 73%);
+	box-shadow: 0.1vw -0.1vh 0.2vw #000000;
+	border-top-left-radius: 1vh 1vh;
+	border-top-right-radius: 1vh 1vh;
+	cursor: pointer;
+}
+.horNav li a {
+	display: inline-block;
+	color: hsl(0, 0%, 50%);
+	padding: 1vh 1.5vw 1vh 1.5vw;
+
+	text-align: center;
+	text-decoration: none;
+}
+.navActive {
+	background-color: hsl(0, 0%, 95%) !important;
+}
+.navActive a {
+	color: black !important;
 }
