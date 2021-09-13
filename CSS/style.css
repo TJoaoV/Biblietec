@@ -143,7 +143,7 @@
 }
 /* ------------------Css do corpo da main page--------------- */
 .corpoMain {
-	margin-left: 19rem;
+	margin-left: 16vw;
 	font-size: 28px;
 	padding: 0px 10px;
 }
@@ -178,7 +178,7 @@
 	font-size: 1.5rem;
 	height: 1.9rem;
 	border-radius: 4px;
-	background-color: hsl(7, 100%, 42%);
+	background-color: var(--titlecolor2);
 	color: white;
 	margin-bottom: 0.3rem;
 	margin-left: -2rem;
