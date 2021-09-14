@@ -30,12 +30,6 @@
     if (mysqli_insert_id($conn)) {
         echo  "<h2> Aluno cadastrado com Sucesso! </h2>";
     } else {
-        $produtossql1 = "SELECT * FROM alunos";
-        $resultado_produtos1 = mysqli_query($conn, $produtossql1);
-        $quantidade_rows =  $resultado_produtos1->num_rows;
-        $linhas = $quantidade_rows - 1;
-        $alterarauto = "ALTER TABLE alunos AUTO_INCREMENT ='$linhas'";
-        $funcao = mysqli_query($conn, $alterarauto);
         echo "<h2> Erro ao cadastrar o Aluno! </h2>";
         if ($conn -> error == "Duplicate entry '$rm' for key 'alu_rm'"){
             echo ("<h2>Usuário com RM: $rm já cadastrado!</h2>");
@@ -48,7 +42,7 @@
         //};
         
     }
-    ?>
+     ?>
         <br>
         <div>
             <input id='btnlogin' type='button' value='Voltar' onClick="location.href = '../../index.php';">

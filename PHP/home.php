@@ -1,9 +1,12 @@
 <?php
 session_start();
 $nome = $_SESSION['nome'];
+$rm = $_SESSION['rm'];
 include_once("conexao.php");
 $sql = "SELECT * FROM livros";
+$sql_pre = "SELECT * FROM preemprestimo WHERE alu_rm='$rm'";
 $resultado = mysqli_query($conn, $sql);
+$resultado_pre = mysqli_query($conn, $sql_pre);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -21,10 +24,43 @@ $resultado = mysqli_query($conn, $sql);
             btnEmprestimos();
             EmpEmProgresso();
         });
+        document.querySelector("#btnCarrinho").addEventListener("click", e => {
+            btnCarrinho();
+        });
         document.querySelector("#btnPlaceholder").addEventListener("click", e => {
             btnPlaceholder();
         });
     });
+
+    function btnCarrinho(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML = `
+        <h2> Carrinho</h2>
+        <table style="border:1px solid black" name='carrinhotable' id='carrinhotable'>
+            <tr style="border:1px solid black">
+                <th width="5%" style="border:1px solid black">Id</th>
+                <th width="35%" style="border:1px solid black">Titulo</th>
+                <th width="25%" style="border:1px solid black">Autor</th>
+                <th width="15%" style="border:1px solid black">Data Empréstimo</th>
+                <th width="15%" style="border:1px solid black">Data Entrega</th>
+                <th width="5%" style="border:1px solid black"></th>
+            </tr>
+            <?php 
+
+                while ($exibir_pre = mysqli_fetch_assoc($resultado_pre)) {
+                    echo "<tr>";
+                   //$exibir2_pre = strtolower($resultado_pre['liv_titu']);
+                    echo "<th>$exibir_pre[liv_codi]</th>";
+                    echo "<th>$exibir_pre[liv_codi]</th>";
+                    echo "<th>$exibir_pre[liv_codi]</th>";
+                    echo "<th>$exibir_pre[pre_data]</th>";
+                    echo "<th> </th>";
+                    //echo "<th class='listaOpcao' nome='$exibir_pre[liv_codi]' id='$exibir_pre[liv_codi]'> $exibir3[liv_titu]</th>";
+                    echo "</tr>";
+                }
+            ?>
+        </table>`;
+    };
 
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
@@ -132,7 +168,7 @@ $resultado = mysqli_query($conn, $sql);
             alert("Selecione um livro!");
         } else {
             $.ajax({
-                url: 'verlivro.php',
+                url: 'others/verlivro.php',
                 dataType: 'json',
                 type: 'POST',
                 data: {
@@ -143,6 +179,8 @@ $resultado = mysqli_query($conn, $sql);
                     document.getElementById('main2').innerHTML =
                         `<div class="result">
                         <hr>
+                        <label><b> Código do Livro: </b></label>
+                        <label> ` + dados.codigo + ` </label> <br>
                         <label><b> Título do Livro: </b></label>
                         <label> ` + dados.nome + ` </label> <br>
                         <label><b> Autor: </b></label>
@@ -153,6 +191,7 @@ $resultado = mysqli_query($conn, $sql);
                         <label> ` + dados.categoria + ` </label><br>
                         <label><b> Sinopse: </b></label>
                         <label> ` + dados.sinopse + ` </label>
+                        <input type='button' onClick ='fazerReserva(`+dados.codigo+`)' value='Adicionar no Carrinho' id='btnAddCarrinho'>
                         </div>`;
                 },
                 error: function(jqXHR, textStatus) {
@@ -160,6 +199,42 @@ $resultado = mysqli_query($conn, $sql);
                 }
             });
         }
+    };
+
+    function fazerReserva(codigo){
+        var idlivr = codigo;
+        var alunorm = document.getElementById('rmcontent').value;
+        $.ajax({
+            url: 'others/prereserva.php',
+            type: 'POST',
+            data: {
+                idlivro: idlivr,
+                alunorm: alunorm,
+            },
+            success: function(dados) {
+                alert(dados);
+                // document.getElementById('main2').innerHTML =
+                //     `<div class="result">
+                //     <hr>
+                //     <label><b> Código do Livro: </b></label>
+                //     <label> ` + dados.codigo + ` </label> <br>
+                //     <label><b> Título do Livro: </b></label>
+                //     <label> ` + dados.nome + ` </label> <br>
+                //     <label><b> Autor: </b></label>
+                //     <label> ` + dados.autor + ` </label><br>
+                //     <label><b> Editora: </b></label>
+                //     <label> ` + dados.editora + ` </label><br>
+                //     <label><b> Categoria: </b></label>
+                //     <label> ` + dados.categoria + ` </label><br>
+                //     <label><b> Sinopse: </b></label>
+                //     <label> ` + dados.sinopse + ` </label>
+                //     <input type='button' onClick ='fazerReserva(`+dados.codigo+`)' value='Adicionar no Carrinho' id='btnAddCarrinho'>
+                //     </div>`;
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
     };
     </script>
 </head>
@@ -170,12 +245,15 @@ $resultado = mysqli_query($conn, $sql);
                 class="cor3">tec</span></h1>
         <hr class='full'>
         <a>Aluno: <?php echo $nome ?></a>
+        <input type="text" id='rmcontent' name='rmcontent' value ='<?php echo $rm ?>' hidden>
         <hr class='full'>
         <a class="btnsidenav" id='btnProcurar'>Procurar</a>
         <hr>
         <a class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
         <hr>
         <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
+        <hr>
+        <a class="btnsidenav" id='btnCarrinho'>Carrinho</a>
         <hr>
         <a class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>

@@ -1,5 +1,5 @@
 <?php
-    include_once("conexao.php");
+    include_once("../conexao.php");
     $idlivro= $_POST['idlivro'];
     $produtossql1 = "SELECT * FROM livros WHERE liv_codi='$idlivro'";
     $resultado_produtos1 = mysqli_query($conn, $produtossql1);
@@ -14,7 +14,8 @@
     $exibir2 = mysqli_fetch_assoc($resultado_categoria);
     $categoria = $exibir2['cat_nome'];
     echo json_encode(
-        array("nome" => $nome,
+        array("codigo" => $idlivro,
+        "nome" => $nome,
         "autor" => $autor,
         "editora" => $editora,
         "sinopse" => $sinopse,

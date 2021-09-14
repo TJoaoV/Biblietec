@@ -14,7 +14,7 @@ $resultado = mysqli_query($conn, $sql);
 
 <body>
     <div class='corpoCadastro'>
-        <form action='finish/primeiroacesso_finish.php' onsubmit="return validarprimeiro(this);" method='POST'
+        <form action="finish/primeiroacesso_finish.php" onsubmit="return validarprimeiro(this);" method='POST'
             name='cadastro' class=''>
             <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
             <h2>Cadastro</h2>
@@ -26,19 +26,19 @@ $resultado = mysqli_query($conn, $sql);
             <input type='text' name='txtnome' maxlength="100" placeholder='Digite o nome completo'><br>
 
             <h3>CPF:</h3>
-            <input type='text' name='txtCPF' maxlength="11" placeholder='Digite o CPF (Sem pontuação)'><br>
+            <input type='text' id='txtCPF' name='txtCPF' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="15" placeholder='Digite o CPF (Sem pontuação)'><br>
 
             <h3>Telefone:</h3>
-            <input type='text' onlynumber name='txttelefone' maxlength="10" placeholder='Digite o Telefone'><br>
+            <input type='text' onkeypress="return event.charCode >= 48 && event.charCode <= 57" name='txttelefone' maxlength="10" placeholder='Digite o Telefone'><br>
 
             <h3>Celular:</h3>
-            <input type='text' onlynumber name='txtcelular' maxlength="11" placeholder='Digite o Celular'><br>
+            <input type='text' onkeypress="return event.charCode >= 48 && event.charCode <= 57" name='txtcelular' maxlength="11" placeholder='Digite o Celular'><br>
 
             <h3>Email:</h3>
             <input type='email' name='txtemail' maxlength="150" placeholder='Digite o Email'><br>
 
             <h3>Data de Nascimento:</h3>
-            <input type='date' onlynumber name='txtdtnascimento' placeholder='Digite a Data de Nascimento'><br>
+            <input type='date' name='txtdtnascimento' placeholder='Digite a Data de Nascimento'><br>
 
             <h3>Senha:</h3>
             <input type='password' name='txtsenha' placeholder='Digite sua senha'><br>
