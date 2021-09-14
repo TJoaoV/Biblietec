@@ -22,7 +22,7 @@ session_start();
             //     unset($_SESSION['msgcad']);
             // }
         ?>
-    <div class="login-box" style="height:52vh;">
+    <div class="login-box" style="height:55vh;">
         <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <h2>Login - Alunos</h2>
         <form method='POST' name='login' onsubmit="return validar(this);" action='PHP/loginalunos.php'>

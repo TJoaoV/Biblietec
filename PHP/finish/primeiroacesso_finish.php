@@ -8,7 +8,9 @@
 </head>
 
 <body>
-    <?php
+    <div class="login-box" style="height:30vh;">
+        <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+        <?php
     include_once '../conexao.php';
 
     $rm = $_POST['txtrm'];
@@ -36,10 +38,10 @@
         $funcao = mysqli_query($conn, $alterarauto);
         echo "<h2> Erro ao cadastrar o Aluno! </h2>";
         if ($conn -> error == "Duplicate entry '$rm' for key 'alu_rm'"){
-            echo ("Usuário com RM: $rm já cadastrado!");
+            echo ("<h2>Usuário com RM: $rm já cadastrado!</h2>");
         }
         if ($conn -> error == "Duplicate entry '$cpf' for key 'alu_cpf'"){
-            echo ("Usuário com CPF: $cpf já cadastrado!");
+            echo ("<h2>Usuário com CPF: $cpf já cadastrado!</h2>");
         }
         //else {
          //   echo ("Erro: "$conn -> error);
@@ -47,9 +49,10 @@
         
     }
     ?>
-    <br><br>
-    <div>
-        <a href="../../index.php">Voltar</a>
+        <br>
+        <div>
+            <input id='btnlogin' type='button' value='Voltar' onClick="location.href = '../../index.php';">
+        </div>
     </div>
     <br><br>
 </body>

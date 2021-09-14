@@ -6,7 +6,10 @@ html {
 }
 
 body {
-	background-color: var(--background);
+	/* background-image: url("../background.png");
+	background-repeat: repeat;
+	background-size: 11.25vw 20vh; */
+	background-color: var(--titlecolor1);
 	font-family: "Roboto", sans-serif;
 }
 /* Nav da esquerda */
@@ -80,4 +83,3 @@ body {
 .cor3 {
 	color: var(--titlecolor3);
 }
-
