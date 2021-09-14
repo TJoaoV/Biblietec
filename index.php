@@ -8,9 +8,6 @@ session_start();
     <meta charset="UTF-8">
     <title>Biblietec - Login</title>
     <?php include('importindex.php'); ?>
-    <link rel="shortcut icon" href="icon.ico" />
-    <link rel="stylesheet" href="CSS/global.css?v=1">
-    <link rel="stylesheet" href="CSS/style.css?v=1">
     <script type="text/javascript" src="JS/indexjs.js"></script>
 </head>
 
@@ -25,7 +22,7 @@ session_start();
             //     unset($_SESSION['msgcad']);
             // }
         ?>
-    <div class="login-box" style="height:58vh;">
+    <div class="login-box" style="height:52vh;">
         <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <h2>Login - Alunos</h2>
         <form method='POST' name='login' onsubmit="return validar(this);" action='PHP/loginalunos.php'>

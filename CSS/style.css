@@ -2,8 +2,7 @@
 	background-color: hsl(0, 0%, 100%);
 	height: 50vh;
 	width: 30vw;
-	border-radius: 15%;
-
+	border-radius: 2vw 2vw;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -139,6 +138,12 @@
 }
 .alinharmeio {
 	width: 90%;
+	text-align: center;
+}
+.redSenhaA {
+	width: 26.8vw;
+}
+.redSenhaA h3 {
 	text-align: center;
 }
 /* ------------------Css do corpo da main page--------------- */

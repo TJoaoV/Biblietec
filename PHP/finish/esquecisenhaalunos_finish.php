@@ -7,9 +7,10 @@
 </head>
 
 <body>
-    <div class="login-box">
+    <div class="login-box" style="height:25vh">
         <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
-        <?php
+        <div class="redSenhaA">
+            <?php
 session_start();
 include_once("../../src/PHPMailer.php");
 include_once("../../src/SMTP.php");
@@ -65,21 +66,21 @@ if($btncontinuar){
                         $senhac=md5('1234');
                         $sql = "UPDATE alunos SET alu_senh='$senhac', alu_reds='1' WHERE alu_codi = '$id'";
                         $resultadoupdate = mysqli_query($conn, $sql);
-                        echo "<h2>Email de Redefinição de senha enviado com sucesso!</h2>"; 
+                        echo "<h3>Email de Redefinição de senha enviado com sucesso!</h3>"; 
                     } else {
-                        echo "Email nao enviado!";
+                        echo "<h3> Email nao enviado! </h3>" ;
                     }
                 }catch (Exception $e){
-                    echo "Erro ao enviar email: {$mail->ErrorInfo}";
+                    echo "<h3> Erro ao enviar email: {$mail->ErrorInfo} </h3>";
                 }
                 //header("Location: home.php");
             }else{
                 $_SESSION['msg'] = "Dados informados incorretamente! Verifique e tente novamente!";
-                echo "Dados informados incorretamente! Verifique e tente novamente!";
+                echo "<h3>Dados informados incorretamente! Verifique e tente novamente!</h3>";
             }
         } catch (Exception $e) {
             $_SESSION['msg'] = "Dados informados incorretamente! Verifique e tente novamente!";
-            echo "Dados informados incorretamente! Verifique e tente novamente!";
+            echo "<h3> Dados informados incorretamente! Verifique e tente novamente! </h3>";
         }
     }else{
         $_SESSION['msg'] = "Dados informados incorretamente!";
@@ -90,6 +91,7 @@ if($btncontinuar){
 	echo "Error!";
 }
 ?>
+        </div>
         <br>
         <input id='btnlogin' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
     </div>

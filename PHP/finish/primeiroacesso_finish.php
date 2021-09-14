@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <title> Gravando Aluno </title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php include('importfinishs.php'); ?>
+    <title> Biblietec - Gravando Aluno </title>
+
 </head>
 
 <body>

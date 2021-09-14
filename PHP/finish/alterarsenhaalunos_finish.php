@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Senha</title>
+    <?php include('importfinishs.php'); ?>
+    <title>Biblietec - Alterar Senha</title>
 </head>
 
 <body>
-    <?php
+    <div class="login-box" style="height: 20vh">
+        <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+        <?php
 session_start();
 include_once("../conexao.php");
 $senhaantiga = filter_input(INPUT_POST, 'txtsenhaatual', FILTER_SANITIZE_STRING);
@@ -26,13 +26,14 @@ if($resultado_usuario == TRUE){
         $senhanova = md5($senha1);
         $sql = "UPDATE alunos SET alu_senh='$senhanova', alu_reds='0' WHERE alu_codi = '$id'";
         $resultadoupdate = mysqli_query($conn, $sql);
-        echo "Senha alterada com sucesso!!";
+        echo "<h3>Senha alterada com sucesso!</h3>";
         
     }
     
 }
 ?>
-    <input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
+        <input id='btnlogin' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
+    </div>
 </body>
 
 </html>
