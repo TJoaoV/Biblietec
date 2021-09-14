@@ -2,14 +2,14 @@
 <html lang="PT">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redefinição de Senha</title>
+    <?php include('importfinishs.php'); ?>
+    <title>Biblietec - Redefinição de Senha</title>
 </head>
 
 <body>
-    <?php
+    <div class="login-box">
+        <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+        <?php
 session_start();
 include_once("../../src/PHPMailer.php");
 include_once("../../src/SMTP.php");
@@ -65,7 +65,7 @@ if($btncontinuar){
                         $senhac=md5('1234');
                         $sql = "UPDATE alunos SET alu_senh='$senhac', alu_reds='1' WHERE alu_codi = '$id'";
                         $resultadoupdate = mysqli_query($conn, $sql);
-                        echo "Email de Redefinição de senha enviado com sucesso!"; 
+                        echo "<h2>Email de Redefinição de senha enviado com sucesso!</h2>"; 
                     } else {
                         echo "Email nao enviado!";
                     }
@@ -90,7 +90,9 @@ if($btncontinuar){
 	echo "Error!";
 }
 ?>
-    <input id='btnvoltar' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
+        <br>
+        <input id='btnlogin' type='button' name='btnvoltar' value='Voltar' onClick="location.href = '../../index.php';">
+    </div>
 </body>
 
 </html>
