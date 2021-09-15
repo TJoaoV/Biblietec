@@ -1,12 +1,17 @@
 <?php
-session_start();
-$nome = $_SESSION['nome'];
-$rm = $_SESSION['rm'];
-include_once("conexao.php");
-$sql = "SELECT * FROM livros";
-$sql_pre = "SELECT * FROM preemprestimo WHERE alu_rm='$rm'";
-$resultado = mysqli_query($conn, $sql);
-$resultado_pre = mysqli_query($conn, $sql_pre);
+    session_start();
+    try{
+        $idRecebido = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    } catch (Exception $e){
+    };
+    $nome = $_SESSION['nome'];
+    $rm = $_SESSION['rm'];
+    require("conexao.php");
+    $sql = "SELECT * FROM livros";
+    $sql_pre = "SELECT * FROM preemprestimo WHERE alu_rm='$rm'";
+    $resultado_pre = mysqli_query($conn, $sql_pre);
+    $resultado = mysqli_query($conn, $sql);
+    $oioi = 5;
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -17,6 +22,12 @@ $resultado_pre = mysqli_query($conn, $sql_pre);
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" language="javascript">
     window.addEventListener("load", () => {
+        var idrecebidoreload = document.getElementById('variavelid').value;
+        if(idrecebidoreload == ""){
+            carregou();
+        } else {
+            btnCarrinho();
+        };  
         document.querySelector("#btnProcurar").addEventListener("click", e => {
             btnProcurar();
         });
@@ -25,13 +36,26 @@ $resultado_pre = mysqli_query($conn, $sql_pre);
             EmpEmProgresso();
         });
         document.querySelector("#btnCarrinho").addEventListener("click", e => {
-            btnCarrinho();
+            if(idrecebidoreload != ""){
+                btnCarrinho();
+            };            
         });
         document.querySelector("#btnPlaceholder").addEventListener("click", e => {
             btnPlaceholder();
         });
     });
 
+    function carregou(){
+        document.getElementById('main1').innerHTML = `
+        <p> Seja bem vindo a Biblietec!!</p>
+        <p> Aqui você poderá fazer a reserva do seu livro, para depois apenas pega-lo na bilioteca!!</p>
+        <p> Abaixo temos um breve tutorial, para ajudar a se ambientar no sistema, ok?</p>
+        <p> Caso você clique no seu próprio nome, irá para a página de configurações do seu perfil</p>
+        <p> Procurar - Para navegar e caso queira, adicionar no carrinho o(s) livro(s) selecionado(s)</p>
+        <p> Empréstimos - É possível verificar todos seus empréstimos feitos, em andamento e Finalizados</p>
+        <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
+        <p> Sair - Volta para a página de login</p>`;
+    }
     function btnCarrinho(){
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML = `
@@ -46,13 +70,16 @@ $resultado_pre = mysqli_query($conn, $sql_pre);
                 <th width="5%" style="border:1px solid black"></th>
             </tr>
             <?php 
-
+                
                 while ($exibir_pre = mysqli_fetch_assoc($resultado_pre)) {
+                    $sql_buscalista = "SELECT * FROM livros WHERE liv_codi='$exibir_pre[liv_codi]'";
+                    $resultado_buscalista = mysqli_query($conn, $sql_buscalista);
+                    $exibir_buscalista = mysqli_fetch_assoc($resultado_buscalista);
                     echo "<tr>";
                    //$exibir2_pre = strtolower($resultado_pre['liv_titu']);
                     echo "<th>$exibir_pre[liv_codi]</th>";
-                    echo "<th>$exibir_pre[liv_codi]</th>";
-                    echo "<th>$exibir_pre[liv_codi]</th>";
+                    echo "<th>$exibir_buscalista[liv_titu]</th>";
+                    echo "<th>$exibir_buscalista[liv_auto]</th>";
                     echo "<th>$exibir_pre[pre_data]</th>";
                     echo "<th> </th>";
                     //echo "<th class='listaOpcao' nome='$exibir_pre[liv_codi]' id='$exibir_pre[liv_codi]'> $exibir3[liv_titu]</th>";
@@ -213,23 +240,6 @@ $resultado_pre = mysqli_query($conn, $sql_pre);
             },
             success: function(dados) {
                 alert(dados);
-                // document.getElementById('main2').innerHTML =
-                //     `<div class="result">
-                //     <hr>
-                //     <label><b> Código do Livro: </b></label>
-                //     <label> ` + dados.codigo + ` </label> <br>
-                //     <label><b> Título do Livro: </b></label>
-                //     <label> ` + dados.nome + ` </label> <br>
-                //     <label><b> Autor: </b></label>
-                //     <label> ` + dados.autor + ` </label><br>
-                //     <label><b> Editora: </b></label>
-                //     <label> ` + dados.editora + ` </label><br>
-                //     <label><b> Categoria: </b></label>
-                //     <label> ` + dados.categoria + ` </label><br>
-                //     <label><b> Sinopse: </b></label>
-                //     <label> ` + dados.sinopse + ` </label>
-                //     <input type='button' onClick ='fazerReserva(`+dados.codigo+`)' value='Adicionar no Carrinho' id='btnAddCarrinho'>
-                //     </div>`;
             },
             error: function(jqXHR, textStatus) {
                 console.log('error ' + textStatus + " " + jqXHR);
@@ -253,19 +263,12 @@ $resultado_pre = mysqli_query($conn, $sql_pre);
         <hr>
         <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
         <hr>
-        <a class="btnsidenav" id='btnCarrinho'>Carrinho</a>
+        <?php echo '<a href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
         <hr>
         <a class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
-        <p> Seja bem vindo a Biblietec!!</p>
-        <p> Aqui você poderá fazer a reserva do seu livro, para depois apenas pega-lo na bilioteca!!</p>
-        <p> Abaixo temos um breve tutorial, para ajudar a se ambientar no sistema, ok?</p>
-        <p> Caso você clique no seu próprio nome, irá para a página de configurações do seu perfil</p>
-        <p> Procurar - Para navegar e caso queira, adicionar no carrinho o(s) livro(s) selecionado(s)</p>
-        <p> Empréstimos - É possível verificar todos seus empréstimos feitos, em andamento e Finalizados</p>
-        <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
-        <p> Sair - Volta para a página de login</p>
+        <input hidden type='text' id='variavelid' value='<?php echo $idRecebido ?>'>
         <!-- FUNÇÃO DOS BOTÕES -->
         <!-- NÃO APAGAR! -->
     </div>
