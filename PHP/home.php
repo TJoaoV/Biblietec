@@ -76,13 +76,11 @@
                     $resultado_buscalista = mysqli_query($conn, $sql_buscalista);
                     $exibir_buscalista = mysqli_fetch_assoc($resultado_buscalista);
                     echo "<tr>";
-                   //$exibir2_pre = strtolower($resultado_pre['liv_titu']);
                     echo "<th>$exibir_pre[liv_codi]</th>";
                     echo "<th>$exibir_buscalista[liv_titu]</th>";
                     echo "<th>$exibir_buscalista[liv_auto]</th>";
                     echo "<th>$exibir_pre[pre_data]</th>";
                     echo "<th> </th>";
-                    //echo "<th class='listaOpcao' nome='$exibir_pre[liv_codi]' id='$exibir_pre[liv_codi]'> $exibir3[liv_titu]</th>";
                     echo "</tr>";
                 }
             ?>
