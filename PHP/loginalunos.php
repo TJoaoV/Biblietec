@@ -31,7 +31,7 @@ if($btnLogin){
 				}
 			}else{
 				$_SESSION['msg'] = "Senha ou login incorreto!";
-				header("Location: erro_login.php");
+				header("Location: error/loginalunos_error.php");
 				echo "Senha incorreta";
 			}
 		}

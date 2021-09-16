@@ -43,7 +43,15 @@
         document.querySelector("#btnPlaceholder").addEventListener("click", e => {
             btnPlaceholder();
         });
+        document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
+            btnContinuarEmprestimo();
+        });
     });
+    function btnContinuarEmprestimo() {
+        document.getElementById('main2').innerHTML = `
+        
+        `;
+    };
 
     function carregou(){
         document.getElementById('main1').innerHTML = `
@@ -65,8 +73,7 @@
                 <th width="5%" style="border:1px solid black">Id</th>
                 <th width="35%" style="border:1px solid black">Titulo</th>
                 <th width="25%" style="border:1px solid black">Autor</th>
-                <th width="15%" style="border:1px solid black">Data Empréstimo</th>
-                <th width="15%" style="border:1px solid black">Data Entrega</th>
+                <th width="15%" style="border:1px solid black">Data Reserva</th>
                 <th width="5%" style="border:1px solid black"></th>
             </tr>
             <?php 
@@ -80,13 +87,29 @@
                     echo "<th>$exibir_buscalista[liv_titu]</th>";
                     echo "<th>$exibir_buscalista[liv_auto]</th>";
                     echo "<th>$exibir_pre[pre_data]</th>";
-                    echo "<th> </th>";
-                    echo "</tr>";
+                    echo "<th><a href='home.php?id=2' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi])'><img src=../img/botao_excluir.png width='20px' height='20px'></a></th></tr>";
                 }
             ?>
-        </table>`;
+        </table>
+        <a class="btnsidenav" id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
     };
-
+    
+    function remover_livro(id){
+        var idtable = id;
+        $.ajax({
+            url: 'others/removerlivro.php',
+            type: 'POST',
+            data: {
+                idtable: idtable
+            },
+            success: function(removerlivromsg) {
+                alert(removerlivromsg);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
@@ -275,5 +298,4 @@
         <!-- NÃO APAGAR! -->
     </div>
 </body>
-
 </html>
