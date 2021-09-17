@@ -10,6 +10,8 @@
     $sql = "SELECT * FROM livros";
     $sql_pre = "SELECT * FROM preemprestimo WHERE alu_rm='$rm'";
     $resultado_pre = mysqli_query($conn, $sql_pre);
+    $resultado_pre2 = mysqli_query($conn, $sql_pre);
+    $resultado_pre3 = mysqli_query($conn, $sql_pre);
     $resultado = mysqli_query($conn, $sql);
     $oioi = 5;
 ?>
@@ -36,9 +38,7 @@
             EmpEmProgresso();
         });
         document.querySelector("#btnCarrinho").addEventListener("click", e => {
-            if(idrecebidoreload != ""){
-                btnCarrinho();
-            };            
+            //btnCarrinho();         
         });
         document.querySelector("#btnPlaceholder").addEventListener("click", e => {
             btnPlaceholder();
@@ -46,11 +46,28 @@
         document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
             btnContinuarEmprestimo();
         });
+        document.querySelector("#btnFinalizarReserva").addEventListener("click", e => {
+            btnFinalizarReserva();
+            alert("finalizar");
+        });
     });
-    function btnContinuarEmprestimo() {
-        document.getElementById('main2').innerHTML = `
-        
-        `;
+
+    function btnFinalizarReserva(){
+        document.getElementById('main1').innerHTML = `
+        <h2> testessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h2>
+        <?php
+            $i = 1;
+            while ($exibir_pre3 = mysqli_fetch_assoc($resultado_pre3)){
+                echo "<input type='text' id='$i' value'$exibir_pre3[liv_codi]'";
+                // $sql_buscalista3 = "SELECT * FROM livros WHERE liv_codi='$exibir_pre3[liv_codi]'";
+                // $resultado_buscalista3 = mysqli_query($conn, $sql_buscalista3);
+                // $exibir_buscalista3 = mysqli_fetch_assoc($resultado_buscalista3);
+                // echo "<label> $exibir_buscalista3[liv_titu] </label>";
+                // echo "<input type='date' id='$exibir_pre3[liv_codi]'><br>";
+                $i++;
+            }
+        ?>
+        ` ;
     };
 
     function carregou(){
@@ -65,6 +82,7 @@
         <p> Sair - Volta para a página de login</p>`;
     }
     function btnCarrinho(){
+        document.getElementById('main3').innerHTML = "";
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML = `
         <h2> Carrinho</h2>
@@ -87,13 +105,29 @@
                     echo "<th>$exibir_buscalista[liv_titu]</th>";
                     echo "<th>$exibir_buscalista[liv_auto]</th>";
                     echo "<th>$exibir_pre[pre_data]</th>";
-                    echo "<th><a href='home.php?id=2' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi])'><img src=../img/botao_excluir.png width='20px' height='20px'></a></th></tr>";
+                    echo "<th><a class='btnsidenav' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi])'><img src=../img/botao_excluir.png width='20px' height='20px'></a></th></tr>";
                 }
             ?>
         </table>
         <a class="btnsidenav" id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
     };
     
+    function btnContinuarEmprestimo(){
+        document.getElementById('main2').innerHTML = `
+        <label> Selecione as datas para devolução (Máximo 30 dias!): </label><br>
+        <?php
+            while ($exibir_pre2 = mysqli_fetch_assoc($resultado_pre2)){
+                $sql_buscalista2 = "SELECT * FROM livros WHERE liv_codi='$exibir_pre2[liv_codi]'";
+                $resultado_buscalista2 = mysqli_query($conn, $sql_buscalista2);
+                $exibir_buscalista2 = mysqli_fetch_assoc($resultado_buscalista2);
+                echo "<label> $exibir_buscalista2[liv_titu] </label>";
+                echo "<input type='date' id='$exibir_pre2[liv_codi]'><br>";
+            }
+        ?>
+        <a class="btnsidenav" id='btnFinalizarReserva'> Finalizar Reserva </a>
+        `;
+    };
+
     function remover_livro(id){
         var idtable = id;
         $.ajax({
@@ -103,13 +137,15 @@
                 idtable: idtable
             },
             success: function(removerlivromsg) {
-                alert(removerlivromsg);
+                window.location.reload();
+                alert(removerlivromsg); 
             },
             error: function(jqXHR, textStatus) {
                 console.log('error ' + textStatus + " " + jqXHR);
             }
         });
     };
+
     function btnProcurar() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
@@ -249,24 +285,6 @@
         }
     };
 
-    function fazerReserva(codigo){
-        var idlivr = codigo;
-        var alunorm = document.getElementById('rmcontent').value;
-        $.ajax({
-            url: 'others/prereserva.php',
-            type: 'POST',
-            data: {
-                idlivro: idlivr,
-                alunorm: alunorm,
-            },
-            success: function(dados) {
-                alert(dados);
-            },
-            error: function(jqXHR, textStatus) {
-                console.log('error ' + textStatus + " " + jqXHR);
-            }
-        });
-    };
     </script>
 </head>
 
@@ -296,6 +314,9 @@
     <div class="corpoMain" id='main2' style='overflow-y: hidden;'>
         <!-- SOBRE O LIVRO -->
         <!-- NÃO APAGAR! -->
+    </div>
+    <div class="corpoMain" id='main3'>
+        <!-- EXTRA - NÃO APAGAR -->
     </div>
 </body>
 </html>
