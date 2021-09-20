@@ -12,6 +12,7 @@
     $resultado_pre = mysqli_query($conn, $sql_pre);
     $resultado_pre2 = mysqli_query($conn, $sql_pre);
     $resultado_pre3 = mysqli_query($conn, $sql_pre);
+    $resultado_pre4 = mysqli_query($conn, $sql_pre);
     $resultado = mysqli_query($conn, $sql);
     $oioi = 5;
 ?>
@@ -27,9 +28,13 @@
         var idrecebidoreload = document.getElementById('variavelid').value;
         if(idrecebidoreload == ""){
             carregou();
-        } else {
+        };
+        if(idrecebidoreload == "2") {
             btnCarrinho();
-        };  
+        }; 
+        if(idrecebidoreload == "99") {
+            validarfinalizacao();
+        };
         document.querySelector("#btnProcurar").addEventListener("click", e => {
             btnProcurar();
         });
@@ -46,28 +51,46 @@
         document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
             btnContinuarEmprestimo();
         });
-        document.querySelector("#btnFinalizarReserva").addEventListener("click", e => {
-            btnFinalizarReserva();
-            alert("finalizar");
-        });
     });
 
-    function btnFinalizarReserva(){
-        document.getElementById('main1').innerHTML = `
-        <h2> testessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h2>
-        <?php
-            $i = 1;
-            while ($exibir_pre3 = mysqli_fetch_assoc($resultado_pre3)){
-                echo "<input type='text' id='$i' value'$exibir_pre3[liv_codi]'";
-                // $sql_buscalista3 = "SELECT * FROM livros WHERE liv_codi='$exibir_pre3[liv_codi]'";
-                // $resultado_buscalista3 = mysqli_query($conn, $sql_buscalista3);
-                // $exibir_buscalista3 = mysqli_fetch_assoc($resultado_buscalista3);
-                // echo "<label> $exibir_buscalista3[liv_titu] </label>";
-                // echo "<input type='date' id='$exibir_pre3[liv_codi]'><br>";
-                $i++;
+    function validarfinalizacao(){
+        const now = new Date();
+        var livro1;
+        var livro2;
+        var livro3;
+        try{
+            var livro1 = document.getElementById('livro1').value;
+            const past1 = new Date(livro1);
+            const diff1 = Math.abs(now.getTime() - past1.getTime()); 
+            const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24)); 
+            if(days1 <= 30){
+                alert('tacerto');
+            } else {
+                alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        ?>
-        ` ;
+        }catch{};
+        try{
+            var livro2 = document.getElementById('livro2').value;
+            const past2 = new Date(livro2);
+            const diff2 = Math.abs(now.getTime() - past2.getTime()); 
+            const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24)); 
+            if(days2 <= 30){
+                alert('tacerto');
+            } else {
+                alert('O Prazo máximo para devolução do livro é de 30 dias!');
+            }
+        }catch{};
+        try{
+            var livro3 = document.getElementById('livro3').value;
+            const past3 = new Date(livro3);
+            const diff3 = Math.abs(now.getTime() - past3.getTime()); 
+            const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24)); 
+            if(days3 <= 30){
+                alert('tacerto');
+            } else {
+                alert('O Prazo máximo para devolução do livro é de 30 dias!');
+            }
+        }catch{};
     };
 
     function carregou(){
@@ -109,22 +132,25 @@
                 }
             ?>
         </table>
-        <a class="btnsidenav" id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
+        <a tabindex="0" href='#' class="btnsidenav" id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
     };
     
     function btnContinuarEmprestimo(){
         document.getElementById('main2').innerHTML = `
         <label> Selecione as datas para devolução (Máximo 30 dias!): </label><br>
         <?php
+            $datadehoje = date('Y-m-d');
+            $a = 1;
             while ($exibir_pre2 = mysqli_fetch_assoc($resultado_pre2)){
                 $sql_buscalista2 = "SELECT * FROM livros WHERE liv_codi='$exibir_pre2[liv_codi]'";
                 $resultado_buscalista2 = mysqli_query($conn, $sql_buscalista2);
                 $exibir_buscalista2 = mysqli_fetch_assoc($resultado_buscalista2);
-                echo "<label> $exibir_buscalista2[liv_titu] </label>";
-                echo "<input type='date' id='$exibir_pre2[liv_codi]'><br>";
+                echo "<h3> $exibir_buscalista2[liv_titu] </h3>";
+                echo "<input type='date' min='$datadehoje' id='livro$a'><br>";
+                $a++;
             }
         ?>
-        <a class="btnsidenav" id='btnFinalizarReserva'> Finalizar Reserva </a>
+        <a tabindex="0" href='#' class="btnsidenav" onClick='validarfinalizacao();' id='btnContinuarEmprestimo'> Finalizar Reserva </a>
         `;
     };
 
@@ -285,26 +311,45 @@
         }
     };
 
+    function fazerReserva(codigo){
+        var idlivr = codigo;
+        var alunorm = document.getElementById('rmcontent').value;
+        $.ajax({
+            url: 'others/prereserva.php',
+            type: 'POST',
+            data: {
+                idlivro: idlivr,
+                alunorm: alunorm,
+            },
+            success: function(dados) {
+                alert(dados);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
+
     </script>
 </head>
 
 <body>
     <div class="sidenav">
-        <h1 class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span class="cor2">e</span><span
+        <h1 tabindex="0" href='#' class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span class="cor2">e</span><span
                 class="cor3">tec</span></h1>
         <hr class='full'>
-        <a>Aluno: <?php echo $nome ?></a>
+        <a tabindex="1" href='#' >Aluno: <?php echo $nome ?></a>
         <input type="text" id='rmcontent' name='rmcontent' value ='<?php echo $rm ?>' hidden>
         <hr class='full'>
-        <a class="btnsidenav" id='btnProcurar'>Procurar</a>
+        <a tabindex="2" href='#' class="btnsidenav" id='btnProcurar'>Procurar</a>
         <hr>
-        <a class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
+        <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
         <hr>
-        <a class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
+        <a tabindex="4" href='#' class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
         <hr>
-        <?php echo '<a href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
+        <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
         <hr>
-        <a class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
+        <a tabindex="6" href='#' class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
         <input hidden type='text' id='variavelid' value='<?php echo $idRecebido ?>'>
@@ -312,10 +357,14 @@
         <!-- NÃO APAGAR! -->
     </div>
     <div class="corpoMain" id='main2' style='overflow-y: hidden;'>
+        <input hidden type='date' id='livro1'><br>
+        <input hidden type='date' id='livro2'><br>
+        <input hidden type='date' id='livro3'><br>
         <!-- SOBRE O LIVRO -->
         <!-- NÃO APAGAR! -->
     </div>
     <div class="corpoMain" id='main3'>
+        <input hidden type='text' id='datahoje' value='<?php echo date('Y-m-d');?>'>
         <!-- EXTRA - NÃO APAGAR -->
     </div>
 </body>
