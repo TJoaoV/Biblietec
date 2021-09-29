@@ -350,7 +350,7 @@
         <hr>
         <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
         <hr>
-        <a tabindex="6" href='#' class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
+        <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
         <input hidden type='text' id='variavelid' value='<?php echo $idRecebido ?>'>
