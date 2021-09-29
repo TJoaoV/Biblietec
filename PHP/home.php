@@ -70,6 +70,7 @@
             }
         } catch {};
         try {
+
             var livro2 = document.getElementById('livro2').value;
             const past2 = new Date(livro2);
             const diff2 = Math.abs(now.getTime() - past2.getTime());
