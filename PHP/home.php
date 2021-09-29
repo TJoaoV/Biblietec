@@ -26,13 +26,13 @@
     <script type="text/javascript" language="javascript">
     window.addEventListener("load", () => {
         var idrecebidoreload = document.getElementById('variavelid').value;
-        if(idrecebidoreload == ""){
+        if (idrecebidoreload == "") {
             carregou();
         };
-        if(idrecebidoreload == "2") {
+        if (idrecebidoreload == "2") {
             btnCarrinho();
-        }; 
-        if(idrecebidoreload == "99") {
+        };
+        if (idrecebidoreload == "99") {
             validarfinalizacao();
         };
         document.querySelector("#btnProcurar").addEventListener("click", e => {
@@ -53,47 +53,47 @@
         });
     });
 
-    function validarfinalizacao(){
+    function validarfinalizacao() {
         const now = new Date();
         var livro1;
         var livro2;
         var livro3;
-        try{
+        try {
             var livro1 = document.getElementById('livro1').value;
             const past1 = new Date(livro1);
-            const diff1 = Math.abs(now.getTime() - past1.getTime()); 
-            const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24)); 
-            if(days1 <= 30){
+            const diff1 = Math.abs(now.getTime() - past1.getTime());
+            const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24));
+            if (days1 <= 30) {
                 alert('tacerto');
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        }catch{};
-        try{
+        } catch {};
+        try {
             var livro2 = document.getElementById('livro2').value;
             const past2 = new Date(livro2);
-            const diff2 = Math.abs(now.getTime() - past2.getTime()); 
-            const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24)); 
-            if(days2 <= 30){
+            const diff2 = Math.abs(now.getTime() - past2.getTime());
+            const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
+            if (days2 <= 30) {
                 alert('tacerto');
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        }catch{};
-        try{
+        } catch {};
+        try {
             var livro3 = document.getElementById('livro3').value;
             const past3 = new Date(livro3);
-            const diff3 = Math.abs(now.getTime() - past3.getTime()); 
-            const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24)); 
-            if(days3 <= 30){
+            const diff3 = Math.abs(now.getTime() - past3.getTime());
+            const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
+            if (days3 <= 30) {
                 alert('tacerto');
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        }catch{};
+        } catch {};
     };
 
-    function carregou(){
+    function carregou() {
         document.getElementById('main1').innerHTML = `
         <p> Seja bem vindo a Biblietec!!</p>
         <p> Aqui você poderá fazer a reserva do seu livro, para depois apenas pega-lo na bilioteca!!</p>
@@ -104,18 +104,19 @@
         <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
         <p> Sair - Volta para a página de login</p>`;
     }
-    function btnCarrinho(){
+
+    function btnCarrinho() {
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML = `
         <h2> Carrinho</h2>
-        <table style="border:1px solid black" name='carrinhotable' id='carrinhotable'>
-            <tr style="border:1px solid black">
-                <th width="5%" style="border:1px solid black">Id</th>
-                <th width="35%" style="border:1px solid black">Titulo</th>
-                <th width="25%" style="border:1px solid black">Autor</th>
-                <th width="15%" style="border:1px solid black">Data Reserva</th>
-                <th width="5%" style="border:1px solid black"></th>
+        <table style="border:1px solid black;" name='carrinhotable' id='carrinhotable'>
+            <tr style="border:1px solid black;">
+                <th width="5%" style="border:1px solid black;">Id</th>
+                <th width="35%" style="border:1px solid black;">Titulo</th>
+                <th width="25%" style="border:1px solid black;">Autor</th>
+                <th width="15%" style="border:1px solid black;">Data Reserva</th>
+                <th width="5%" style="border:1px solid black;"></th>
             </tr>
             <?php 
                 
@@ -132,10 +133,10 @@
                 }
             ?>
         </table>
-        <a tabindex="0" href='#' class="btnsidenav" id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
+        <a tabindex="0" href='#' class='btnsidenav' id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
     };
-    
-    function btnContinuarEmprestimo(){
+
+    function btnContinuarEmprestimo() {
         document.getElementById('main2').innerHTML = `
         <label> Selecione as datas para devolução (Máximo 30 dias!): </label><br>
         <?php
@@ -154,7 +155,7 @@
         `;
     };
 
-    function remover_livro(id){
+    function remover_livro(id) {
         var idtable = id;
         $.ajax({
             url: 'others/removerlivro.php',
@@ -164,7 +165,7 @@
             },
             success: function(removerlivromsg) {
                 window.location.reload();
-                alert(removerlivromsg); 
+                alert(removerlivromsg);
             },
             error: function(jqXHR, textStatus) {
                 console.log('error ' + textStatus + " " + jqXHR);
@@ -301,7 +302,7 @@
                         <label> ` + dados.categoria + ` </label><br>
                         <label><b> Sinopse: </b></label>
                         <label> ` + dados.sinopse + ` </label>
-                        <input type='button' onClick ='fazerReserva(`+dados.codigo+`)' value='Adicionar no Carrinho' id='btnAddCarrinho'>
+                        <input type='button' onClick ='fazerReserva(` + dados.codigo + `)' value='Adicionar no Carrinho' id='btnAddCarrinho'>
                         </div>`;
                 },
                 error: function(jqXHR, textStatus) {
@@ -311,7 +312,7 @@
         }
     };
 
-    function fazerReserva(codigo){
+    function fazerReserva(codigo) {
         var idlivr = codigo;
         var alunorm = document.getElementById('rmcontent').value;
         $.ajax({
@@ -329,17 +330,16 @@
             }
         });
     };
-
     </script>
 </head>
 
 <body>
     <div class="sidenav">
-        <h1 tabindex="0" href='#' class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span class="cor2">e</span><span
-                class="cor3">tec</span></h1>
+        <h1 tabindex="0" href='#' class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
+                class="cor2">e</span><span class="cor3">tec</span></h1>
         <hr class='full'>
-        <a tabindex="1" href='#' >Aluno: <?php echo $nome ?></a>
-        <input type="text" id='rmcontent' name='rmcontent' value ='<?php echo $rm ?>' hidden>
+        <a tabindex="1" href='#'>Aluno: <?php echo $nome ?></a>
+        <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
         <hr class='full'>
         <a tabindex="2" href='#' class="btnsidenav" id='btnProcurar'>Procurar</a>
         <hr>
@@ -349,7 +349,8 @@
         <hr>
         <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
         <hr>
-        <a tabindex="6" href='#' class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
+        <a tabindex="6" href='#' class="btnsidenav" style="text-decoration:none;" href='../index.php'
+            id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
         <input hidden type='text' id='variavelid' value='<?php echo $idRecebido ?>'>
@@ -368,4 +369,5 @@
         <!-- EXTRA - NÃO APAGAR -->
     </div>
 </body>
+
 </html>
