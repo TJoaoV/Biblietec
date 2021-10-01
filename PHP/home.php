@@ -120,7 +120,6 @@
                 <th width="5%" style="border:1px solid black;"></th>
             </tr>
             <?php 
-                
                 while ($exibir_pre = mysqli_fetch_assoc($resultado_pre)) {
                     $sql_buscalista = "SELECT * FROM livros WHERE liv_codi='$exibir_pre[liv_codi]'";
                     $resultado_buscalista = mysqli_query($conn, $sql_buscalista);
