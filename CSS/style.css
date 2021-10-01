@@ -34,7 +34,8 @@
 }
 
 .login-box #btnlogin,
-.corpoCadastro #btnlogin {
+.corpoCadastro #btnlogin,
+.botVerm {
 	margin-top: 1rem;
 	font-size: 3rem;
 	height: 4rem;
@@ -43,12 +44,17 @@
 	color: hsl(0, 0%, 100%);
 	border: 4px solid hsl(0, 0%, 0%);
 }
+.botVerm.botinpage {
+	font-size: 2rem;
+	height: 4rem;
+}
 .corpoCadastro #btnlogin {
 	width: 50%;
 	align-content: center;
 }
 .login-box #btnlogin:hover,
-.corpoCadastro #btnlogin:hover {
+.corpoCadastro #btnlogin:hover,
+.botVerm:hover {
 	animation: botao 0.2s ease-in-out 0s both alternate;
 }
 @keyframes botao {
@@ -80,7 +86,8 @@
 	}
 }
 .login-box input,
-.corpoCadastro input {
+.corpoCadastro input,
+.fundoBranco input {
 	width: 80%;
 	height: 2.4rem;
 	font-size: 1.2rem;
@@ -136,10 +143,7 @@
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
-.alinharmeio {
-	width: 90%;
-	text-align: center;
-}
+
 .redSenhaA {
 	width: 26.8vw;
 }
@@ -237,8 +241,11 @@
 /* tabelas emprestimo */
 .empTableDiv {
 	padding-top: 1vh;
+	padding-bottom: 2vh;
 	border-top-left-radius: 1vh 1vh;
 	border-top-right-radius: 1vh 1vh;
+	border-bottom-left-radius: 1vh 1vh;
+	border-bottom-right-radius: 1vh 1vh;
 	background-color: hsl(0, 0%, 95%);
 	text-align: center;
 }
@@ -249,6 +256,40 @@
 .empTableDiv table th {
 	border-bottom: 1px solid hsl(0, 0%, 50%);
 }
+.empTableDiv table tr:nth-child(even) {
+	background-color: hsl(0, 0%, 85%);
+}
+.empTableDiv table tr:hover:first-child {
+	background-color: hsl(0, 0%, 95%);
+}
+.empTableDiv table tr:hover {
+	background-color: hsl(0, 0%, 75%);
+}
 .empTableDiv table td {
 	border-right: 1px solid hsl(0, 0%, 50%);
+}
+.empTableDiv table td:last-child {
+	border-right: none;
+}
+
+/* css basico */
+.botpage {
+	margin-top: 2vh;
+}
+.alinharmeio {
+	text-align: center;
+}
+.fundoBranco {
+	margin: 2rem auto 2rem auto;
+	padding-bottom: 2rem;
+	width: 50vw;
+	/* height: 150vh; */
+	background-color: white;
+	border-radius: 3% / 2%;
+}
+.textdecor {
+	text-decoration: none;
+}
+.pointer {
+	cursor: pointer;
 }

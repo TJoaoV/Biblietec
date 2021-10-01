@@ -110,14 +110,16 @@
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML = `
-        <h2> Carrinho</h2>
-        <table style="border:1px solid black;" name='carrinhotable' id='carrinhotable'>
-            <tr style="border:1px solid black;">
-                <th width="5%" style="border:1px solid black;">Id</th>
-                <th width="35%" style="border:1px solid black;">Titulo</th>
-                <th width="25%" style="border:1px solid black;">Autor</th>
-                <th width="15%" style="border:1px solid black;">Data Reserva</th>
-                <th width="5%" style="border:1px solid black;"></th>
+        <h3 class="corpoTitle"> Carrinho</h3><br>
+        <hr class="hrTitle"><br>
+        <div class="empTableDiv">
+        <table name='carrinhotable' id='carrinhotable'>
+            <tr>
+                <th width="5%">Id</th>
+                <th width="35%">Titulo</th>
+                <th width="25%">Autor</th>
+                <th width="15%">Data Reserva</th>
+                <th width="5%"></th>
             </tr>
             <?php 
                 while ($exibir_pre = mysqli_fetch_assoc($resultado_pre)) {
@@ -125,20 +127,27 @@
                     $resultado_buscalista = mysqli_query($conn, $sql_buscalista);
                     $exibir_buscalista = mysqli_fetch_assoc($resultado_buscalista);
                     echo "<tr>";
-                    echo "<th>$exibir_pre[liv_codi]</th>";
-                    echo "<th>$exibir_buscalista[liv_titu]</th>";
-                    echo "<th>$exibir_buscalista[liv_auto]</th>";
-                    echo "<th>$exibir_pre[pre_data]</th>";
-                    echo "<th><a class='btnsidenav' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi])'><img src=../img/botao_excluir.png width='20px' height='20px'></a></th></tr>";
+                    echo "<td>$exibir_pre[liv_codi]</td>";
+                    echo "<td>$exibir_buscalista[liv_titu]</td>";
+                    echo "<td>$exibir_buscalista[liv_auto]</td>";
+                    echo "<td>$exibir_pre[pre_data]</td>";
+                    echo "<td>
+                    <a class='btnsidenav' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi])'>
+                    <img src=../img/botao_excluir.png width='20px' height='20px'>
+                    </a></td></tr>";
                 }
             ?>
         </table>
-        <a tabindex="0" href='#' class='btnsidenav' id='btnContinuarEmprestimo'> Continuar com a reserva </a>`;
+        </div>
+        <div class='alinharmeio botpage'>
+        <button tabindex='0' href='#' class='botVerm botinpage pointer' onclick='btnContinuarEmprestimo()'> Continuar com a reserva </button>
+        </div>`;
     };
 
     function btnContinuarEmprestimo() {
         document.getElementById('main2').innerHTML = `
-        <label> Selecione as datas para devolução (Máximo 30 dias!): </label><br>
+        <div class='alinharmeio fundoBranco' style='border-radius: 1vh 1vh;'>
+        <h3 style='padding-top: 3vh; margin-bottom: -1vh;'> Selecione as datas para devolução (máximo 30 dias): </h3><br>
         <?php
             $datadehoje = date('Y-m-d');
             $a = 1;
@@ -146,13 +155,13 @@
                 $sql_buscalista2 = "SELECT * FROM livros WHERE liv_codi='$exibir_pre2[liv_codi]'";
                 $resultado_buscalista2 = mysqli_query($conn, $sql_buscalista2);
                 $exibir_buscalista2 = mysqli_fetch_assoc($resultado_buscalista2);
-                echo "<h3> $exibir_buscalista2[liv_titu] </h3>";
-                echo "<input type='date' min='$datadehoje' id='livro$a'><br>";
+                echo "<label><b> $exibir_buscalista2[liv_titu] </b></label><br>";
+                echo "<input  style='margin-bottom: 2vh; width: 30%;' type='date' min='$datadehoje' id='livro$a'><br>";
                 $a++;
             }
         ?>
-        <a tabindex="0" href='#' class="btnsidenav" onClick='validarfinalizacao();' id='btnContinuarEmprestimo'> Finalizar Reserva </a>
-        `;
+        <button tabindex="0" href='#' class='botVerm textdecor botinpage' onClick='validarfinalizacao();' id='btnContinuarEmprestimo'> Finalizar Reserva </button>
+        </div>`;
     };
 
     function remover_livro(id) {
@@ -266,12 +275,6 @@
         document.getElementById("empLi").classList.remove('navActive');
     }
 
-    function btnPlaceholder() {
-        document.getElementById('main2').innerHTML = "";
-        document.getElementById('main1').innerHTML =
-            `<label > placeholder: </label>`;
-    };
-
     function VerLivro(id) {
         var idlivro = id;
         if (idlivro == "-") {
@@ -344,8 +347,6 @@
         <a tabindex="2" href='#' class="btnsidenav" id='btnProcurar'>Procurar</a>
         <hr>
         <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
-        <hr>
-        <a tabindex="4" href='#' class="btnsidenav" id='btnPlaceholder'>Placeholder</a>
         <hr>
         <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
         <hr>
