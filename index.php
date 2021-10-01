@@ -12,16 +12,6 @@ session_start();
 </head>
 
 <body>
-    <?php
-            // if(isset($_SESSION['msg'])){
-            //     echo $_SESSION['msg'];
-            //     unset($_SESSION['msg']);
-            // }
-            // if(isset($_SESSION['msgcad'])){
-            //     echo $_SESSION['msgcad'];
-            //     unset($_SESSION['msgcad']);
-            // }
-        ?>
     <div class="login-box" style="height:55vh;">
         <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <h2>Login - Alunos</h2>
