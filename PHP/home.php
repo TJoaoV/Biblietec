@@ -9,11 +9,20 @@
     require("conexao.php");
     $sql = "SELECT * FROM livros WHERE liv_qtdd<>0";
     $sql_pre = "SELECT * FROM preemprestimo WHERE alu_rm='$rm'";
+    $sql_emprestimoprogresso = "SELECT * FROM corpo_emprestimo WHERE alu_rm='$rm' and emp_devo='NÃO Devolvido'";
+    $sql_emprestimofinalizado = "SELECT * FROM corpo_emprestimo WHERE alu_rm='$rm' and emp_devo='Devolvido'";
+    $sqlalunos = "SELECT * FROM alunos WHERE alu_rm='$rm'";
+    $sqlcurso = "SELECT * FROM cursos";
     $resultado_pre = mysqli_query($conn, $sql_pre);
     $resultado_pre2 = mysqli_query($conn, $sql_pre);
     $resultado_pre3 = mysqli_query($conn, $sql_pre);
     $resultado_pre4 = mysqli_query($conn, $sql_pre);
     $resultado = mysqli_query($conn, $sql);
+    $resultado_emprestimoprogresso = mysqli_query($conn, $sql_emprestimoprogresso);
+    $resultado_emprestimofinalizado = mysqli_query($conn, $sql_emprestimofinalizado);
+    $resultadoalunos = mysqli_query($conn, $sqlalunos);
+    $resultadocurso = mysqli_query($conn, $sqlcurso);
+    $exibiralunos = mysqli_fetch_assoc($resultadoalunos);
     $oioi = 5;
 ?>
 <!DOCTYPE html>
@@ -35,6 +44,9 @@
         if (idrecebidoreload == "3") {
             btnProcurar();
         };
+        if (idrecebidoreload == "4") {
+            btnNome();
+        };
         if (idrecebidoreload == "99") {
             validarfinalizacao();
         };
@@ -53,6 +65,41 @@
         // });
     });
 
+    function btnNome(){
+        document.getElementById('main3').innerHTML = "";
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML = `
+        <h3 class="corpoTitle"> Configurações </h3><br>
+        <hr class="hrTitle"><br>
+        <div class="empTableDiv">
+            <h5> Nome: </h5>
+            <input type='text' value='<?php echo $exibiralunos['alu_nome']?>' readonly>
+            <h5> RM: </h5>
+            <input type='text' value='<?php echo $exibiralunos['alu_rm']?>' readonly>
+            <h5> CPF: </h5>
+            <input type='text' value='<?php echo $exibiralunos['alu_cpf']?>' readonly>
+            <h5> Data de Nascimento: </h5>
+            <input type='text' value='<?php echo $exibiralunos['alu_dtna']?>' readonly><br>
+            <h5> Telefone: </h5>
+            
+            <input type='text' id='telefonenovo' maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_tele']?>'>
+            <h5> Celular: </h5>
+            <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_celu']?>'>
+            <h5> Email: </h5>
+            <input type='email' id='email' value='<?php echo $exibiralunos['alu_emai']?>'>
+            <h5> Curso: </h5>
+            <?php
+                
+                echo "<select name='txtcurso'>";
+                echo "<option value='-'> Selecione o Curso </option>";
+                while ($exibircurso = mysqli_fetch_assoc($resultadocurso)) {
+                    echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome]</option>";
+                } 
+                echo "</select>";
+                echo "<input type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
+            ?>
+            `;
+    }
     function validarfinalizacao() {
         const now = new Date();
         var tabelaempcodi = "";
@@ -313,14 +360,27 @@
             <table>
                 <tr>
                     <th style="width:10%;">ID</th>
-                    <th style="width:60%;">Título</th>
-                    <th style="width:30%;">Data</th>
+                    <th style="width:50%;">Título</th>
+                    <th style="width:20%;">Data Empréstimo</th>
+                    <th style="width:20%;">Previsão Devolução</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>O Pequeno Principe</td>
-                    <td>15/03/2000</td>
-                </tr>
+                <?php 
+                    
+                    while ($exibir_emp_progresso = mysqli_fetch_assoc($resultado_emprestimoprogresso)) {
+                        $sql_emprestimoprogresso2 = "SELECT * FROM livros WHERE liv_codi = $exibir_emp_progresso[liv_codi]";
+                        $resultado_produtos_sql_emprestimoprogresso2 = mysqli_query($conn, $sql_emprestimoprogresso2);
+                        $exibir_sql_emprestimoprogresso2 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimoprogresso2);
+                        $sql_emprestimoprogresso3 = "SELECT * FROM emprestimo WHERE emp_codi = $exibir_emp_progresso[emp_codi]";
+                        $resultado_produtos_sql_emprestimoprogresso3 = mysqli_query($conn, $sql_emprestimoprogresso3);
+                        $exibir_sql_emprestimoprogresso3 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimoprogresso3);
+                        echo "<tr>";
+                        echo "<td nome='1' id='1'> $exibir_emp_progresso[emp_codi]</td>";
+                        echo "<td nome='1' id='1'> $exibir_sql_emprestimoprogresso2[liv_titu]</td>";
+                        echo "<td nome='1' id='1'> $exibir_sql_emprestimoprogresso3[emp_data]</td>";
+                        echo "<td nome='1' id='1'> $exibir_emp_progresso[emp_dtde] </td>";
+                        echo "</tr>";
+                    }
+                ?>
             </table>
         </div>
         `;
@@ -333,15 +393,27 @@
         <div class="empTableDiv">
             <table>
                 <tr>
-                    <th>Placeholder2</th>
-                    <th>Placeholder2</th>
-                    <th>Placeholder2</th>
+                    <th style="width:10%;">ID</th>
+                    <th style="width:60%;">Título</th>
+                    <th style="width:15%;">Data Empréstimo</th>
+                    <th style="width:15%;">Data Devolução</th>
                 </tr>
-                <tr>
-                    <td>Placeholder2</td>
-                    <td>Placeholder2</td>
-                    <td>Placeholder2</td>
-                </tr>
+                <?php 
+                    while ($exibir_emp_finalizado = mysqli_fetch_assoc($resultado_emprestimofinalizado)) {
+                        $sql_emprestimofinalizado2 = "SELECT * FROM livros WHERE liv_codi = $exibir_emp_finalizado[liv_codi]";
+                        $resultado_produtos_sql_emprestimofinalizado2 = mysqli_query($conn, $sql_emprestimofinalizado2);
+                        $exibir_sql_emprestimofinalizado2 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimofinalizado2);
+                        $sql_emprestimofinalizado3 = "SELECT * FROM emprestimo WHERE emp_codi = $exibir_emp_finalizado[emp_codi]";
+                        $resultado_produtos_sql_emprestimofinalizado3 = mysqli_query($conn, $sql_emprestimofinalizado3);
+                        $exibir_sql_emprestimofinalizado3 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimofinalizado3);
+                        echo "<tr>";
+                        echo "<td nome='1' id='1'> $exibir_emp_finalizado[emp_codi]</td>";
+                        echo "<td nome='1' id='1'> $exibir_sql_emprestimofinalizado2[liv_titu]</td>";
+                        echo "<td nome='1' id='1'> $exibir_sql_emprestimofinalizado3[emp_data]</td>";
+                        echo "<td nome='1' id='1'> $exibir_emp_finalizado[cor_dtde] </td>";
+                        echo "</tr>";
+                    }
+                ?>
             </table>
         </div>
         `;
@@ -418,7 +490,7 @@
         <a href='home.php' ><h1 tabindex="0"  class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
                 class="cor2">e</span><span class="cor3">tec</span></h1></a>
         <hr class='full'>
-        <a tabindex="1" href='#'>Aluno: <?php echo $nome ?></a>
+        <a tabindex="1" href='home.php?id=4'>Aluno: <?php echo $nome ?></a>
         <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
         <hr class='full'>
         <?php echo '<a tabindex="2" href="home.php?id=3" class="btnsidenav" id="btnProcurar">Procurar</a>' ?>
