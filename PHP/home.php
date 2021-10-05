@@ -7,7 +7,7 @@
     $nome = $_SESSION['nome'];
     $rm = $_SESSION['rm'];
     require("conexao.php");
-    $sql = "SELECT * FROM livros";
+    $sql = "SELECT * FROM livros WHERE liv_qtdd<>0";
     $sql_pre = "SELECT * FROM preemprestimo WHERE alu_rm='$rm'";
     $resultado_pre = mysqli_query($conn, $sql_pre);
     $resultado_pre2 = mysqli_query($conn, $sql_pre);
@@ -23,7 +23,7 @@
     <title>Biblietec - Procura</title>
     <?php include('imports.php'); ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript" language="javascript">
+    <script>
     window.addEventListener("load", () => {
         var idrecebidoreload = document.getElementById('variavelid').value;
         if (idrecebidoreload == "") {
@@ -31,6 +31,9 @@
         };
         if (idrecebidoreload == "2") {
             btnCarrinho();
+        };
+        if (idrecebidoreload == "3") {
+            btnProcurar();
         };
         if (idrecebidoreload == "99") {
             validarfinalizacao();
@@ -45,53 +48,122 @@
         document.querySelector("#btnCarrinho").addEventListener("click", e => {
             //btnCarrinho();         
         });
-        document.querySelector("#btnPlaceholder").addEventListener("click", e => {
-            btnPlaceholder();
-        });
-        document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
-            btnContinuarEmprestimo();
-        });
+        // document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
+        //     btnContinuarEmprestimo();
+        // });
     });
 
     function validarfinalizacao() {
         const now = new Date();
+        var tabelaempcodi = "";
+        var rmaluno = document.getElementById('rmdoaluno').value;
+        var dataagora = document.getElementById('dataemprestimo').value;
         var livro1;
         var livro2;
         var livro3;
         try {
             var livro1 = document.getElementById('livro1').value;
+            var idlivro = document.getElementById('livro1').name;
             const past1 = new Date(livro1);
             const diff1 = Math.abs(now.getTime() - past1.getTime());
             const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24));
             if (days1 <= 30) {
-                alert('tacerto');
+                $.ajax({
+                    url: 'others/concluirreserva1.php',
+                    type: 'POST',
+                    data: {
+                        rmaluno: rmaluno,
+                        now: dataagora
+                    },
+                    success: function(tabelaempcodigo) {
+                        var tabelaempcodi = tabelaempcodigo;
+                        $.ajax({
+                            url: 'others/concluirreserva2.php',
+                            type: 'POST',
+                            data: {
+                                devolucao: livro1,
+                                tabelaempcodi: tabelaempcodi,
+                                rmaluno: rmaluno,
+                                idlivro: idlivro,
+                                now: now
+                            },
+                            success: function(mensagemretorno) {
+                                alert(mensagemretorno); 
+                                document.location.reload(true);
+                                try {
+                                    var livro2 = document.getElementById('livro2').value;
+                                    var idlivro2 = document.getElementById('livro2').name;
+                                    const past2 = new Date(livro2);
+                                    const diff2 = Math.abs(now.getTime() - past2.getTime());
+                                    const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
+                                    if (days2 <= 30) {
+                                        $.ajax({
+                                            url: 'others/concluirreserva2.php',
+                                            type: 'POST',
+                                            data: {
+                                                devolucao: livro2,
+                                                tabelaempcodi: tabelaempcodi,
+                                                rmaluno: rmaluno,
+                                                idlivro: idlivro2,
+                                                now: now
+                                            },
+                                            success: function(mensagemretorno) {
+                                                alert(mensagemretorno);
+                                                document.location.reload(true);
+                                                try {
+                                                    var livro3 = document.getElementById('livro3').value;
+                                                    var idlivro3 = document.getElementById('livro3').name;
+                                                    const past3 = new Date(livro3);
+                                                    const diff3 = Math.abs(now.getTime() - past3.getTime());
+                                                    const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
+                                                    if (days3 <= 30) {
+                                                        $.ajax({
+                                                            url: 'others/concluirreserva2.php',
+                                                            type: 'POST',
+                                                            data: {
+                                                                devolucao: livro3,
+                                                                tabelaempcodi: tabelaempcodi,
+                                                                rmaluno: rmaluno,
+                                                                idlivro: idlivro3,
+                                                                now: now
+                                                            },
+                                                            success: function(mensagemretorno) {
+                                                                alert(mensagemretorno);
+                                                                document.location.reload(true);
+                                                            },
+                                                            error: function(jqXHR, textStatus) {
+                                                                console.log('error ' + textStatus + " " + jqXHR);
+                                                            }
+                                                        });
+                                                    } else {
+                                                        alert('O Prazo máximo para devolução do livro é de 30 dias!');
+                                                    }
+                                                } catch {};
+                                            },
+                                            error: function(jqXHR, textStatus) {
+                                                console.log('error ' + textStatus + " " + jqXHR);
+                                            }
+                                        });
+                                    } else {
+                                        alert('O Prazo máximo para devolução do livro é de 30 dias!');
+                                    }
+                                    
+                                } catch {};                          
+                            },
+                            error: function(jqXHR, textStatus) {
+                                console.log('error ' + textStatus + " " + jqXHR);
+                            }
+                        });
+                    },
+                    error: function(jqXHR, textStatus) {
+                        console.log('error ' + textStatus + " " + jqXHR);
+                    }
+                    
+                });
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        } catch {};
-        try {
-
-            var livro2 = document.getElementById('livro2').value;
-            const past2 = new Date(livro2);
-            const diff2 = Math.abs(now.getTime() - past2.getTime());
-            const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
-            if (days2 <= 30) {
-                alert('tacerto');
-            } else {
-                alert('O Prazo máximo para devolução do livro é de 30 dias!');
-            }
-        } catch {};
-        try {
-            var livro3 = document.getElementById('livro3').value;
-            const past3 = new Date(livro3);
-            const diff3 = Math.abs(now.getTime() - past3.getTime());
-            const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
-            if (days3 <= 30) {
-                alert('tacerto');
-            } else {
-                alert('O Prazo máximo para devolução do livro é de 30 dias!');
-            }
-        } catch {};
+        } catch {document.location.reload(true);};
     };
 
     function carregou() {
@@ -132,7 +204,7 @@
                     echo "<td>$exibir_buscalista[liv_auto]</td>";
                     echo "<td>$exibir_pre[pre_data]</td>";
                     echo "<td>
-                    <a class='btnsidenav' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi])'>
+                    <a class='btnsidenav' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi], $exibir_pre[liv_codi])'>
                     <img src=../img/botao_excluir.png width='20px' height='20px'>
                     </a></td></tr>";
                 }
@@ -156,7 +228,7 @@
                 $resultado_buscalista2 = mysqli_query($conn, $sql_buscalista2);
                 $exibir_buscalista2 = mysqli_fetch_assoc($resultado_buscalista2);
                 echo "<label><b> $exibir_buscalista2[liv_titu] </b></label><br>";
-                echo "<input  style='margin-bottom: 2vh; width: 30%;' type='date' min='$datadehoje' id='livro$a'><br>";
+                echo "<input style='margin-bottom: 2vh; width: 30%;' name='$exibir_pre2[liv_codi]' type='date' min='$datadehoje' id='livro$a'><br>";
                 $a++;
             }
         ?>
@@ -164,13 +236,15 @@
         </div>`;
     };
 
-    function remover_livro(id) {
+    function remover_livro(id, livro) {
         var idtable = id;
+        var idlivro = livro;
         $.ajax({
             url: 'others/removerlivro.php',
             type: 'POST',
             data: {
-                idtable: idtable
+                idtable: idtable,
+                idlivro: idlivro
             },
             success: function(removerlivromsg) {
                 window.location.reload();
@@ -334,17 +408,20 @@
         });
     };
     </script>
+    
 </head>
 
 <body>
     <div class="sidenav">
-        <h1 tabindex="0" href='#' class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
-                class="cor2">e</span><span class="cor3">tec</span></h1>
+        <input hidden type='text' id='rmdoaluno' value='<?php echo $rm;?>'>
+        <input hidden type='date' id='dataemprestimo' value='<?php echo date('Y-m-d');?>'>
+        <a href='home.php' ><h1 tabindex="0"  class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
+                class="cor2">e</span><span class="cor3">tec</span></h1></a>
         <hr class='full'>
         <a tabindex="1" href='#'>Aluno: <?php echo $nome ?></a>
         <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
         <hr class='full'>
-        <a tabindex="2" href='#' class="btnsidenav" id='btnProcurar'>Procurar</a>
+        <?php echo '<a tabindex="2" href="home.php?id=3" class="btnsidenav" id="btnProcurar">Procurar</a>' ?>
         <hr>
         <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
         <hr>
@@ -366,6 +443,7 @@
     </div>
     <div class="corpoMain" id='main3'>
         <input hidden type='text' id='datahoje' value='<?php echo date('Y-m-d');?>'>
+        
         <!-- EXTRA - NÃO APAGAR -->
     </div>
 </body>
