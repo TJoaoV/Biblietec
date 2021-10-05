@@ -13,7 +13,7 @@ session_start();
 
 <body>
     <div class="login-box" style="height:55vh;">
-        <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+        <a href='index.php' ><h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1></a>
         <h2>Login - Alunos</h2>
         <form method='POST' name='login' onsubmit="return validar(this);" action='PHP/loginalunos.php'>
             <h3>CPF:</h3>

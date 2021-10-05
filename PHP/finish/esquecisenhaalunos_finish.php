@@ -21,7 +21,6 @@ use PHPMailer\PHPMailer\Exception;
 include_once("../conexao.php");
 $btncontinuar = filter_input(INPUT_POST, 'btncontinuar', FILTER_SANITIZE_STRING);
 if($btncontinuar){
-	$nome = filter_input(INPUT_POST, 'txtnome', FILTER_SANITIZE_STRING);
 	$CPF = filter_input(INPUT_POST, 'txtCPF', FILTER_SANITIZE_STRING);
     $RM = filter_input(INPUT_POST, 'txtRM', FILTER_SANITIZE_STRING);
 	//echo $senha."<br>";
@@ -29,11 +28,11 @@ if($btncontinuar){
     $resultado_usuario = mysqli_query($conn, $result_usuario);
     if($resultado_usuario){
         $row_usuario = mysqli_fetch_assoc($resultado_usuario);
+        $nome = $row_usuario['alu_nome'];
         try{
             $_SESSION['cpf'] = $row_usuario['alu_cpf'];
-            $_SESSION['nome'] = $row_usuario['alu_nome'];
             $_SESSION['rm'] = $row_usuario['alu_rm'];
-            if($CPF == $_SESSION['cpf'] and $nome == $_SESSION['nome'] and $RM == $_SESSION['rm']){
+            if($CPF == $_SESSION['cpf'] and $RM == $_SESSION['rm']){
                 $_SESSION['email'] = $row_usuario['alu_emai'];
                 $email = $_SESSION['email'];
                 $_SESSION['id'] = $row_usuario['alu_codi'];

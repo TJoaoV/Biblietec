@@ -12,7 +12,7 @@ session_start();
 <body>
     <form action='PHP/valida.php' method='POST' name='login' class=''>
         <div class="login-box">
-            <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+            <a href='../index.php' ><h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1></a>
             <h2>Login - Administração</h2>
             <h3>Usuário:</h3>
             <input type='text' name='txtusuario' placeholder='Digite o usuário'><br>

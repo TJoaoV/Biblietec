@@ -86,11 +86,11 @@
             <h5> Celular: </h5>
             <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_celu']?>'>
             <h5> Email: </h5>
-            <input type='email' id='email' value='<?php echo $exibiralunos['alu_emai']?>'>
+            <input type='email' id='emailnovo' value='<?php echo $exibiralunos['alu_emai']?>'>
             <h5> Curso: </h5>
             <?php
                 
-                echo "<select name='txtcurso'>";
+                echo "<select id='cursonovo' name='cursonovo'>";
                 echo "<option value='-'> Selecione o Curso </option>";
                 while ($exibircurso = mysqli_fetch_assoc($resultadocurso)) {
                     echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome]</option>";
@@ -99,7 +99,43 @@
                 echo "<input type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
             ?>
             `;
-    }
+    };
+
+    function atualizarcadastro(rmaluno){
+        var newtelefone = document.getElementById('telefonenovo').value;
+        var newcelular = document.getElementById('celularnovo').value;
+        var newemail = document.getElementById('emailnovo').value;
+        var newcurso = document.getElementById('cursonovo').value;
+        if (newtelefone && newcelular == ""){
+            alert('Preencher pelo menos um telefone!');
+        }else if (newemail == ""){
+            alert('Preencher email!');
+            newemail.focus();
+        }else if(newcurso == "-"){
+            alert('Selecionar Curso!');
+            newcurso.focus();
+        }else{
+            $.ajax({
+                url: 'others/atualizarcadastroaluno.php',
+                type: 'POST',
+                data: {
+                    rmaluno: rmaluno,
+                    newtelefone: newtelefone,
+                    newcelular: newcelular,
+                    newemail: newemail,
+                    newcurso: newcurso
+                },
+                success: function(retornoatualização) {
+                    alert(retornoatualização);
+                    document.location.reload(true);
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+
     function validarfinalizacao() {
         const now = new Date();
         var tabelaempcodi = "";
@@ -223,7 +259,7 @@
         <p> Empréstimos - É possível verificar todos seus empréstimos feitos, em andamento e Finalizados</p>
         <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
         <p> Sair - Volta para a página de login</p>`;
-    }
+    };
 
     function btnCarrinho() {
         document.getElementById('main3').innerHTML = "";
@@ -386,7 +422,7 @@
         `;
         document.getElementById("empLi").classList.add('navActive');
         document.getElementById("comLi").classList.remove('navActive');
-    }
+    };
 
     function EmpCompleto() {
         document.getElementById('main2').innerHTML = `
@@ -419,7 +455,7 @@
         `;
         document.getElementById("comLi").classList.add('navActive');
         document.getElementById("empLi").classList.remove('navActive');
-    }
+    };
 
     function VerLivro(id) {
         var idlivro = id;

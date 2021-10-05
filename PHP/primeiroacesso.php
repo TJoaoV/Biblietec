@@ -16,7 +16,7 @@ $resultado = mysqli_query($conn, $sql);
     <div class='corpoCadastro'>
         <form action="finish/primeiroacesso_finish.php" onsubmit="return validarprimeiro(this);" method='POST'
             name='cadastro' class=''>
-            <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+            <a href='../index.php' ><h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1></a>
             <h2>Cadastro</h2>
 
             <h3>RM:</h3>
