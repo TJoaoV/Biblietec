@@ -96,9 +96,54 @@
                     echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome]</option>";
                 } 
                 echo "</select>";
-                echo "<input type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
-            ?>
+                echo "<br> <input type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
+            ?><br>
+            <hr class="hrTitle"><br>
+            <h3 > Alterar Senha </h3><br>
+            <h5> Senha Antiga: </h5>
+            <input type='password' id='senhaantiga' maxlength="150" placeholder="Digite sua senha antiga"'>
+            <h5> Senha Nova: </h5>
+            <input type='password' id='senhanova1' maxlength="150" placeholder="Digite sua nova senha"'>
+            <h5> Confirmação Senha Nova: </h5>
+            <input type='password' id='senhanova2' maxlength="150" placeholder="Digite sua nova senha novamente"'>
+            <?php echo "<br> <input type='button' href='home.php' onclick='atualizarsenha($exibiralunos[alu_rm])' value='Alterar Senha!'>"; ?>
             `;
+    };
+
+    function atualizarsenha(rmdoaluno){
+        var senhaantiga = document.getElementById('senhaantiga').value;
+        var senhanova1 = document.getElementById('senhanova1').value;
+        var senhanova2 = document.getElementById('senhanova2').value;
+        if (senhaantiga == ""){
+            alert("Senha antiga não preenchida!");
+            senhaantiga.focus();
+        }else if(senhanova1 == ""){
+            alert("Nova senha não preenchida");
+            senhanova1.focus();
+        }else if(senhanova2 == ""){
+            alert("Confirmação de senha não preenchido");
+            senhanova2.focus();
+        }else if(senhanova2 != senhanova1){
+            alert("As senhas não conhecidem!");
+        }else{
+            $.ajax({
+                url: 'others/alterarsenhaalunos_config.php',
+                type: 'POST',
+                data: {
+                    rmdoaluno: rmdoaluno,
+                    senhaantiga: senhaantiga,
+                    senhanova1: senhanova1,
+                    senhanova2: senhanova2,
+                },
+                success: function(retornomudancasenha) {
+                    alert(retornomudancasenha);
+                    document.location.reload(true);
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        };        
     };
 
     function atualizarcadastro(rmaluno){
@@ -521,6 +566,7 @@
 
 <body>
     <div class="sidenav">
+        <input hidden type='text' id='datahoje' value='<?php echo date('Y-m-d');?>'>
         <input hidden type='text' id='rmdoaluno' value='<?php echo $rm;?>'>
         <input hidden type='date' id='dataemprestimo' value='<?php echo date('Y-m-d');?>'>
         <a href='home.php' ><h1 tabindex="0"  class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
@@ -550,8 +596,6 @@
         <!-- NÃO APAGAR! -->
     </div>
     <div class="corpoMain" id='main3'>
-        <input hidden type='text' id='datahoje' value='<?php echo date('Y-m-d');?>'>
-        
         <!-- EXTRA - NÃO APAGAR -->
     </div>
 </body>
