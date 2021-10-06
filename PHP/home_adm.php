@@ -73,9 +73,9 @@
     });
 
     function btnEmprestimos() {
-    document.getElementById('main2').innerHTML = "";
-    document.getElementById('main1').innerHTML =
-        `<h3 class="corpoTitle"> Empréstimos </h3><br>
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
+            `<h3 class="corpoTitle"> Empréstimos </h3><br>
         <hr class="hrTitle"><br>
         <div class="horNav">
             <ul>
@@ -84,12 +84,13 @@
                 <li id="comLi"><a onClick="Devolvido()"> Devolvidos </a></li>
             </ul>
         </div>`;
-
+        ParaEntregar();
+        document.getElementById("empLi").classList.add('navActive');
     };
 
     function ParaEntregar() {
-    // Essas colunas são só enfeite tem que pensar noq vai colocar
-    document.getElementById('main2').innerHTML = `
+        // Essas colunas são só enfeite tem que pensar noq vai colocar
+        document.getElementById('main2').innerHTML = `
     <div class="empTableDiv">
         <table>
             <tr>
@@ -127,12 +128,12 @@
         </table>
     </div>
     `;
-    document.getElementById("empLi").classList.add('navActive');
-    document.getElementById("comLi").classList.remove('navActive');
+        document.getElementById("empLi").classList.add('navActive');
+        document.getElementById("comLi").classList.remove('navActive');
     };
 
     function EmAtraso() {
-    document.getElementById('main2').innerHTML = `
+        document.getElementById('main2').innerHTML = `
     <div class="empTableDiv">
         <table>
             <tr>
@@ -168,11 +169,11 @@
         </table>
     </div>
     `;
-    document.getElementById("comLi").classList.add('navActive');
-    document.getElementById("empLi").classList.remove('navActive');
+        document.getElementById("comLi").classList.add('navActive');
+        document.getElementById("empLi").classList.remove('navActive');
     };
 
-    function excluir_livro(idemprestimo, idlivro){
+    function excluir_livro(idemprestimo, idlivro) {
         $.ajax({
             url: 'others/excluiremprestimo_adm.php',
             type: 'POST',
@@ -189,6 +190,7 @@
             }
         });
     }
+
     function carregou() {
         document.getElementById('main1').innerHTML = `
         <p> Seja bem vindo a parte Administrativa do Biblietec!!</p>
@@ -203,7 +205,7 @@
         <p> Sair - Volta para a página de login</p>`;
     };
     </script>
-    
+
 </head>
 
 <body>
@@ -211,10 +213,12 @@
         <input hidden type='text' id='datahoje' value='<?php echo date('Y-m-d');?>'>
         <input hidden type='text' id='loginadm' value='<?php echo $login;?>'>
         <input hidden type='date' id='dataemprestimo' value='<?php echo date('Y-m-d');?>'>
-        <a href='home_adm.php' ><h1 tabindex="0"  class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
-                class="cor2">e</span><span class="cor3">tec</span></h1></a>
+        <a href='home_adm.php'>
+            <h1 tabindex="0" class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
+                    class="cor2">e</span><span class="cor3">tec</span></h1>
+        </a>
         <hr class='full'>
-        <a tabindex="1" href='home.php?id=4'><?php echo $nome ?></a>
+        <a tabindex="1" href='home.php?id=4'><?php echo $nome ?></a><br>
         <hr class='full'>
         <?php echo '<a tabindex="2" href="home_adm.php?id=1" class="btnsidenav" id="btnProcurar">Consultar Empréstimos</a>' ?>
         <hr>
@@ -224,7 +228,8 @@
         <hr>
         <?php echo '<a tabindex="5" href="home_adm.php?id=4" class="btnsidenav" id="btnEmprestimos">Cadastrar Categoria/Curso</a>' ?>
         <hr>
-        <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='loginadministracao.php' id='btnSair'>Sair</a>
+        <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='loginadministracao.php'
+            id='btnSair'>Sair</a>
     </div>
     <div class="corpoMain" id='main1'>
         <input hidden type='text' id='variavelid' value='<?php echo $idRecebido ?>'>
