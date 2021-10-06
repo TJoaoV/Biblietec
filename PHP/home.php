@@ -457,8 +457,14 @@
                         echo "<tr>";
                         echo "<td nome='1' id='1'> $exibir_emp_progresso[emp_codi]</td>";
                         echo "<td nome='1' id='1'> $exibir_sql_emprestimoprogresso2[liv_titu]</td>";
-                        echo "<td nome='1' id='1'> $exibir_sql_emprestimoprogresso3[emp_data]</td>";
-                        echo "<td nome='1' id='1'> $exibir_emp_progresso[emp_dtde] </td>";
+                        $ano= substr($exibir_sql_emprestimoprogresso3['emp_data'], 0,4);
+                        $mes= substr($exibir_sql_emprestimoprogresso3['emp_data'], 5,2);
+                        $dia= substr($exibir_sql_emprestimoprogresso3['emp_data'], 8,2);
+                        echo "<td nome='1' id='1'> $dia/$mes/$ano</td>";
+                        $ano2= substr($exibir_emp_progresso['emp_dtde'], 0,4);
+                        $mes2= substr($exibir_emp_progresso['emp_dtde'], 5,2);
+                        $dia2= substr($exibir_emp_progresso['emp_dtde'], 8,2);
+                        echo "<td nome='1' id='1'> $dia2/$mes2/$ano2</td>";
                         echo "</tr>";
                     }
                 ?>
