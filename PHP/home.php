@@ -65,7 +65,7 @@
         // });
     });
 
-    function btnNome(){
+    function btnNome() {
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML = `
@@ -110,22 +110,22 @@
             `;
     };
 
-    function atualizarsenha(rmdoaluno){
+    function atualizarsenha(rmdoaluno) {
         var senhaantiga = document.getElementById('senhaantiga').value;
         var senhanova1 = document.getElementById('senhanova1').value;
         var senhanova2 = document.getElementById('senhanova2').value;
-        if (senhaantiga == ""){
+        if (senhaantiga == "") {
             alert("Senha antiga não preenchida!");
             senhaantiga.focus();
-        }else if(senhanova1 == ""){
+        } else if (senhanova1 == "") {
             alert("Nova senha não preenchida");
             senhanova1.focus();
-        }else if(senhanova2 == ""){
+        } else if (senhanova2 == "") {
             alert("Confirmação de senha não preenchido");
             senhanova2.focus();
-        }else if(senhanova2 != senhanova1){
+        } else if (senhanova2 != senhanova1) {
             alert("As senhas não conhecidem!");
-        }else{
+        } else {
             $.ajax({
                 url: 'others/alterarsenhaalunos_config.php',
                 type: 'POST',
@@ -143,23 +143,23 @@
                     console.log('error ' + textStatus + " " + jqXHR);
                 }
             });
-        };        
+        };
     };
 
-    function atualizarcadastro(rmaluno){
+    function atualizarcadastro(rmaluno) {
         var newtelefone = document.getElementById('telefonenovo').value;
         var newcelular = document.getElementById('celularnovo').value;
         var newemail = document.getElementById('emailnovo').value;
         var newcurso = document.getElementById('cursonovo').value;
-        if (newtelefone && newcelular == ""){
+        if (newtelefone && newcelular == "") {
             alert('Preencher pelo menos um telefone!');
-        }else if (newemail == ""){
+        } else if (newemail == "") {
             alert('Preencher email!');
             newemail.focus();
-        }else if(newcurso == "-"){
+        } else if (newcurso == "-") {
             alert('Selecionar Curso!');
             newcurso.focus();
-        }else{
+        } else {
             $.ajax({
                 url: 'others/atualizarcadastroaluno.php',
                 type: 'POST',
@@ -216,7 +216,7 @@
                                 now: now
                             },
                             success: function(mensagemretorno) {
-                                alert(mensagemretorno); 
+                                alert(mensagemretorno);
                                 document.location.reload(true);
                                 try {
                                     var livro2 = document.getElementById('livro2').value;
@@ -239,11 +239,18 @@
                                                 alert(mensagemretorno);
                                                 document.location.reload(true);
                                                 try {
-                                                    var livro3 = document.getElementById('livro3').value;
-                                                    var idlivro3 = document.getElementById('livro3').name;
+                                                    var livro3 = document
+                                                        .getElementById('livro3')
+                                                        .value;
+                                                    var idlivro3 = document
+                                                        .getElementById('livro3')
+                                                        .name;
                                                     const past3 = new Date(livro3);
-                                                    const diff3 = Math.abs(now.getTime() - past3.getTime());
-                                                    const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
+                                                    const diff3 = Math.abs(now
+                                                        .getTime() - past3
+                                                        .getTime());
+                                                    const days3 = Math.ceil(diff3 /
+                                                        (1000 * 60 * 60 * 24));
                                                     if (days3 <= 30) {
                                                         $.ajax({
                                                             url: 'others/concluirreserva2.php',
@@ -255,28 +262,50 @@
                                                                 idlivro: idlivro3,
                                                                 now: now
                                                             },
-                                                            success: function(mensagemretorno) {
-                                                                alert(mensagemretorno);
-                                                                document.location.reload(true);
+                                                            success: function(
+                                                                mensagemretorno
+                                                            ) {
+                                                                alert(
+                                                                    mensagemretorno
+                                                                );
+                                                                document
+                                                                    .location
+                                                                    .reload(
+                                                                        true
+                                                                    );
                                                             },
-                                                            error: function(jqXHR, textStatus) {
-                                                                console.log('error ' + textStatus + " " + jqXHR);
+                                                            error: function(
+                                                                jqXHR,
+                                                                textStatus
+                                                            ) {
+                                                                console
+                                                                    .log(
+                                                                        'error ' +
+                                                                        textStatus +
+                                                                        " " +
+                                                                        jqXHR
+                                                                    );
                                                             }
                                                         });
                                                     } else {
-                                                        alert('O Prazo máximo para devolução do livro é de 30 dias!');
+                                                        alert(
+                                                            'O Prazo máximo para devolução do livro é de 30 dias!'
+                                                        );
                                                     }
                                                 } catch {};
                                             },
                                             error: function(jqXHR, textStatus) {
-                                                console.log('error ' + textStatus + " " + jqXHR);
+                                                console.log('error ' + textStatus +
+                                                    " " + jqXHR);
                                             }
                                         });
                                     } else {
-                                        alert('O Prazo máximo para devolução do livro é de 30 dias!');
+                                        alert(
+                                            'O Prazo máximo para devolução do livro é de 30 dias!'
+                                        );
                                     }
-                                    
-                                } catch {};                          
+
+                                } catch {};
                             },
                             error: function(jqXHR, textStatus) {
                                 console.log('error ' + textStatus + " " + jqXHR);
@@ -286,12 +315,14 @@
                     error: function(jqXHR, textStatus) {
                         console.log('error ' + textStatus + " " + jqXHR);
                     }
-                    
+
                 });
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        } catch {document.location.reload(true);};
+        } catch {
+            document.location.reload(true);
+        };
     };
 
     function carregou() {
@@ -396,7 +427,7 @@
             <?php 
                 while ($exibir3 = mysqli_fetch_assoc($resultado)) {
                     $exibir4 = strtolower($exibir3['liv_titu']);
-                    echo "<li class='listaOpcao' onClick='VerLivro($exibir3[liv_codi])' nome='$exibir4' id='$exibir3[liv_codi]'> $exibir3[liv_titu]</li>";
+                    echo "<li class='listaOpcao pointer' onClick='VerLivro($exibir3[liv_codi])' nome='$exibir4' id='$exibir3[liv_codi]'> $exibir3[liv_titu]</li>";
                 }
             ?>
             </ul>
@@ -525,7 +556,7 @@
                 success: function(dados) {
                     document.getElementById('main2').innerHTML =
                         `<div class="result">
-                        <hr>
+                        <hr class='hrMain'> 
                         <label><b> Código do Livro: </b></label>
                         <label> ` + dados.codigo + ` </label> <br>
                         <label><b> Título do Livro: </b></label>
@@ -538,7 +569,10 @@
                         <label> ` + dados.categoria + ` </label><br>
                         <label><b> Sinopse: </b></label>
                         <label> ` + dados.sinopse + ` </label>
-                        <input type='button' onClick ='fazerReserva(` + dados.codigo + `)' value='Adicionar no Carrinho' id='btnAddCarrinho'>
+                        <div class='alinharmeio'>
+                        <input class='botVerm pointer' type='button' onClick ='fazerReserva(` + dados
+                        .codigo + `)' value=' Adicionar no Carrinho ' id='btnAddCarrinho'><br>
+                        </div>
                         </div>`;
                 },
                 error: function(jqXHR, textStatus) {
@@ -567,7 +601,7 @@
         });
     };
     </script>
-    
+
 </head>
 
 <body>
@@ -575,10 +609,15 @@
         <input hidden type='text' id='datahoje' value='<?php echo date('Y-m-d');?>'>
         <input hidden type='text' id='rmdoaluno' value='<?php echo $rm;?>'>
         <input hidden type='date' id='dataemprestimo' value='<?php echo date('Y-m-d');?>'>
-        <a href='home.php' ><h1 tabindex="0"  class='titulo' style='text-align: center;'><span class="cor1">Bibli</span><span
-                class="cor2">e</span><span class="cor3">tec</span></h1></a>
+        <a href='home.php' class="textdecor" style="margin-top: -1.8vh;">
+            <h1 tabindex="0" class='titulo' style='text-align: center;'>
+                <span class="cor1">Bibli</span>
+                <span class="cor2">e</span>
+                <span class="cor3">tec</span>
+            </h1>
+        </a>
         <hr class='full'>
-        <a tabindex="1" href='home.php?id=4'>Aluno: <?php echo $nome ?></a>
+        <a tabindex="1" href='home.php?id=4'>Aluno: <?php echo $nome ?></a><br>
         <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
         <hr class='full'>
         <?php echo '<a tabindex="2" href="home.php?id=3" class="btnsidenav" id="btnProcurar">Procurar</a>' ?>

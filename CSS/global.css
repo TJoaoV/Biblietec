@@ -28,7 +28,7 @@ body {
 .sidenav a {
 	padding: 1rem;
 	text-decoration: none;
-	font-size: 1.5rem;
+	font-size: 2.4vh;
 	color: hsl(0, 0%, 51%);
 	display: block;
 	text-align: center;
@@ -46,6 +46,7 @@ body {
 }
 .sidenav .full {
 	width: 100%;
+	margin-top: -1.5vh;
 }
 .sidenav hr {
 	width: 75%;
@@ -59,7 +60,7 @@ body {
 		padding-top: 15px;
 	}
 	.sidenav a {
-		font-size: 18px;
+		display: none;
 	}
 }
 #btnSair {
@@ -70,7 +71,7 @@ body {
 /* Fazer cores do logo
 <span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span> */
 .titulo {
-	font-size: 2.5rem;
+	font-size: 4.2vh;
 	margin-top: 0;
 	user-select: none;
 }

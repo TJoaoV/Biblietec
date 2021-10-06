@@ -37,8 +37,8 @@
 .corpoCadastro #btnlogin,
 .botVerm {
 	margin-top: 1rem;
-	font-size: 3rem;
-	height: 4rem;
+	font-size: 4vh;
+	height: 6vh;
 	background: var(--titlecolor2);
 	border-radius: 36px;
 	color: hsl(0, 0%, 100%);
@@ -157,14 +157,17 @@
 	padding: 0px 10px;
 }
 .corpoTitle {
-	font-size: 2.5rem;
-	margin-top: 1.2rem;
+	font-size: 4.2vh;
+	margin-top: 2.3vh;
 	text-align: center;
 }
 .hrTitle {
-	margin-top: -2.8rem;
+	margin-top: -5vh;
 	margin-left: -5vw;
 	width: 87.7vw;
+	border: 1px solid hsl(0, 0%, 72%);
+}
+.hrMain {
 	border: 1px solid hsl(0, 0%, 72%);
 }
 .corpoText {
