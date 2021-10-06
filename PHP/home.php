@@ -71,23 +71,24 @@
         document.getElementById('main1').innerHTML = `
         <h3 class="corpoTitle"> Configurações </h3><br>
         <hr class="hrTitle"><br>
-        <div class="empTableDiv">
-            <h5> Nome: </h5>
-            <input type='text' value='<?php echo $exibiralunos['alu_nome']?>' readonly>
-            <h5> RM: </h5>
-            <input type='text' value='<?php echo $exibiralunos['alu_rm']?>' readonly>
-            <h5> CPF: </h5>
-            <input type='text' value='<?php echo $exibiralunos['alu_cpf']?>' readonly>
-            <h5> Data de Nascimento: </h5>
-            <input type='text' value='<?php echo $exibiralunos['alu_dtna']?>' readonly><br>
-            <h5> Telefone: </h5>
+        <div class="corpoCadastro">
+        <br>
+            <h3> Nome: </h3>
+            <input type='text' value='<?php echo $exibiralunos['alu_nome']?>' readonly disabled>
+            <h3> RM: </h3>
+            <input type='text' value='<?php echo $exibiralunos['alu_rm']?>' readonly disabled>
+            <h3> CPF: </h3>
+            <input type='text' value='<?php echo $exibiralunos['alu_cpf']?>' readonly disabled>
+            <h3> Data de Nascimento: </h3>
+            <input type='text' value='<?php echo $exibiralunos['alu_dtna']?>' readonly disabled><br>
+            <h3> Telefone: </h3>
             
             <input type='text' id='telefonenovo' maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_tele']?>'>
-            <h5> Celular: </h5>
+            <h3> Celular: </h3>
             <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_celu']?>'>
-            <h5> Email: </h5>
+            <h3> Email: </h3>
             <input type='email' id='emailnovo' value='<?php echo $exibiralunos['alu_emai']?>'>
-            <h5> Curso: </h5>
+            <h3> Curso: </h3>
             <?php
                 
                 echo "<select id='cursonovo' name='cursonovo'>";
@@ -96,18 +97,18 @@
                     echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome]</option>";
                 } 
                 echo "</select>";
-                echo "<br> <input type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
-            ?><br>
-            <hr class="hrTitle"><br>
-            <h3 > Alterar Senha </h3><br>
-            <h5> Senha Antiga: </h5>
+                echo "<br><br> <input class='botVerm pointer' type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
+            ?><br><br>
+            <hr class="hrMain" style="width: 90%;">
+            <h2> Alterar Senha </h2>
+            <h3> Senha Antiga: </h3>
             <input type='password' id='senhaantiga' maxlength="150" placeholder="Digite sua senha antiga"'>
-            <h5> Senha Nova: </h5>
+            <h3> Senha Nova: </h3>
             <input type='password' id='senhanova1' maxlength="150" placeholder="Digite sua nova senha"'>
-            <h5> Confirmação Senha Nova: </h5>
+            <h3> Confirmação Senha Nova: </h3>
             <input type='password' id='senhanova2' maxlength="150" placeholder="Digite sua nova senha novamente"'>
-            <?php echo "<br> <input type='button' href='home.php' onclick='atualizarsenha($exibiralunos[alu_rm])' value='Alterar Senha!'>"; ?>
-            `;
+            <?php echo "<br><br> <input class='botVerm pointer' type='button' href='home.php' onclick='atualizarsenha($exibiralunos[alu_rm])' value='Alterar Senha'>"; ?>
+            <br>`;
     };
 
     function atualizarsenha(rmdoaluno) {
@@ -118,13 +119,13 @@
             alert("Senha antiga não preenchida!");
             senhaantiga.focus();
         } else if (senhanova1 == "") {
-            alert("Nova senha não preenchida");
+            alert("Nova senha não preenchida!");
             senhanova1.focus();
         } else if (senhanova2 == "") {
-            alert("Confirmação de senha não preenchido");
+            alert("Confirmação de senha não preenchido!");
             senhanova2.focus();
         } else if (senhanova2 != senhanova1) {
-            alert("As senhas não conhecidem!");
+            alert("As senhas não coincidem!");
         } else {
             $.ajax({
                 url: 'others/alterarsenhaalunos_config.php',

@@ -14,8 +14,10 @@ $resultado = mysqli_query($conn, $sql);
 </head>
 
 <body>
-    <div class="login-box esquecitela">
-        <a href='../index.php' ><h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1></a>
+    <div style="height: 40vh !important;" class="login-box esquecitela">
+        <a href='../index.php' class='textdecor'>
+            <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
+        </a>
         <h2>Redefinir Senha</h2>
         <form action="finish/esquecisenhaalunos_finish.php" onsubmit="return validarprimeiro(this);" name="esquecisenha"
             method="post">

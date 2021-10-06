@@ -12,7 +12,7 @@ session_start();
 </head>
 
 <body>
-    <div class="login-box" style="height:55vh;">
+    <div class="login-box" style="height:50vh !important;">
         <a href='index.php' class="textdecor">
             <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         </a>
