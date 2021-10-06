@@ -84,3 +84,24 @@ body {
 .cor3 {
 	color: var(--titlecolor3);
 }
+
+/* CSS para scrollbar diferenciada */
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: hsl(0, 0%, 75%);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: hsl(0, 0%, 50%);
+	border-radius: 10px;
+	border: solid 2px black;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #b30000;
+}

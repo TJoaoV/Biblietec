@@ -611,9 +611,7 @@
         <input hidden type='date' id='dataemprestimo' value='<?php echo date('Y-m-d');?>'>
         <a href='home.php' class="textdecor" style="margin-top: -1.8vh;">
             <h1 tabindex="0" class='titulo' style='text-align: center;'>
-                <span class="cor1">Bibli</span>
-                <span class="cor2">e</span>
-                <span class="cor3">tec</span>
+                <span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span>
             </h1>
         </a>
         <hr class='full'>

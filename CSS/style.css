@@ -155,16 +155,18 @@
 	margin-left: 16vw;
 	font-size: 28px;
 	padding: 0px 10px;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 .corpoTitle {
 	font-size: 4.2vh;
-	margin-top: 2.3vh;
+	margin-top: 1.5vh;
 	text-align: center;
 }
 .hrTitle {
 	margin-top: -5vh;
 	margin-left: -5vw;
-	width: 87.7vw;
+	width: 87.5vw;
 	border: 1px solid hsl(0, 0%, 72%);
 }
 .hrMain {
@@ -202,7 +204,7 @@
 }
 .lista {
 	height: 25vh;
-	overflow: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 }
 /* CSS pra empréstimos */
@@ -221,8 +223,9 @@
 	text-align: center;
 	display: inline;
 	margin: -0.2vw;
+
 	background-color: hsl(0, 0%, 73%);
-	border-bottom: 0.2vw solid hsl(0, 0%, 55%);
+	border-bottom: 0.2vh solid hsl(0, 0%, 55%);
 	border-top-left-radius: 1vh 1vh;
 	border-top-right-radius: 1vh 1vh;
 	cursor: pointer;
@@ -233,6 +236,7 @@
 	padding: 1vh 1.5vw 1vh 1.5vw;
 	text-align: center;
 	text-decoration: none;
+	margin-top: -4vh;
 }
 .navActive {
 	background-color: hsl(0, 0%, 95%) !important;
