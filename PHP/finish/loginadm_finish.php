@@ -5,7 +5,6 @@ $btnLogin = filter_input(INPUT_POST, 'btnlogin', FILTER_SANITIZE_STRING);
 if($btnLogin){
 	$usuario = filter_input(INPUT_POST, 'txtusuario', FILTER_SANITIZE_STRING);
 	$senha = filter_input(INPUT_POST, 'txtsenha', FILTER_SANITIZE_STRING);
-	//echo $senha."<br>";
 	if((!empty($usuario)) AND (!empty($senha))){
 		$senhac=md5($senha);
 		$result_usuario = "SELECT * FROM usuario WHERE usu_logi='$usuario' LIMIT 1";

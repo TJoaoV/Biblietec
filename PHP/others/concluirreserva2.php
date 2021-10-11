@@ -1,12 +1,19 @@
 <?php
+    date_default_timezone_set('America/Sao_Paulo'); 
     include_once("../conexao.php");
+    $datadehoje = date('Y-m-d');
     $rmaluno= $_POST['rmaluno'];
     $idlivro= $_POST['idlivro'];
-    $tabelaempcodi= $_POST['tabelaempcodi'];
     $devolucao= $_POST['devolucao'];
     $now= $_POST['now'];
+
+    $codigo = "SELECT * FROM emprestimo WHERE alu_rm='$rmaluno' and emp_data='$datadehoje'";
+    $cod = mysqli_query($conn, $codigo);
+    $exibircod = mysqli_fetch_assoc($cod);
+    $idemprestimo = $exibircod['emp_codi'];
+
     $produtossql1 = "INSERT INTO corpo_emprestimo(emp_codi, liv_codi, emp_dtde, emp_devo, alu_rm) 
-                    VALUES ('$tabelaempcodi','$idlivro', '$devolucao', 'NÃO Devolvido', '$rmaluno');";
+                    VALUES ('$idemprestimo','$idlivro', '$devolucao', 'NÃO Devolvido', '$rmaluno');";
     $resultado_produtos1 = mysqli_query($conn, $produtossql1);
 
     $produtossql3 = "DELETE FROM preemprestimo where liv_codi='$idlivro' and alu_rm='$rmaluno'";

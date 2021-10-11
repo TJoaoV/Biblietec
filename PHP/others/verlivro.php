@@ -9,6 +9,8 @@
     $editora = $exibir1['liv_edit'];
     $sinopse = $exibir1['liv_sino'];
     $categoriaid = $exibir1['cat_codi'];
+    $qtdtotal = $exibir1['liv_quan'];
+    $qtddisp = $exibir1['liv_qtdd'];
     $buscacategoria = "SELECT * FROM categoria WHERE cat_codi='$categoriaid'";
     $resultado_categoria = mysqli_query($conn, $buscacategoria);
     $exibir2 = mysqli_fetch_assoc($resultado_categoria);
@@ -19,6 +21,9 @@
         "autor" => $autor,
         "editora" => $editora,
         "sinopse" => $sinopse,
-        "categoria" => $categoria)
+        "categoria" => $categoria,
+        "catid" => $categoriaid,
+        "qtdtotal" => $qtdtotal,
+        "qtddisp" => $qtddisp)
     )
 ?>

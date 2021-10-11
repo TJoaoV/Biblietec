@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('America/Sao_Paulo'); 
     include_once("../conexao.php");
     $idtable= $_POST['idtable'];
     $idlivro=$_POST['idlivro'];
@@ -15,5 +16,5 @@
     $resultado_produtos4 = mysqli_query($conn, $produtossql4);
 
 
-    echo "Produto Removido!";
+    echo "Livro Removido!";
 ?>

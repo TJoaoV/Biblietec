@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('America/Sao_Paulo'); 
     session_start();
     try{
         $idRecebido = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -29,7 +30,7 @@
 <html lang="pt">
 
 <head>
-    <title>Biblietec - Procura</title>
+    <title>Biblietec - Alunos</title>
     <?php include('imports.php'); ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
@@ -79,10 +80,14 @@
             <input type='text' value='<?php echo $exibiralunos['alu_rm']?>' readonly disabled>
             <h3> CPF: </h3>
             <input type='text' value='<?php echo $exibiralunos['alu_cpf']?>' readonly disabled>
+            <?php
+                $ano= substr($exibiralunos['alu_dtna'], 0,4);
+                $mes= substr($exibiralunos['alu_dtna'], 5,2);
+                $dia= substr($exibiralunos['alu_dtna'], 8,2);
+            ?>
             <h3> Data de Nascimento: </h3>
-            <input type='text' value='<?php echo $exibiralunos['alu_dtna']?>' readonly disabled><br>
+            <input type='text' value='<?php echo $dia."/".$mes."/".$ano?>' readonly disabled><br>
             <h3> Telefone: </h3>
-            
             <input type='text' id='telefonenovo' maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_tele']?>'>
             <h3> Celular: </h3>
             <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_celu']?>'>
@@ -205,13 +210,11 @@
                         now: dataagora
                     },
                     success: function(tabelaempcodigo) {
-                        var tabelaempcodi = tabelaempcodigo;
                         $.ajax({
                             url: 'others/concluirreserva2.php',
                             type: 'POST',
                             data: {
                                 devolucao: livro1,
-                                tabelaempcodi: tabelaempcodi,
                                 rmaluno: rmaluno,
                                 idlivro: idlivro,
                                 now: now
@@ -219,94 +222,7 @@
                             success: function(mensagemretorno) {
                                 alert(mensagemretorno);
                                 document.location.reload(true);
-                                try {
-                                    var livro2 = document.getElementById('livro2').value;
-                                    var idlivro2 = document.getElementById('livro2').name;
-                                    const past2 = new Date(livro2);
-                                    const diff2 = Math.abs(now.getTime() - past2.getTime());
-                                    const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
-                                    if (days2 <= 30) {
-                                        $.ajax({
-                                            url: 'others/concluirreserva2.php',
-                                            type: 'POST',
-                                            data: {
-                                                devolucao: livro2,
-                                                tabelaempcodi: tabelaempcodi,
-                                                rmaluno: rmaluno,
-                                                idlivro: idlivro2,
-                                                now: now
-                                            },
-                                            success: function(mensagemretorno) {
-                                                alert(mensagemretorno);
-                                                document.location.reload(true);
-                                                try {
-                                                    var livro3 = document
-                                                        .getElementById('livro3')
-                                                        .value;
-                                                    var idlivro3 = document
-                                                        .getElementById('livro3')
-                                                        .name;
-                                                    const past3 = new Date(livro3);
-                                                    const diff3 = Math.abs(now
-                                                        .getTime() - past3
-                                                        .getTime());
-                                                    const days3 = Math.ceil(diff3 /
-                                                        (1000 * 60 * 60 * 24));
-                                                    if (days3 <= 30) {
-                                                        $.ajax({
-                                                            url: 'others/concluirreserva2.php',
-                                                            type: 'POST',
-                                                            data: {
-                                                                devolucao: livro3,
-                                                                tabelaempcodi: tabelaempcodi,
-                                                                rmaluno: rmaluno,
-                                                                idlivro: idlivro3,
-                                                                now: now
-                                                            },
-                                                            success: function(
-                                                                mensagemretorno
-                                                            ) {
-                                                                alert(
-                                                                    mensagemretorno
-                                                                );
-                                                                document
-                                                                    .location
-                                                                    .reload(
-                                                                        true
-                                                                    );
-                                                            },
-                                                            error: function(
-                                                                jqXHR,
-                                                                textStatus
-                                                            ) {
-                                                                console
-                                                                    .log(
-                                                                        'error ' +
-                                                                        textStatus +
-                                                                        " " +
-                                                                        jqXHR
-                                                                    );
-                                                            }
-                                                        });
-                                                    } else {
-                                                        alert(
-                                                            'O Prazo máximo para devolução do livro é de 30 dias!'
-                                                        );
-                                                    }
-                                                } catch {};
-                                            },
-                                            error: function(jqXHR, textStatus) {
-                                                console.log('error ' + textStatus +
-                                                    " " + jqXHR);
-                                            }
-                                        });
-                                    } else {
-                                        alert(
-                                            'O Prazo máximo para devolução do livro é de 30 dias!'
-                                        );
-                                    }
-
-                                } catch {};
+                                //
                             },
                             error: function(jqXHR, textStatus) {
                                 console.log('error ' + textStatus + " " + jqXHR);
@@ -324,6 +240,64 @@
         } catch {
             document.location.reload(true);
         };
+        try {
+            var livro2 = document.getElementById('livro2').value;
+            var idlivro2 = document.getElementById('livro2').name;
+            const past2 = new Date(livro2);
+            const diff2 = Math.abs(now.getTime() - past2.getTime());
+            const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
+            if (days2 <= 30) {
+                $.ajax({
+                    url: 'others/concluirreserva2.php',
+                    type: 'POST',
+                    data: {
+                        devolucao: livro2,
+                        rmaluno: rmaluno,
+                        idlivro: idlivro2,
+                        now: now
+                    },
+                    success: function(mensagemretorno) {
+                        alert(mensagemretorno);
+                        document.location.reload(true);
+                        //
+                    },
+                    error: function(jqXHR, textStatus) {
+                        console.log('error ' + textStatus + " " + jqXHR);
+                    }
+                });
+            } else {
+                alert('O Prazo máximo para devolução do livro é de 30 dias!');
+            }
+
+        } catch {document.location.reload(true);};
+        try {
+            var livro3 = document.getElementById('livro3').value;
+            var idlivro3 = document.getElementById('livro3').name;
+            const past3 = new Date(livro3);
+            const diff3 = Math.abs(now.getTime() - past3.getTime());
+            const days3 = Math.ceil(diff3 /(1000 * 60 * 60 * 24));
+            if (days3 <= 30) {
+                $.ajax({
+                    url: 'others/concluirreserva2.php',
+                    type: 'POST',
+                    data: {
+                        devolucao: livro3,
+                        rmaluno: rmaluno,
+                        idlivro: idlivro3,
+                        now: now
+                    },
+                    success: function(mensagemretorno) {
+                        alert(mensagemretorno);
+                        document.location.reload(true);
+                    },
+                    error: function(jqXHR,textStatus) {
+                        console.log('error ' +textStatus +" " +jqXHR);
+                    }
+                });
+            } else {
+                alert('O Prazo máximo para devolução do livro é de 30 dias!');
+            }
+        } catch {document.location.reload(true);};
     };
 
     function carregou() {
@@ -362,7 +336,10 @@
                     echo "<td>$exibir_pre[liv_codi]</td>";
                     echo "<td>$exibir_buscalista[liv_titu]</td>";
                     echo "<td>$exibir_buscalista[liv_auto]</td>";
-                    echo "<td>$exibir_pre[pre_data]</td>";
+                    $ano= substr($exibir_pre['pre_data'], 0,4);
+                    $mes= substr($exibir_pre['pre_data'], 5,2);
+                    $dia= substr($exibir_pre['pre_data'], 8,2);
+                    echo "<td>$dia/$mes/$ano</td>";
                     echo "<td>
                     <a class='btnsidenav' id='$exibir_pre[pre_codi]' onclick='remover_livro($exibir_pre[pre_codi], $exibir_pre[liv_codi])'>
                     <img src=../img/botao_excluir.png width='20px' height='20px'>
@@ -528,8 +505,14 @@
                         echo "<tr>";
                         echo "<td nome='1' id='1'> $exibir_emp_finalizado[emp_codi]</td>";
                         echo "<td nome='1' id='1'> $exibir_sql_emprestimofinalizado2[liv_titu]</td>";
-                        echo "<td nome='1' id='1'> $exibir_sql_emprestimofinalizado3[emp_data]</td>";
-                        echo "<td nome='1' id='1'> $exibir_emp_finalizado[cor_dtde] </td>";
+                        $ano= substr($exibir_sql_emprestimofinalizado3['emp_data'], 0,4);
+                        $mes= substr($exibir_sql_emprestimofinalizado3['emp_data'], 5,2);
+                        $dia= substr($exibir_sql_emprestimofinalizado3['emp_data'], 8,2);
+                        echo "<td nome='1' id='1'> $dia/$mes/$ano</td>";
+                        $ano2= substr($exibir_emp_finalizado['cor_dtde'], 0,4);
+                        $mes2= substr($exibir_emp_finalizado['cor_dtde'], 5,2);
+                        $dia2= substr($exibir_emp_finalizado['cor_dtde'], 8,2);
+                        echo "<td nome='1' id='1'> $dia2/$mes2/$ano2 </td>";
                         echo "</tr>";
                     }
                 ?>

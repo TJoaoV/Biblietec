@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('America/Sao_Paulo'); 
     include_once("../conexao.php");
     $idlivro= $_POST['idlivro'];
     $alunorm= $_POST['alunorm'];
