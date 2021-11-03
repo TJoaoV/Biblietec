@@ -13,7 +13,7 @@ $resultado = mysqli_query($conn, $sql);
     <script type="text/javascript" src="../JS/esquecisenhaalunosjs.js"></script>
 </head>
 
-<body class="fundoDiferente">
+<body>
     <div style="height: 40vh !important;" class="login-box esquecitela">
         <a href='../index.php' class='textdecor'>
             <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>

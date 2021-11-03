@@ -6,7 +6,7 @@
     <title>Biblietec - Alterar Senha</title>
 </head>
 
-<body class="fundoDiferente">
+<body>
     <div class="login-box" style="height: 20vh">
         <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <?php

@@ -11,7 +11,7 @@ $mensagem = $_SESSION['msg'];
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 
-<body class="fundoDiferente">
+<body>
     <div class="login-box" style="height: 22vh">
         <h2><?php echo $mensagem ?></h2>
         <button class="botVerm pointer" style="width: 15vw;" onclick="location.href='../../index.php'">Voltar</button>

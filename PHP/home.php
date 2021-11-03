@@ -599,14 +599,29 @@
             </h1>
         </a>
         <hr class='full'>
-        <a tabindex="1" href='home.php?id=4'>Aluno: <?php echo $nome ?></a><br>
+        <a tabindex="1" href='home.php?id=4'>
+            <p class="big">Aluno: <?php echo $nome ?> </p>
+            <img class="small" src="../img/botao_pessoa.png" style="height:3rem; width:auto;">
+        
+        </a><br>
         <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
         <hr class='full'>
-        <?php echo '<a tabindex="2" href="home.php?id=3" class="btnsidenav" id="btnProcurar">Procurar</a>' ?>
+        
+            <?php echo '<a tabindex="2"  href="home.php?id=3" class="btnsidenav" id="btnProcurar">
+            <p class="big">Procurar</p>
+            <img class="small" src="../img/botao_procurar.png" style="height:3rem; width:auto;">
+            </a>' ?>
+        
         <hr>
-        <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>Empréstimos</a>
+        <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>
+            <p class="big">Empréstimos</p>
+            <img class="small" src="../img/botao_emprestimo.png" style="height:3rem; width:auto;">
+        </a>
         <hr>
-        <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">Carrinho</a>' ?>
+        <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">
+        <p class="big">Carrinho</p>
+        <img class="small" src="../img/botao_carrinho.png" style="height:3rem; width:auto;">
+        </a>' ?>
         <hr>
         <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>

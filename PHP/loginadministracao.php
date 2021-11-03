@@ -10,9 +10,9 @@ session_start();
     <script type="text/javascript" src="../JS/loginadm.js"></script>
 </head>
 
-<body class="fundoDiferente">
+<body>
     <form onsubmit="return validaradm(this);" action='finish/loginadm_finish.php' method='POST' name='login' class=''>
-        <div class="login-box" style="height: 42%;">
+        <div class="login-box">
             <a href='../index.php' class="textdecor">
                 <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
             </a>

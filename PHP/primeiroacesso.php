@@ -12,7 +12,7 @@ $resultado = mysqli_query($conn, $sql);
     <script type="text/javascript" src="../JS/primeiroacessoj.js"></script>
 </head>
 
-<body class="fundoDiferente">
+<body>
     <div class='corpoCadastro'>
         <form action="finish/primeiroacesso_finish.php" onsubmit="return validarprimeiro(this);" method='POST'
             name='cadastro' class=''>

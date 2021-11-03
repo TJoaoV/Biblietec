@@ -26,8 +26,10 @@
     $resultado7 = mysqli_query($conn, $sql7);
     $sql8 = "SELECT * FROM cursos";
     $resultado8 = mysqli_query($conn, $sql8);
+    $sql9 = "SELECT * FROM usuario WHERE usu_logi='$login'";
+    $resultado9 = mysqli_query($conn, $sql9);
+    $resultado9_ = mysqli_fetch_assoc($resultado9);
 ?>
-<!DOCTYPE html>
 <html lang="pt">
 
 <head>
@@ -51,7 +53,7 @@
             alterarCadAlunos();
         };
         if (idrecebidoreload == "4") {
-            //btnNome();
+            btnNome();
         };
         if (idrecebidoreload == "99") {
             //validarfinalizacao();
@@ -70,6 +72,131 @@
         //     btnContinuarEmprestimo();
         // });
     });
+
+    function atualizarsenha(usuarioadm) {
+        var senhaantiga = document.getElementById('senhaantiga').value;
+        var senhanova1 = document.getElementById('senhanova1').value;
+        var senhanova2 = document.getElementById('senhanova2').value;
+        if (senhaantiga == "") {
+            alert("Senha antiga não preenchida!");
+            senhaantiga.focus();
+        } else if (senhanova1 == "") {
+            alert("Nova senha não preenchida!");
+            senhanova1.focus();
+        } else if (senhanova2 == "") {
+            alert("Confirmação de senha não preenchido!");
+            senhanova2.focus();
+        } else if (senhanova2 != senhanova1) {
+            alert("As senhas não coincidem!");
+        } else {
+            $.ajax({
+                url: 'others/alterarsenhaadm_config.php',
+                type: 'POST',
+                data: {
+                    usuarioadm: usuarioadm,
+                    senhaantiga: senhaantiga,
+                    senhanova1: senhanova1,
+                    senhanova2: senhanova2,
+                },
+                success: function(retornomudancasenha) {
+                    alert(retornomudancasenha);
+                    document.location.reload(true);
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        };
+    };
+
+    function atualizarcadastro(usuario_adm) {
+        var newnome = document.getElementById('nomenovo').value;
+        var newusuario = document.getElementById('usuarionovo').value;
+        var newtelefone = document.getElementById('telefonenovo').value;
+        var newcelular = document.getElementById('celularnovo').value;
+        var newemail = document.getElementById('emailnovo').value;
+        var newendereco = document.getElementById('endereconovo').value;
+        if (newtelefone && newcelular == "") {
+            alert('Preencher pelo menos um telefone!');
+        } else if (newemail == "") {
+            alert('Preencher email!');
+            newemail.focus();
+        } else if (newusuario == "") {
+            alert('Preencher o usuário!');
+            newcurso.focus();
+        } else if (newnome == "") {
+            alert('Preencher o nome!');
+            newnome.focus();
+        } else if (newendereco == ""){
+            alert('Preencher o endereço!');
+            newendereco.focus();
+        } else{
+            $.ajax({
+                url: 'others/atualizarcadastroadm.php',
+                type: 'POST',
+                data: {
+                    usuario_adm: usuario_adm,
+                    newnome: newnome,
+                    newusuario: newusuario,
+                    newtelefone: newtelefone,
+                    newcelular: newcelular,
+                    newemail: newemail,
+                    newendereco: newendereco
+                },
+                success: function(retornoatualização) {
+                    alert(retornoatualização);
+                    document.location.reload(true);
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+
+    function btnNome() {
+        document.getElementById('main3').innerHTML = "";
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML = `
+        <h3 class="corpoTitle"> Configurações </h3><br>
+        <hr class="hrTitle"><br>
+        <div class="corpoCadastro">
+        <br>
+            <h3> Nome: </h3>
+            <input type='text' id='nomenovo' value='<?php echo $resultado9_['usu_nome']?>' >
+            <h3> CPF: </h3>
+            <input type='text' value='<?php echo $resultado9_['usu_cpf']?>' readonly disabled>
+            <?php
+                $ano= substr($resultado9_['usu_dtna'], 0,4);
+                $mes= substr($resultado9_['usu_dtna'], 5,2);
+                $dia= substr($resultado9_['usu_dtna'], 8,2);
+            ?>
+            <h3> Data de Nascimento: </h3>
+            <input type='text' value='<?php echo $dia."/".$mes."/".$ano?>' readonly disabled><br>
+            <h3> Usuário: </h3>
+            <input type='text' id='usuarionovo' value='<?php echo $resultado9_['usu_logi']?>'>
+            <h3> Telefone: </h3>
+            <input type='text' id='telefonenovo' maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $resultado9_['usu_tele']?>'>
+            <h3> Celular: </h3>
+            <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $resultado9_['usu_celu']?>'>
+            <h3> Email: </h3>
+            <input type='email' id='emailnovo' value='<?php echo $resultado9_['usu_emai']?>'>
+            <h3> Endereço: </h3>
+            <input type='text' id='endereconovo' value='<?php echo $resultado9_['usu_ende']?>'>
+            <?php
+                echo "<br><br> <input class='botVerm pointer' type='button' href='home.php' onclick='atualizarcadastro($usuarioadm)' value='Salvar Alterações'>";
+            ?><br><br>
+            <hr class="hrMain" style="width: 90%;">
+            <h2> Alterar Senha </h2>
+            <h3> Senha Antiga: </h3>
+            <input type='password' id='senhaantiga' maxlength="150" placeholder="Digite sua senha antiga"'>
+            <h3> Senha Nova: </h3>
+            <input type='password' id='senhanova1' maxlength="150" placeholder="Digite sua nova senha"'>
+            <h3> Confirmação Senha Nova: </h3>
+            <input type='password' id='senhanova2' maxlength="150" placeholder="Digite sua nova senha novamente"'>
+            <?php echo "<br><br> <input class='botVerm pointer' type='button' href='home_adm.php' onclick='atualizarsenha($usuarioadm)' value='Alterar Senha'>"; ?>
+            <br>`;
+    };
 
     function alterarCadAlunos(){
         document.getElementById('main2').innerHTML = "";
@@ -154,7 +281,7 @@
                             echo "</select>";
                         ?><br>
                         <label><b> Situação Senha: </b></label>
-                        <label>`+ dados.senharedefinida + ` (1: Redefinição Solicitada/Pendente, 2: Senha normal)</label> <br>
+                        <label>`+ dados.senharedefinida + ` (0: Senha normal, 1: Redefinição Solicitada/Pendente)</label> <br>
                         <div class='alinharmeio'>
                         <input class='botVerm pointer' type='button' onClick ='edicaoaluno(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesAluno'><br>
                         <input class='botVerm pointer' type='button' onClick ='redefinirsenhaaluno(` + dados.codigo + `, `+codigoadm+`)' value=' Redefinir Senha ' id='btnRedefinirSenha'><br>
@@ -741,7 +868,7 @@
                     class="cor2">e</span><span class="cor3">tec</span></h1>
         </a>
         <hr class='full'>
-        <a tabindex="1" href='home.php?id=4'><?php echo $nome ?></a><br>
+        <a tabindex="1" href='home_adm.php?id=4'><?php echo $nome ?></a><br>
         <hr class='full'>
         <?php echo '<a tabindex="2" href="home_adm.php?id=1" class="btnsidenav" id="btnProcurar">Consultar Empréstimos</a>' ?>
         <hr>

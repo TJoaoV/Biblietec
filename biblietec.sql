@@ -1,25 +1,26 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
+-- version 4.0.4.2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Tempo de geração: 11-Out-2021 às 05:27
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Máquina: localhost
+-- Data de Criação: 03-Nov-2021 às 12:33
+-- Versão do servidor: 5.6.13
+-- versão do PHP: 5.4.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Banco de dados: `biblietec`
+-- Base de Dados: `biblietec`
 --
+CREATE DATABASE IF NOT EXISTS `biblietec` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `biblietec`;
 
 -- --------------------------------------------------------
 
@@ -27,8 +28,8 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `alunos`
 --
 
-CREATE TABLE `alunos` (
-  `alu_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `alunos` (
+  `alu_codi` int(11) NOT NULL AUTO_INCREMENT,
   `alu_rm` int(11) NOT NULL,
   `alu_nome` varchar(100) NOT NULL,
   `alu_senh` varchar(150) NOT NULL,
@@ -38,8 +39,13 @@ CREATE TABLE `alunos` (
   `alu_emai` varchar(150) NOT NULL,
   `alu_dtna` date NOT NULL,
   `alu_reds` int(1) NOT NULL COMMENT 'Redefinição de senha (1 - Redefinida, 0 - Normal)',
-  `cur_codi` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `cur_codi` int(11) NOT NULL,
+  PRIMARY KEY (`alu_codi`),
+  UNIQUE KEY `alu_rm` (`alu_rm`),
+  UNIQUE KEY `alu_cpf` (`alu_cpf`),
+  KEY `cur_codi` (`cur_codi`),
+  FULLTEXT KEY `alu_nome` (`alu_nome`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Extraindo dados da tabela `alunos`
@@ -55,10 +61,11 @@ INSERT INTO `alunos` (`alu_codi`, `alu_rm`, `alu_nome`, `alu_senh`, `alu_cpf`, `
 -- Estrutura da tabela `categoria`
 --
 
-CREATE TABLE `categoria` (
-  `cat_codi` int(11) NOT NULL,
-  `cat_nome` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `cat_codi` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_nome` varchar(60) NOT NULL,
+  PRIMARY KEY (`cat_codi`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `categoria`
@@ -83,8 +90,8 @@ INSERT INTO `categoria` (`cat_codi`, `cat_nome`) VALUES
 -- Estrutura da tabela `corpo_emprestimo`
 --
 
-CREATE TABLE `corpo_emprestimo` (
-  `cor_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `corpo_emprestimo` (
+  `cor_codi` int(11) NOT NULL AUTO_INCREMENT,
   `emp_codi` int(11) NOT NULL,
   `liv_codi` int(11) NOT NULL COMMENT 'Relacionado com tabela livros',
   `emp_dtde` date NOT NULL COMMENT 'Data Devolução (previsão)',
@@ -93,8 +100,12 @@ CREATE TABLE `corpo_emprestimo` (
   `cor_dten` date DEFAULT NULL COMMENT 'Data de Entrega do Livro',
   `cor_dtde` date DEFAULT NULL COMMENT 'Data que foi devolvido',
   `alu_rm` int(11) NOT NULL,
-  `usu_codi` int(20) DEFAULT NULL COMMENT 'Relacionado com tabela usuario (Usuário que fez o emprestimo)'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `usu_codi` int(20) DEFAULT NULL COMMENT 'Relacionado com tabela usuario (Usuário que fez o emprestimo)',
+  PRIMARY KEY (`cor_codi`),
+  KEY `liv_codi` (`liv_codi`),
+  KEY `emp_codi` (`emp_codi`),
+  KEY `usuariofk` (`usu_codi`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `corpo_emprestimo`
@@ -111,12 +122,13 @@ INSERT INTO `corpo_emprestimo` (`cor_codi`, `emp_codi`, `liv_codi`, `emp_dtde`, 
 -- Estrutura da tabela `cursos`
 --
 
-CREATE TABLE `cursos` (
-  `cur_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cursos` (
+  `cur_codi` int(11) NOT NULL AUTO_INCREMENT,
   `cur_nome` varchar(100) NOT NULL,
   `cur_dura` varchar(20) NOT NULL,
-  `cur_peri` enum('INTEGRAL','MANHÃ','TARDE','NOITE') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `cur_peri` enum('INTEGRAL','MANHÃ','TARDE','NOITE') NOT NULL,
+  PRIMARY KEY (`cur_codi`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Extraindo dados da tabela `cursos`
@@ -131,11 +143,12 @@ INSERT INTO `cursos` (`cur_codi`, `cur_nome`, `cur_dura`, `cur_peri`) VALUES
 -- Estrutura da tabela `emprestimo`
 --
 
-CREATE TABLE `emprestimo` (
-  `emp_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `emprestimo` (
+  `emp_codi` int(11) NOT NULL AUTO_INCREMENT,
   `alu_rm` varchar(11) NOT NULL COMMENT 'Relacionado com tabela alunos',
-  `emp_data` date NOT NULL COMMENT 'Data emprestimo'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `emp_data` date NOT NULL COMMENT 'Data emprestimo',
+  PRIMARY KEY (`emp_codi`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Extraindo dados da tabela `emprestimo`
@@ -150,17 +163,19 @@ INSERT INTO `emprestimo` (`emp_codi`, `alu_rm`, `emp_data`) VALUES
 -- Estrutura da tabela `livros`
 --
 
-CREATE TABLE `livros` (
-  `liv_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `livros` (
+  `liv_codi` int(11) NOT NULL AUTO_INCREMENT,
   `liv_titu` varchar(100) NOT NULL,
   `liv_auto` varchar(100) NOT NULL,
   `liv_edit` varchar(80) NOT NULL,
   `cat_codi` int(11) NOT NULL COMMENT 'Relacionado com tabela categoria',
   `liv_sino` varchar(900) NOT NULL COMMENT 'Sinopse',
-  `liv_imag` longblob DEFAULT NULL COMMENT 'Imagem do livro',
+  `liv_imag` longblob COMMENT 'Imagem do livro',
   `liv_quan` int(100) NOT NULL COMMENT 'Quantidade total de livros',
-  `liv_qtdd` int(1) NOT NULL COMMENT 'Quantidade disponível de livros'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `liv_qtdd` int(1) NOT NULL COMMENT 'Quantidade disponível de livros',
+  PRIMARY KEY (`liv_codi`),
+  KEY `cat_codi` (`cat_codi`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Extraindo dados da tabela `livros`
@@ -180,12 +195,15 @@ INSERT INTO `livros` (`liv_codi`, `liv_titu`, `liv_auto`, `liv_edit`, `cat_codi`
 -- Estrutura da tabela `preemprestimo`
 --
 
-CREATE TABLE `preemprestimo` (
-  `pre_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `preemprestimo` (
+  `pre_codi` int(11) NOT NULL AUTO_INCREMENT,
   `liv_codi` int(11) NOT NULL,
   `alu_rm` int(11) NOT NULL,
-  `pre_data` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `pre_data` date NOT NULL,
+  PRIMARY KEY (`pre_codi`),
+  KEY `liv_codi` (`liv_codi`),
+  KEY `alu_rm` (`alu_rm`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -193,139 +211,32 @@ CREATE TABLE `preemprestimo` (
 -- Estrutura da tabela `usuario`
 --
 
-CREATE TABLE `usuario` (
-  `usu_codi` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `usu_codi` int(11) NOT NULL AUTO_INCREMENT,
   `usu_nome` varchar(100) NOT NULL,
-  `usu_emai` varchar(150) NOT NULL,
   `usu_logi` varchar(50) NOT NULL,
+  `usu_cpf` varchar(11) NOT NULL,
+  `usu_ende` varchar(100) NOT NULL,
+  `usu_dtna` date NOT NULL,
+  `usu_tele` varchar(10) DEFAULT NULL,
+  `usu_celu` varchar(11) DEFAULT NULL,
+  `usu_emai` varchar(150) NOT NULL,
   `usu_senh` varchar(50) NOT NULL,
   `usu_perm` enum('Administrador','Bibliotecário') NOT NULL,
-  `usu_reds` int(2) NOT NULL COMMENT '	Redefinição de senha (1 - Redefinida, 0 - Normal)'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `usu_reds` int(2) NOT NULL COMMENT '	Redefinição de senha (1 - Redefinida, 0 - Normal)',
+  `usu_ativ` int(1) NOT NULL COMMENT '1 - usuário ativo e 0 - Usuário inativo',
+  PRIMARY KEY (`usu_codi`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`usu_codi`, `usu_nome`, `usu_emai`, `usu_logi`, `usu_senh`, `usu_perm`, `usu_reds`) VALUES
-(1, 'Guilherme Sperandini Costa', 'guispcosta@gmail.com', 'guispcosta', '202cb962ac59075b964b07152d234b70', 'Administrador', 0);
+INSERT INTO `usuario` (`usu_codi`, `usu_nome`, `usu_logi`, `usu_cpf`, `usu_ende`, `usu_dtna`, `usu_tele`, `usu_celu`, `usu_emai`, `usu_senh`, `usu_perm`, `usu_reds`, `usu_ativ`) VALUES
+(1, 'Guilherme Sperandini Costa', 'guispcosta', '44115123869', 'Rua Abilio dos Santos, 150, Jd Roselandia, Jeriquara/SP', '2004-06-15', '', '16991624093', 'guispcosta@gmail.com', '202cb962ac59075b964b07152d234b70', 'Administrador', 0, 1);
 
 --
--- Índices para tabelas despejadas
---
-
---
--- Índices para tabela `alunos`
---
-ALTER TABLE `alunos`
-  ADD PRIMARY KEY (`alu_codi`),
-  ADD UNIQUE KEY `alu_rm` (`alu_rm`),
-  ADD UNIQUE KEY `alu_cpf` (`alu_cpf`),
-  ADD KEY `cur_codi` (`cur_codi`);
-ALTER TABLE `alunos` ADD FULLTEXT KEY `alu_nome` (`alu_nome`);
-
---
--- Índices para tabela `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`cat_codi`);
-
---
--- Índices para tabela `corpo_emprestimo`
---
-ALTER TABLE `corpo_emprestimo`
-  ADD PRIMARY KEY (`cor_codi`),
-  ADD KEY `liv_codi` (`liv_codi`),
-  ADD KEY `emp_codi` (`emp_codi`),
-  ADD KEY `usuariofk` (`usu_codi`);
-
---
--- Índices para tabela `cursos`
---
-ALTER TABLE `cursos`
-  ADD PRIMARY KEY (`cur_codi`);
-
---
--- Índices para tabela `emprestimo`
---
-ALTER TABLE `emprestimo`
-  ADD PRIMARY KEY (`emp_codi`);
-
---
--- Índices para tabela `livros`
---
-ALTER TABLE `livros`
-  ADD PRIMARY KEY (`liv_codi`),
-  ADD KEY `cat_codi` (`cat_codi`);
-
---
--- Índices para tabela `preemprestimo`
---
-ALTER TABLE `preemprestimo`
-  ADD PRIMARY KEY (`pre_codi`),
-  ADD KEY `liv_codi` (`liv_codi`),
-  ADD KEY `alu_rm` (`alu_rm`);
-
---
--- Índices para tabela `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`usu_codi`);
-
---
--- AUTO_INCREMENT de tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `alunos`
---
-ALTER TABLE `alunos`
-  MODIFY `alu_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `cat_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de tabela `corpo_emprestimo`
---
-ALTER TABLE `corpo_emprestimo`
-  MODIFY `cor_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de tabela `cursos`
---
-ALTER TABLE `cursos`
-  MODIFY `cur_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `emprestimo`
---
-ALTER TABLE `emprestimo`
-  MODIFY `emp_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `livros`
---
-ALTER TABLE `livros`
-  MODIFY `liv_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de tabela `preemprestimo`
---
-ALTER TABLE `preemprestimo`
-  MODIFY `pre_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de tabela `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `usu_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Restrições para despejos de tabelas
+-- Constraints for dumped tables
 --
 
 --
@@ -347,7 +258,6 @@ ALTER TABLE `corpo_emprestimo`
 --
 ALTER TABLE `livros`
   ADD CONSTRAINT `categoriafk` FOREIGN KEY (`cat_codi`) REFERENCES `categoria` (`cat_codi`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
