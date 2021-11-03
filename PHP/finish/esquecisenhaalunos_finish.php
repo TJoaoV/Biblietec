@@ -6,7 +6,7 @@
     <title>Biblietec - Redefinição de Senha</title>
 </head>
 
-<body>
+<body class="fundoDiferente">
     <div class="login-box" style="height:25vh">
         <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <div class="redSenhaA">

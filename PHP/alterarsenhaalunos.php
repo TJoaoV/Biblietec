@@ -11,7 +11,7 @@ $id = $_SESSION['id'];
     <title> Biblietec- Alterar Senha </title>
 </head>
 
-<body>
+<body class="fundoDiferente">
     <div class="login-box">
         <h2> Alterar Senha </h2>
         <form action='finish/alterarsenhaalunos_finish.php' onsubmit="return validarprimeiro(this);" name='alterarsenha'

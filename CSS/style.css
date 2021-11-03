@@ -143,7 +143,9 @@
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
-
+.corpoCadastro input:disabled {
+	background-color: hsl(0, 0%, 75%);
+}
 .redSenhaA {
 	width: 26.8vw;
 }
