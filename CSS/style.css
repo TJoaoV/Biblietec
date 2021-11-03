@@ -143,9 +143,7 @@
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
-.corpoCadastro input:disabled {
-	background-color: hsl(0, 0%, 75%);
-}
+
 .redSenhaA {
 	width: 26.8vw;
 }
@@ -287,6 +285,10 @@
 }
 .alinharmeio {
 	text-align: center;
+}
+.imgalinharmeio {
+	margin-left: auto;
+	margin-right: auto;
 }
 .fundoBranco {
 	margin: 2rem auto 2rem auto;
