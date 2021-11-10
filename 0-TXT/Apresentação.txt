@@ -1,0 +1,10 @@
+Apresentação Professores
+1- Apresenta ideia e objetivo  (Kayke)
+2- Cadastro e tela inicial-> Até Procurar (Giulio)
+3- Empréstimo e Carrinho (Jão)
+4- Adm - menos Consultar Empréstimo (Guilherme)
+5- Adm - Consultar empréstimo (Sperandini)
+
+Apresentação Alunos (Simplificada)
+
+
