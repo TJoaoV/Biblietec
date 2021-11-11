@@ -35,6 +35,9 @@
 <head>
     <title>Biblietec - Administração</title>
     <?php include('imports.php'); ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" src="../JS/home_adm.js"></script>
     <script>
@@ -127,10 +130,10 @@
         } else if (newnome == "") {
             alert('Preencher o nome!');
             newnome.focus();
-        } else if (newendereco == ""){
+        } else if (newendereco == "") {
             alert('Preencher o endereço!');
             newendereco.focus();
-        } else{
+        } else {
             $.ajax({
                 url: 'others/atualizarcadastroadm.php',
                 type: 'POST',
@@ -198,12 +201,11 @@
             <br>`;
     };
 
-    function alterarCadAlunos(){
+    function alterarCadAlunos() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
-            `<h3 class="corpoTitle"> Procurar Livros </h3><br>
+            `<h3 class="corpoTitle"> Procurar Alunos </h3><br>
             <hr class="hrTitle"><br>
-            <p class="corpoText"><b>Selecione o Livro que deseja editar!</b></p>
             <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o nome aqui!" >
             <table>
             <ul class="lista" style="list-style-type:none;  ">
@@ -252,26 +254,28 @@
                 success: function(dados) {
                     document.getElementById('main2').innerHTML =
                         `<div class="result">
-                        <hr class='hrMain'> 
-                        <label><b> Código do Aluno: </b></label>
+                        <hr class='hrMain'>
+                        <div class="corpoCadastro"> <br>
+                        <h3> Código do Aluno: </h3>
                         <input type='text' id='txtCodi' readonly value='` + dados.codigo + `'> <br>
-                        <label><b> RM: </b></label>
+                        <h3> RM: </h3>
                         <input type='number' id='txtRM' value='` + dados.rm + `'> <br>
-                        <label><b> Nome: </b></label>
+                        <h3> Nome: </h3>
                         <input type='text' id='txtNome' value='` + dados.nome + `'><br>
-                        <label><b> CPF: </b></label>
+                        <h3> CPF: </h3>
                         <input type='text' id='txtCPF' value='` + dados.cpf + `'><br>
-                        <label><b> Telefone: </b></label>
-                        <input type='number' id='txtTelefone'value='`+ dados.telefone +`'><br>
-                        <label><b> Celular: </b></label>
-                        <input type='number'id='txtCelular'value='`+ dados.celular + `'><br>
-                        <label><b> Email: </b></label>
+                        <h3> Telefone: </h3>
+                        <input type='number' id='txtTelefone'value='` + dados.telefone + `'><br>
+                        <h3> Celular: </h3>
+                        <input type='number'id='txtCelular'value='` + dados.celular + `'><br>
+                        <h3> Email: </h3>
                         <input type='email' id='txtEmail' value='` + dados.email + `'><br>
-                        <label><b> Data de Nascimento: </b></label>
+                        <h3> Data de Nascimento: </h3>
                         <input type='date' id='txtDtNascimento' value='` + dados.datanascimento + `'><br>
-                        <label><b> Curso: </b></label> <label> Curso Antigo </label>
-                        <input type='text' id='txtCursoAntigo' readoly size="50" name='` + dados.cursoid + `' value='` + dados.cursonome + `'><br>
-                        <label> Selecione o novo curso </label>
+                        <h3> Antigo Curso: </h3>
+                        <input type='text' id='txtCursoAntigo' disabled readoly size="50" name='` + dados.cursoid +
+                        `' value='` + dados.cursonome + `'><br>
+                        <h3> Novo Curso: </h3>
                         <?php
                             echo "<select id='selectCursoNovo' name='selectCursoNovo'>";
                             echo "<option value='-'> Selecione o Novo Curso </option>";
@@ -280,11 +284,12 @@
                             };
                             echo "</select>";
                         ?><br>
-                        <label><b> Situação Senha: </b></label>
-                        <label>`+ dados.senharedefinida + ` (0: Senha normal, 1: Redefinição Solicitada/Pendente)</label> <br>
-                        <div class='alinharmeio'>
+                        <h3> Situação Senha: </h3>
+                        <input type='text' id='txtSitSenha' value='` + dados.senharedefinida + `' disabled>
+                        <span style="padding: 10%; font-size: 1rem;">(0: Senha normal | 1: Redefinição Solicitada/Pendente)</span> <br>
                         <input class='botVerm pointer' type='button' onClick ='edicaoaluno(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesAluno'><br>
-                        <input class='botVerm pointer' type='button' onClick ='redefinirsenhaaluno(` + dados.codigo + `, `+codigoadm+`)' value=' Redefinir Senha ' id='btnRedefinirSenha'><br>
+                        <input class='botVerm pointer' type='button' onClick ='redefinirsenhaaluno(` + dados.codigo +
+                        `, ` + codigoadm + `)' value=' Redefinir Senha ' id='btnRedefinirSenha'><br>
                         </div>
                         </div>`;
                 },
@@ -295,10 +300,9 @@
         }
     };
 
-    function redefinirsenhaaluno(idaluno, usuarioadm){
+    function redefinirsenhaaluno(idaluno, usuarioadm) {
         var senha = prompt("Digite sua senha para confirmação:");
-        if (senha!=null)
-        {
+        if (senha != null) {
             $.ajax({
                 url: 'others/redefinirsenhaAluno_adm.php',
                 type: 'POST',
@@ -318,7 +322,7 @@
         };
     };
 
-    function edicaoaluno(idaluno){
+    function edicaoaluno(idaluno) {
         var codi = document.getElementById('txtCodi').value;
         var newrm = document.getElementById('txtRM').value;
         var newnome = document.getElementById('txtNome').value;
@@ -354,12 +358,11 @@
         });
     };
 
-    function btnConfigLivros(){
+    function btnConfigLivros() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
             `<h3 class="corpoTitle"> Procurar Livros </h3><br>
             <hr class="hrTitle"><br>
-            <p class="corpoText"><b>Selecione o Livro que deseja editar!</b></p>
             <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o nome aqui!" >
             <table>
             <ul class="lista" style="list-style-type:none;  ">
@@ -371,7 +374,8 @@
             ?>
             </ul>
             </table>`;
-        document.getElementById('main3').innerHTML = `
+        document.getElementById('main3').innerHTML =
+            `
         <input class='botVerm pointer' type='button' onClick ='adicionarlivro()' value=' Adicionar Livro ' id='btnSalvarAlteracoesLivros'><br>`;
         // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
         pesquisa_input = document.querySelectorAll(".pesquisa");
@@ -391,21 +395,23 @@
         };
     };
 
-    function adicionarlivro(){
+    function adicionarlivro() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main1').innerHTML = `
             <h3 class="corpoTitle"> Adicionar Livro </h3><br>
             <hr class="hrTitle"><br>
-            <p class="corpoText"><b>Preencha as informações abaixo para adicionar!</b></p>
+            <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
+            <div class="corpoCadastro">
             <form method='POST' name='addlivro' onsubmit="return validaraddlivro(this);">
-            <label><b> Título do Livro: </b></label>
+            <br>
+            <h3> Título do Livro: </h3>
             <input type='text' id='txtTituloADD'> <br>
-            <label><b> Autor: </b></label>
+            <h3> Autor: </h3>
             <input type='text' id='txtAutorADD'><br>
-            <label><b> Editora: </b></label>
+            <h3> Editora: </h3>
             <input type='text' id='txtEditoraADD'><br>
-            <label><b> Categoria: </b></label>
+            <h3> Categoria: </h3>
             <?php
                 echo "<select id='categorialivroADD' name='categorialivro'>";
                 echo "<option value='-'> Selecione a Categoria </option>";
@@ -414,17 +420,18 @@
                 };
                 echo "</select>";
             ?><br>
-            <label><b> Sinopse: </b></label>
+            <h3> Sinopse: </h3>
             <textarea id='txtSinopseADD'></textarea><br>
-            <label><b> Quantidade Total: </b></label>
-            <input  type='number' id='txtQtdtotalADD'><br>
-            <label><b> Quantidade Disponivel: </b></label>
-            <input  type='number' id='txtQtddispADD'><br>
-            <input type='submit' value='enviar'>
+            <h3> Quantidade Total: </h3>
+            <input type='number' id='txtQtdtotalADD'><br>
+            <h3> Quantidade Disponivel: </h3>
+            <input type='number' id='txtQtddispADD'><br>
+            <input class='botVerm pointer' type='submit' value='Adicionar Livro'>
+            </div>
         `;
     };
-    
-    function adicionarLivroBD(){
+
+    function adicionarLivroBD() {
         var titulo = document.getElementById('txtTituloADD').value;
         var autor = document.getElementById('txtAutorADD').value;
         var editora = document.getElementById('txtEditoraADD').value;
@@ -472,35 +479,41 @@
                 success: function(dados) {
                     document.getElementById('main2').innerHTML =
                         `<div class="result">
-                        <hr class='hrMain'> 
-                        <label><b> Código do Livro: </b></label>
-                        <input type='text' readonly value='` + dados.codigo + `'> <br>
-                        <label><b> Título do Livro: </b></label>
-                        <input type='text' readonly value='` + dados.nome + `'> <br>
-                        <label><b> Autor: </b></label>
-                        <input type='text' readonly value='` + dados.autor + `'><br>
-                        <label><b> Editora: </b></label>
-                        <input type='text' id='txtEditora' value='` + dados.editora + `'><br>
-                        <label><b> Categoria: </b></label> <label> Antiga Categoria: </label>
-                        <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados.categoria + `'>
-                        <?php
-                            echo "<select id='categorialivro' name='categorialivro'>";
-                            echo "<option value='-'> Selecione a Nova Categoria </option>";
-                            while ($exibircat = mysqli_fetch_assoc($resultado6)) {
-                                echo "<option value='$exibircat[cat_codi]'> $exibircat[cat_nome]</option>";
-                            };
-                            echo "</select>";
-                        ?><br>
-                        <label><b> Sinopse: </b></label>
-                        <textarea id='txtSinopse'>` + dados.sinopse + `</textarea><br>
-                        <label><b> Quantidade Total: </b></label>
-                        <input type='text' id='txtQtdtotal' value='` + dados.qtdtotal + `'><br>
-                        <label><b> Quantidade Disponivel: </b></label>
-                        <input type='text' id='txtQtddisp' value='` + dados.qtddisp + `'><br>
-                        <div class='alinharmeio'>
-                        <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
-                        <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados.codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
-                        </div>
+                            <hr class='hrMain'>
+                            <div class="corpoCadastro">
+                            <br>
+                                <h3> Código do Livro: </h3>
+                                    <input type='text' readonly value='` + dados.codigo + `'> <br>
+                                <h3> Título do Livro: </h3>
+                                    <input type='text' readonly value='` + dados.nome + `'> <br>
+                                <h3> Autor: </h3>
+                                    <input type='text' readonly value='` + dados.autor + `'><br>
+                                <h3> Editora: </h3>
+                                    <input type='text' id='txtEditora' value='` + dados.editora + `'><br>
+                                
+                                <h3> Antiga Categoria: </h3>
+                                    <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados
+                        .categoria + `' disabled>
+                                <h3> Nova Categoria: </h3> 
+                                <?php
+                                    echo "<select id='categorialivro' name='categorialivro'>";
+                                    echo "<option value='-'> Selecione a Nova Categoria </option>";
+                                    while ($exibircat = mysqli_fetch_assoc($resultado6)) {
+                                        echo "<option value='$exibircat[cat_codi]'> $exibircat[cat_nome]</option>";
+                                    };
+                                    echo "</select>";
+                                ?><br>
+                                <h3> Sinopse: </h3>
+                                    <textarea id='txtSinopse' rows="6">` + dados.sinopse + `</textarea><br>
+                                <h3> Quantidade Total: </h3>
+                                    <input type='text' id='txtQtdtotal' value='` + dados.qtdtotal + `'><br>
+                                <h3> Quantidade Disponivel: </h3>
+                                    <input type='text' id='txtQtddisp' value='` + dados.qtddisp + `'><br>
+                                    <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados
+                        .codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
+                                    <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados
+                        .codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
+                            </div>
                         </div>`;
                 },
                 error: function(jqXHR, textStatus) {
@@ -510,7 +523,7 @@
         }
     };
 
-    function excluirLivro(idlivro){
+    function excluirLivro(idlivro) {
         $.ajax({
             url: 'others/excluirlivro_adm.php',
             type: 'POST',
@@ -527,7 +540,7 @@
         });
     };
 
-    function edicaoLivro(idlivro){
+    function edicaoLivro(idlivro) {
         var neweditora = document.getElementById('txtEditora').value;
         var oldcategoria = document.getElementById('txtCategoria').name;
         var newcategoria = document.getElementById('categorialivro').value;
@@ -554,7 +567,7 @@
                 console.log('error ' + textStatus + " " + jqXHR);
             }
         });
-        
+
     };
 
     function btnEmprestimos() {
@@ -625,10 +638,9 @@
         document.getElementById("devLi").classList.remove('navActive');
     };
 
-    function entregar_livro(codigoemprestimo, usuariocodigo){
+    function entregar_livro(codigoemprestimo, usuariocodigo) {
         var senha = prompt("Digite sua senha para confirmação:");
-        if (senha!=null)
-        {
+        if (senha != null) {
             $.ajax({
                 url: 'others/entregarlivro_adm.php',
                 type: 'POST',
@@ -746,10 +758,9 @@
         document.getElementById("devLi").classList.remove('navActive');
     };
 
-    function devolver_livro(codigoemprestimo, usuariocodigo){
+    function devolver_livro(codigoemprestimo, usuariocodigo) {
         var senha = prompt("Digite sua senha para confirmação:");
-        if (senha!=null)
-        {
+        if (senha != null) {
             $.ajax({
                 url: 'others/devolverlivro_adm.php',
                 type: 'POST',

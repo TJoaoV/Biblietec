@@ -269,13 +269,15 @@
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
 
-        } catch {document.location.reload(true);};
+        } catch {
+            document.location.reload(true);
+        };
         try {
             var livro3 = document.getElementById('livro3').value;
             var idlivro3 = document.getElementById('livro3').name;
             const past3 = new Date(livro3);
             const diff3 = Math.abs(now.getTime() - past3.getTime());
-            const days3 = Math.ceil(diff3 /(1000 * 60 * 60 * 24));
+            const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
             if (days3 <= 30) {
                 $.ajax({
                     url: 'others/concluirreserva2.php',
@@ -290,14 +292,16 @@
                         alert(mensagemretorno);
                         document.location.reload(true);
                     },
-                    error: function(jqXHR,textStatus) {
-                        console.log('error ' +textStatus +" " +jqXHR);
+                    error: function(jqXHR, textStatus) {
+                        console.log('error ' + textStatus + " " + jqXHR);
                     }
                 });
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
-        } catch {document.location.reload(true);};
+        } catch {
+            document.location.reload(true);
+        };
     };
 
     function carregou() {
@@ -444,7 +448,6 @@
     };
 
     function EmpEmProgresso() {
-        // Essas colunas são só enfeite tem que pensar noq vai colocar
         document.getElementById('main2').innerHTML = `
         <div class="empTableDiv">
             <table>
@@ -602,16 +605,16 @@
         <a tabindex="1" href='home.php?id=4'>
             <p class="big">Aluno: <?php echo $nome ?> </p>
             <img class="small" src="../img/botao_pessoa.png" style="height:3rem; width:auto;">
-        
+
         </a><br>
         <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
         <hr class='full'>
-        
-            <?php echo '<a tabindex="2"  href="home.php?id=3" class="btnsidenav" id="btnProcurar">
+
+        <?php echo '<a tabindex="2"  href="home.php?id=3" class="btnsidenav" id="btnProcurar">
             <p class="big">Procurar</p>
             <img class="small" src="../img/botao_procurar.png" style="height:3rem; width:auto;">
             </a>' ?>
-        
+
         <hr>
         <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>
             <p class="big">Empréstimos</p>

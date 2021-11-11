@@ -144,6 +144,14 @@
 	border-bottom-right-radius: 0px;
 }
 
+.corpoCadastro textarea {
+	margin-left: 10%;
+	width: 80%;
+	font-size: 1.2rem;
+	border-radius: 30px;
+	padding: 1rem;
+	border: 2px solid hsl(0, 0%, 0%);
+}
 .redSenhaA {
 	width: 26.8vw;
 }
