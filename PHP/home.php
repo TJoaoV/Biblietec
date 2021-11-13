@@ -306,14 +306,23 @@
 
     function carregou() {
         document.getElementById('main1').innerHTML = `
-        <p> Seja bem vindo a Biblietec!!</p>
-        <p> Aqui você poderá fazer a reserva do seu livro, para depois apenas pega-lo na bilioteca!!</p>
-        <p> Abaixo temos um breve tutorial, para ajudar a se ambientar no sistema, ok?</p>
-        <p> Caso você clique no seu próprio nome, irá para a página de configurações do seu perfil</p>
-        <p> Procurar - Para navegar e caso queira, adicionar no carrinho o(s) livro(s) selecionado(s)</p>
-        <p> Empréstimos - É possível verificar todos seus empréstimos feitos, em andamento e Finalizados</p>
-        <p> Carrinho - Lá você pode ver o(s) livro(s) que você adicionou no carrinho de empréstimo</p>
-        <p> Sair - Volta para a página de login</p>`;
+        <h3 class="corpoTitle"> Introdução </h3><br>
+        <hr class="hrTitle"><br>
+        <div class="corpoCadastro" style="width: 95%;">
+            <div class="alinharmeio">
+                <p class="intTitle"><b>Intuito</b></p>
+                    <p> O objetivo é que seja possível reservar livros pelo site e retirá-los na biblioteca.</h4>
+                <p class="intTitle"><b>Guia</b></p>
+                </div>
+                <ul class="intLista">
+                    <li><p><b> Aluno: </b>Ao clicar no seu próprio nome, irá para a página de configurações do seu perfil.</p></li>
+                    <li><p><b> Procurar: </b>Para procurar dentre os títulos e adicionar no carrinho o(s) livro(s) selecionado(s).</p></li>
+                    <li><p><b> Carrinho: </b>Onde é possível visualizar os livros no carrinho e concluir a reserva.</p></li>
+                    <li><p><b> Empréstimos: </b>Onde é possível verificar todos seus empréstimos feitos, em andamento e Finalizados.</p></li>
+                    <li><p><b> Sair: </b>Volta para a página de login.</p>
+                </ul>
+            
+        </div>`;
     };
 
     function btnCarrinho() {
@@ -616,15 +625,16 @@
             </a>' ?>
 
         <hr>
+        <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">
+            <p class="big">Carrinho</p>
+            <img class="small" src="../img/botao_carrinho.png" style="height:3rem; width:auto;">
+            </a>' ?>
+        <hr>
+
         <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>
             <p class="big">Empréstimos</p>
             <img class="small" src="../img/botao_emprestimo.png" style="height:3rem; width:auto;">
         </a>
-        <hr>
-        <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">
-        <p class="big">Carrinho</p>
-        <img class="small" src="../img/botao_carrinho.png" style="height:3rem; width:auto;">
-        </a>' ?>
         <hr>
         <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
     </div>

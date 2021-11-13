@@ -287,6 +287,19 @@
 	border-right: none;
 }
 
+/* classes para introdução */
+.intTitle {
+	font-size: 2rem;
+	padding-top: 1.3rem;
+	color: black;
+}
+.intSubTitle {
+	color: black;
+	font-size: 1.5rem;
+}
+.intLista {
+	padding-left: 15%;
+}
 /* css basico */
 .botpage {
 	margin-top: 2vh;
