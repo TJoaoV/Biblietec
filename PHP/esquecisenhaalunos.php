@@ -22,9 +22,9 @@ $resultado = mysqli_query($conn, $sql);
         <form action="finish/esquecisenhaalunos_finish.php" onsubmit="return validarprimeiro(this);" name="esquecisenha"
             method="post">
             <h3>CPF:</h3>
-            <input type='text' name='txtCPF' id='txtCPF' placeholder='Digite o CPF (Sem pontuação)'><br>
+            <input type='text' name='txtCPF' id='txtCPF' maxlength="11" placeholder='Digite o CPF (Sem pontuação)'><br>
             <h3>RM:</h3>
-            <input type='text' name='txtRM' id='txtRM' placeholder='Digite o RM'><br><br>
+            <input type='text' name='txtRM' id='txtRM' maxlength="11" placeholder='Digite o RM'><br><br>
             <input id='btnlogin' type='submit' name='btncontinuar' value='Continuar'>
         </form>
     </div>

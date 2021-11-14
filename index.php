@@ -19,7 +19,7 @@ session_start();
         <h2>Login - Alunos</h2>
         <form method='POST' name='login' onsubmit="return validar(this);" action='PHP/loginalunos.php'>
             <h3>CPF:</h3>
-            <input type='text' name='txtCPF' id='txtCPF' placeholder='Digite o CPF (Sem pontuação)'><br>
+            <input type='text' name='txtCPF' id='txtCPF' maxlength="11" placeholder='Digite o CPF (Sem pontuação)' onkeypress="return event.charCode >= 48 && event.charCode <= 57"><br>
             <h3>Senha:</h3>
             <input type='password' name='txtsenha' id='txtsenha' placeholder='Digite sua senha'><br><br>
             <input class="botLoginbox" id='btncadastro' type='button' name='btncadastro'

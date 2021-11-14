@@ -56,12 +56,6 @@
         if (idrecebidoreload == "99") {
             validarfinalizacao();
         };
-        document.querySelector("#btnProcurar").addEventListener("click", e => {
-            btnProcurar();
-        });
-        document.querySelector("#btnCarrinho").addEventListener("click", e => {
-            //btnCarrinho();         
-        });
     });
 
     function btnNome() {
@@ -97,7 +91,11 @@
                 echo "<select id='cursonovo' name='cursonovo'>";
                 echo "<option value='-'> Selecione o Curso </option>";
                 while ($exibircurso = mysqli_fetch_assoc($resultadocurso)) {
-                    echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome]</option>";
+                    if($exibircurso['cur_codi'] == $exibiralunos['cur_codi']){
+                        echo "<option value='$exibircurso[cur_codi]' selected> $exibircurso[cur_nome] - Duração $exibircurso[cur_dura] - Período $exibircurso[cur_peri]</option>";
+                    } else {
+                        echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome] - Duração $exibircurso[cur_dura] - Período $exibircurso[cur_peri]</option>";
+                    }
                 } 
                 echo "</select>";
                 echo "<br><br> <input class='botVerm pointer' type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
@@ -155,7 +153,7 @@
         var newcelular = document.getElementById('celularnovo').value;
         var newemail = document.getElementById('emailnovo').value;
         var newcurso = document.getElementById('cursonovo').value;
-        if (newtelefone && newcelular == "") {
+        if (newtelefone == "" && newcelular == "") {
             alert('Preencher pelo menos um telefone!');
         } else if (newemail == "") {
             alert('Preencher email!');
@@ -190,6 +188,7 @@
         var tabelaempcodi = "";
         var rmaluno = document.getElementById('rmdoaluno').value;
         var dataagora = document.getElementById('dataemprestimo').value;
+        
         var livro1;
         var livro2;
         var livro3;
@@ -200,61 +199,65 @@
             const diff1 = Math.abs(now.getTime() - past1.getTime());
             const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24));
             if (days1 <= 30) {
-                // $.ajax({
-                //     url: 'others/checkpendencia.php',
-                //     type: 'POST',
-                //     data: {
-                //         devolucao: livro1,
-                //         rmaluno: rmaluno,
-                //         idlivro: idlivro,
-                //         now: now
-                //     },
-                //     success: function(retornovalida) {
-                        $.ajax({
-                            url: 'others/concluirreserva1.php',
-                            type: 'POST',
-                            data: {
-                                rmaluno: rmaluno,
-                                now: dataagora,
-                                // retornovalida: retornovalida
-                            },
-                            success: function(tabelaempcodigo) {
-                                $.ajax({
-                                    url: 'others/concluirreserva2.php',
-                                    type: 'POST',
-                                    data: {
-                                        devolucao: livro1,
-                                        rmaluno: rmaluno,
-                                        idlivro: idlivro,
-                                        now: now,
-                                        // tabelaempcodigo: tabelaempcodigo
-                                    },
-                                    success: function(mensagemretorno) {
-                                        alert(mensagemretorno);
-                                        document.location.reload(true);
-                                    },
-                                    error: function(jqXHR, textStatus) {
-                                        console.log('error ' + textStatus + " " + jqXHR);
-                                    }
-                                });
-                            },
-                            error: function(jqXHR, textStatus) {
-                                console.log('error ' + textStatus + " " + jqXHR);
-                            }
+                document.getElementById("btnContinuarEmprestimo").disabled = true;
+                $.ajax({
+                    url: 'others/checkpendencia.php',
+                    type: 'POST',
+                    data: {
+                        devolucao: livro1,
+                        rmaluno: rmaluno,
+                        idlivro: idlivro,
+                        now: now
+                    },
+                    success: function(retornovalida) {
+                        alert("Aguarde!");
+                        if (retornovalida == "0"){
+                            $.ajax({
+                                url: 'others/concluirreserva1.php',
+                                type: 'POST',
+                                data: {
+                                    rmaluno: rmaluno,
+                                    now: dataagora,
+                                },
+                                success: function(tabelaempcodigo) {
+                                    $.ajax({
+                                        url: 'others/concluirreserva2.php',
+                                        type: 'POST',
+                                        data: {
+                                            devolucao: livro1,
+                                            rmaluno: rmaluno,
+                                            idlivro: idlivro,
+                                            now: now,
+                                        },
+                                        success: function(mensagemretorno) {
+                                            alert(mensagemretorno);
+                                            document.location.reload(true);
+                                        },
+                                        error: function(jqXHR, textStatus) {
+                                            console.log('error ' + textStatus + " " + jqXHR);
+                                        }
+                                    });
+                                },
+                                error: function(jqXHR, textStatus) {
+                                    console.log('error ' + textStatus + " " + jqXHR);
+                                }
 
-                        });
+                            });
+                        } else {
+                            alert("Você deve devolver o livro com empréstimo em atraso primeiro!");
+                        }
 
-                    // },
-                    // error: function(jqXHR, textStatus) {
-                    //     console.log('error ' + textStatus + " " + jqXHR);
-                    // }
-                // });
+                    },
+                    error: function(jqXHR, textStatus) {
+                        console.log('error ' + textStatus + " " + jqXHR);
+                    }
+                });
                 
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
         } catch {
-            document.location.reload(true);
+            //document.location.reload(true);
         };
         try {
             var livro2 = document.getElementById('livro2').value;
@@ -275,7 +278,6 @@
                     success: function(mensagemretorno) {
                         alert(mensagemretorno);
                         document.location.reload(true);
-                        //
                     },
                     error: function(jqXHR, textStatus) {
                         console.log('error ' + textStatus + " " + jqXHR);
@@ -286,7 +288,7 @@
             }
 
         } catch {
-            document.location.reload(true);
+            //document.location.reload(true);
         };
         try {
             var livro3 = document.getElementById('livro3').value;
@@ -316,7 +318,7 @@
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
         } catch {
-            document.location.reload(true);
+            //document.location.reload(true);
         };
     };
 

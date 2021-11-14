@@ -10,6 +10,7 @@
     $nome = $_SESSION['nome'];
     $login = $_SESSION['usuario'];
     $usuarioadm = $_SESSION['id'];
+    $permi = $_SESSION['permissao'];
     require("conexao.php");
     $sql = "SELECT * FROM corpo_emprestimo WHERE emp_devo='NÃO Devolvido' and cor_pego=0";
     $resultado = mysqli_query($conn, $sql);
@@ -30,6 +31,12 @@
     $resultado9 = mysqli_query($conn, $sql9);
     $sql10 = "SELECT * FROM categoria";
     $resultado10 = mysqli_query($conn, $sql10);
+    $sql11 = "SELECT * FROM categoria";
+    $resultado11 = mysqli_query($conn, $sql11);
+    $sql12 = "SELECT * FROM cursos";
+    $resultado12 = mysqli_query($conn, $sql12);
+    $sql13 = "SELECT * FROM usuario";
+    $resultado13 = mysqli_query($conn, $sql13);
     $resultado9_ = mysqli_fetch_assoc($resultado9);
 ?>
 <html lang="pt">
@@ -76,23 +83,554 @@
             btnEmprestimos();
             Devolvido();
         };
-        if (idrecebidoreload == "99") {
-            //validarfinalizacao();
+        if (idrecebidoreload == "9") {
+            btnCategoria();
         };
-        // document.querySelector("#btnProcurar").addEventListener("click", e => {
-        //     btnProcurar();
-        // });
-        // document.querySelector("#btnEmprestimos").addEventListener("click", e => {
-        //     btnEmprestimos();
-        //     EmpEmProgresso();
-        // });
-        // document.querySelector("#btnCarrinho").addEventListener("click", e => {
-        //     //btnCarrinho();         
-        // });
-        // document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
-        //     btnContinuarEmprestimo();
-        // });
+        if (idrecebidoreload == "10") {
+            btnCurso();
+        };
+        if (idrecebidoreload == "11") {
+            btnUsuario();
+        };
     });
+
+    function btnUsuario(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
+            `<h3 class="corpoTitle"> Procurar Usuário </h3><br>
+            <hr class="hrTitle"><br>
+            <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o Usuário aqui!" >
+            <table>
+            <ul class="lista" style="list-style-type:none;  ">
+            <?php 
+                while ($exibir15 = mysqli_fetch_assoc($resultado13)) {
+                    $exibir16 = strtolower($exibir15['usu_nome']);
+                    echo "<li class='listaOpcao pointer' onClick='VerUsuario($exibir15[usu_codi])' nome='$exibir16' id='$exibir15[usu_codi]'> $exibir15[usu_nome]</li>";
+                }
+            ?>
+            </ul>
+            </table>`;
+            document.getElementById('main3').innerHTML =
+            `
+            <input class='botVerm pointer' type='button' onClick ='adicionarUsuario()' value=' Adicionar Usuário ' id='btnAddUsuario'><br>`;
+        // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
+        pesquisa_input = document.querySelectorAll(".pesquisa");
+        for (i in pesquisa_input) {
+            pesquisa_input[i].onkeyup = function(e) {
+                document.getElementById('main2').innerHTML = "";
+                reg = new RegExp(this.value.toLowerCase(), "g");
+                lis = this.parentElement.querySelector(".lista");
+                //console.log(lis);
+                for (j of lis.children) {
+                    if (!j.getAttribute("nome").match(reg))
+                        j.style.display = "none";
+                    else
+                        j.removeAttribute("style");
+                };
+            };
+        };
+    };
+
+    function adicionarUsuario(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main3').innerHTML = "";
+        document.getElementById('main1').innerHTML = `
+            <h3 class="corpoTitle"> Adicionar Usuário </h3><br>
+            <hr class="hrTitle"><br>
+            <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
+            <div class="corpoCadastro">
+            <input class='botVerm pointer' type='button' onClick ='btnUsuario()' value=' Voltar ' id='btnVoltarUsuario'><br>
+            <form method='POST' name='addUsuario' onsubmit="return validaraddusuario(this);">
+                <br>
+                <h3> Nome: </h3>
+                <input type='text' id='txtNomeUsuADD' maxlength="100" placeholder='Digite o Nome'> <br>
+                <h3> Login: </h3>
+                <input type='text' id='txtLoginADD' maxlength="50" placeholder='Digite o Login'><br>
+                <h3> CPF: </h3>
+                <input type='text' id='txtCPFADD' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder='Digite o CPF (Somente Números)'><br>
+                <h3> Endereço: </h3>
+                <input type='text' id='txtEndeADD' maxlength="100" placeholder='Digite o Endereço'><br>
+                <h3> Data de Nascimento: </h3>
+                <input type='date' id='txtDtnaADD'><br>
+                <h3> Telefone: </h3>
+                <input type='text' id='txtTeleADD' maxlength="10" placeholder='Digite o Telefone (Somente Números)'><br>
+                <h3> Celular: </h3>
+                <input type='text' id='txtCeluADD' maxlength="11" placeholder='Digite o Celular (Somente Números)'><br>
+                <h3> E-mail: </h3>
+                <input type='email' id='txtEmailADD' maxlength="150" placeholder='Digite o E-mail'><br>
+                <h3> Permissão: </h3>
+                <select id='selectPermissaoADD' name='selectPermissaoADD'>
+                    <option value='-'> Selecione a Permissão </option>
+                    <option value='Administrador'> Administrador </option>
+                    <option value='Bibliotecario'> Bibliotecário </option>
+                </select>
+                <h3> Ativo: </h3>
+                <select id='selectAtivoADD' name='selectAtivoADD'>
+                    <option value='1'> Ativo </option>
+                    <option value='0'> Inativo </option>
+                </select>
+                <input class='botVerm pointer' type='submit' value='Adicionar Usuário'>
+            </form>
+            </div>
+        `;
+    };
+
+    function adicionarUsuarioBD(){
+        var nomeUsuADD = document.getElementById('txtNomeUsuADD').value;
+        var loginADD = document.getElementById('txtLoginADD').value;
+        var cpfUsuADD = document.getElementById('txtCPFADD').value;
+        var endeADD = document.getElementById('txtEndeADD').value;
+        var dtnaADD = document.getElementById('txtDtnaADD').value;
+        var teleADD = document.getElementById('txtTeleADD').value;
+        var celuADD = document.getElementById('txtCeluADD').value;
+        var emailADD = document.getElementById('txtEmailADD').value;
+        var permiADD = document.getElementById('selectPermissaoADD').value;
+        var ativoADD = document.getElementById('selectAtivoADD').value;
+        $.ajax({
+            url: 'others/adicionarusuario_adm.php',
+            type: 'POST',
+            data: {
+                nomeUsuADD: nomeUsuADD,
+                loginADD: loginADD,
+                cpfUsuADD: cpfUsuADD,
+                endeADD: endeADD,
+                dtnaADD: dtnaADD,
+                teleADD: teleADD,
+                celuADD: celuADD,
+                emailADD: emailADD,
+                permiADD: permiADD,
+                ativoADD: ativoADD
+            },
+            success: function(retornoUsu) {
+                alert(retornoUsu);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
+
+    function VerUsuario(id){
+        var codigoadm = document.getElementById('codigoadm').value;
+        document.getElementById('main3').innerHTML = "";
+        var idUsuario = id;
+        if (idUsuario == "-") {
+            document.getElementById('main2').innerHTML = "";
+            alert("Selecione um Usuário!");
+        } else {
+            $.ajax({
+                url: 'others/verusuario_adm.php',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    idUsuario: idUsuario
+                },
+                success: function(dados) {
+                    document.getElementById('main2').innerHTML =
+                        `<div class="result">
+                        <hr class='hrMain'>
+                        <div class="corpoCadastro"> <br>
+                        <input class='botVerm pointer' type='button' onClick ='btnUsuario()' value=' Voltar ' id='btnVoltarLivro'><br>
+                        <h3> Código do Usuário: </h3>
+                        <input type='text' id='txtCodiUsuario' readonly value='` + dados.codigo + `'> <br>
+                        <h3> Nome: </h3>
+                        <input type='text' id='txtNomeUsuario' value='` + dados.nome + `'><br>
+                        <h3> Login: </h3>
+                        <input type='text' id='txtLoginUsuario' value='` + dados.login + `'><br>
+                        <h3> CPF: </h3>
+                        <input type='text' id='txtCPFUsuario' value='` + dados.cpf + `' readonly><br>
+                        <h3> Endereço: </h3>
+                        <input type='text' id='txtEndeUsuario' value='` + dados.endereco + `'><br>
+                        <h3> Data de Nascimento: </h3>
+                        <input type='date' id='txtDtNaUsuario' value='` + dados.dtna + `' readonly><br>
+                        <h3> Telefone: </h3>
+                        <input type='text' id='txtTelefoneUsuario' value='` + dados.telefone + `'><br>
+                        <h3> Celular: </h3>
+                        <input type='text' id='txtCelularUsuario' value='` + dados.celular + `'><br>
+                        <h3> E-mail: </h3>
+                        <input type='text' id='txtEmailUsuario' value='` + dados.email + `'><br>
+                        <h3> Permissão Antiga: </h3>
+                        <input type='text' id='txtPermiOLDUsuario' value='` + dados.permissao + `' readonly><br>
+                        <h3> Permissão Nova: </h3>
+                        <select id='selectPermiNova' name='selectPermiNova'>
+                            <option value='-'> Selecione a Nova Permissão </option>
+                            <option value='Administrador'> Administrador </option>
+                            <option value='Bibliotecario'> Bibliotecário </option>
+                        </select>
+                        <h3> Situação Senha: </h3>
+                        <input type='text' id='txtSenhaUsuario' value='` + dados.senha + `' readonly><br>
+                        <h3> Status Antigo: </h3>
+                        <input type='text' id='txtSituacaoOLDUsuario' value='` + dados.situacao + `' readonly><br>
+                        <h3> Status Novo: </h3>
+                        <select id='selectSituacaoUsuario' name='selectSituacaoUsuario'>
+                            <option value='-'> Selecione o Novo Status do Usuário </option>
+                            <option value='Ativo'> Usuário Ativo </option>
+                            <option value='Inativo'> Usuário Inativo </option>
+                        </select>
+                        <input class='botVerm pointer' type='button' onClick ='redefinirsenhausuario(` + dados.codigo + `)' value=' Redefinir Senha ' id='btnRedefinirSenhaUsuario'><br>
+                        <input class='botVerm pointer' type='button' onClick ='edicaousuario(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesUsuario'><br>
+                        </div>
+                        </div>`;
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+
+    function redefinirsenhausuario(idUsuario){
+        var senha = prompt("Digite sua senha para confirmação:");
+        if (senha != null) {
+            $.ajax({
+                url: 'others/redefinirsenhaUsuario_adm.php',
+                type: 'POST',
+                data: {
+                    idUsuario: idUsuario,
+                    usuarioadm: usuarioadm,
+                    senha: senha
+                },
+                success: function(retorno) {
+                    alert(retorno);
+                    document.location.reload(true);
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        };
+    }
+
+    function edicaousuario(codigo){
+        var codigoUsu = document.getElementById('txtCodiUsuario').value;
+        var nomeUsu = document.getElementById('txtNomeUsuario').value;
+        var loginUsu = document.getElementById('txtLoginUsuario').value;
+        var endeUsu = document.getElementById('txtEndeUsuario').value;
+        var teleUsu = document.getElementById('txtTelefoneUsuario').value;
+        var celuUsu = document.getElementById('txtCelularUsuario').value;
+        var emailUsu = document.getElementById('txtEmailUsuario').value;
+        var permiOLDUsu = document.getElementById('txtPermiOLDUsuario').value;
+        var permiNEWUsu = document.getElementById('selectPermiNova').value;
+        var situacaoOLDUsu = document.getElementById('txtSituacaoOLDUsuario').value;
+        var situacaoNEWUsu = document.getElementById('selectSituacaoUsuario').value;
+        $.ajax({
+            url: 'others/edicaoUsuario_adm.php',
+            type: 'POST',
+            data: {
+                codigoUsu: codigoUsu,
+                nomeUsu: nomeUsu,
+                loginUsu: loginUsu,
+                endeUsu: endeUsu,
+                teleUsu: teleUsu,
+                celuUsu: celuUsu,
+                emailUsu: emailUsu,
+                permiOLDUsu: permiOLDUsu,
+                permiNEWUsu: permiNEWUsu,
+                situacaoOLDUsu: situacaoOLDUsu,
+                situacaoNEWUsu: situacaoNEWUsu
+            },
+            success: function(dadosretorno) {
+                alert(dadosretorno);
+                document.location.reload(true);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
+
+    function btnCurso(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
+            `<h3 class="corpoTitle"> Procurar Curso </h3><br>
+            <hr class="hrTitle"><br>
+            <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite o Curso aqui!" >
+            <table>
+            <ul class="lista" style="list-style-type:none;  ">
+            <?php 
+                while ($exibir13 = mysqli_fetch_assoc($resultado12)) {
+                    $exibir14 = strtolower($exibir13['cur_nome']);
+                    echo "<li class='listaOpcao pointer' onClick='VerCurso($exibir13[cur_codi])' nome='$exibir14' id='$exibir13[cur_codi]'> $exibir13[cur_nome]</li>";
+                }
+            ?>
+            </ul>
+            </table>`;
+            document.getElementById('main3').innerHTML =
+            `
+            <input class='botVerm pointer' type='button' onClick ='adicionarCurso()' value=' Adicionar Curso ' id='btnAddCurso'><br>`;
+        // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
+        pesquisa_input = document.querySelectorAll(".pesquisa");
+        for (i in pesquisa_input) {
+            pesquisa_input[i].onkeyup = function(e) {
+                document.getElementById('main2').innerHTML = "";
+                reg = new RegExp(this.value.toLowerCase(), "g");
+                lis = this.parentElement.querySelector(".lista");
+                //console.log(lis);
+                for (j of lis.children) {
+                    if (!j.getAttribute("nome").match(reg))
+                        j.style.display = "none";
+                    else
+                        j.removeAttribute("style");
+                };
+            };
+        };
+    };
+
+    function adicionarCurso(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main3').innerHTML = "";
+        document.getElementById('main1').innerHTML = `
+            <h3 class="corpoTitle"> Adicionar Curso </h3><br>
+            <hr class="hrTitle"><br>
+            <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
+            <div class="corpoCadastro">
+            <input class='botVerm pointer' type='button' onClick ='btnCurso()' value=' Voltar ' id='btnVoltarLivro'><br>
+            <form method='POST' name='addCurso' onsubmit="return validaraddcurso(this);">
+                <br>
+                <h3> Nome do Curso: </h3>
+                <input type='text' id='txtNomeADD' maxlength="100"> <br>
+                <h3> Duração: </h3>
+                <input type='text' id='txtDuracaoADD' maxlength="20"><br>
+                <h3> Período: </h3>
+                <select id='selectPeriodoADD' name='selectPeriodoADD'>
+                    <option value='-'> Selecione o Período </option>
+                    <option value='INTEGRAL'> INTEGRAL </option>
+                    <option value='MANHA'> MANHA </option>
+                    <option value='TARDE'> TARDE </option>
+                    <option value='NOITE'> NOITE </option>
+                </select>
+                <input class='botVerm pointer' type='submit' value='Adicionar Curso'>
+            </form>
+            </div>
+        `;
+    };
+
+    function adicionarCursoBD(){
+        var nomeADD = document.getElementById('txtNomeADD').value;
+        var duracaoADD = document.getElementById('txtDuracaoADD').value;
+        var periodoADD = document.getElementById('selectPeriodoADD').value;
+        $.ajax({
+            url: 'others/adicionarcurso_adm.php',
+            type: 'POST',
+            data: {
+                nomeADD: nomeADD,
+                duracaoADD: duracaoADD,
+                periodoADD: periodoADD
+            },
+            success: function(retornoCurso) {
+                alert(retornoCurso);
+                document.location.reload(true);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
+
+    function VerCurso(id){
+        var codigoadm = document.getElementById('codigoadm').value;
+        document.getElementById('main3').innerHTML = "";
+        var idCurso = id;
+        if (idCurso == "-") {
+            document.getElementById('main2').innerHTML = "";
+            alert("Selecione um Curso!");
+        } else {
+            $.ajax({
+                url: 'others/vercurso_adm.php',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    idCurso: idCurso
+                },
+                success: function(dados) {
+                    document.getElementById('main2').innerHTML =
+                        `<div class="result">
+                        <hr class='hrMain'>
+                        <div class="corpoCadastro"> <br>
+                        <input class='botVerm pointer' type='button' onClick ='btnCurso()' value=' Voltar ' id='btnVoltarLivro'><br>
+                        <h3> Código do Curso: </h3>
+                        <input type='text' id='txtCodiCurso' readonly value='` + dados.codigo + `'> <br>
+                        <h3> Nome: </h3>
+                        <input type='text' id='txtNomeCurso' value='` + dados.nome + `'><br>
+                        <h3> Duração: </h3>
+                        <input type='text' id='txtDuracaoCurso' value='` + dados.duracao + `'><br>
+                        <h3> Período Antigo: </h3>
+                        <input type='text' id='txtPeriodoAntigoCurso' value='` + dados.periodo + `' readonly><br>
+                        <h3> Período Novo: </h3>
+                        <select id='selectPeriodoNovo' name='selectPeriodoNovo'>
+                            <option value='-'> Selecione o Novo Período </option>
+                            <option value='INTEGRAL'> INTEGRAL </option>
+                            <option value='MANHA'> MANHA </option>
+                            <option value='TARDE'> TARDE </option>
+                            <option value='NOITE'> NOITE </option>
+                        </select>
+                        <br>
+                        <input class='botVerm pointer' type='button' onClick ='edicaocurso(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesCurso'><br>
+                        </div>
+                        </div>`;
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+
+    function edicaocurso(codigo){
+        var codi = document.getElementById('txtCodiCurso').value;
+        var newnomec = document.getElementById('txtNomeCurso').value;
+        var newduracao = document.getElementById('txtDuracaoCurso').value;
+        var oldperiodo = document.getElementById('txtPeriodoAntigoCurso').value;
+        var newperiodo = document.getElementById('selectPeriodoNovo').value;
+        $.ajax({
+            url: 'others/edicaoCurso_adm.php',
+            type: 'POST',
+            data: {
+                codi: codi,
+                newnomec: newnomec,
+                newduracao: newduracao,
+                oldperiodo: oldperiodo,
+                newperiodo: newperiodo
+            },
+            success: function(dadosretorno) {
+                alert(dadosretorno);
+                document.location.reload(true);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
+
+    function btnCategoria(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main1').innerHTML =
+            `<h3 class="corpoTitle"> Procurar Categoria </h3><br>
+            <hr class="hrTitle"><br>
+            <input class="form-control pesquisa corpoInputtxt" type="text" id="inlineFormInputGroup" placeholder="Digite a Categoria aqui!" >
+            <table>
+            <ul class="lista" style="list-style-type:none;  ">
+            <?php 
+                while ($exibir11 = mysqli_fetch_assoc($resultado11)) {
+                    $exibir12 = strtolower($exibir11['cat_nome']);
+                    echo "<li class='listaOpcao pointer' onClick='VerCategoria($exibir11[cat_codi])' nome='$exibir12' id='$exibir11[cat_codi]'> $exibir11[cat_nome]</li>";
+                }
+            ?>
+            </ul>
+            </table>`;
+            document.getElementById('main3').innerHTML =
+            `
+            <input class='botVerm pointer' type='button' onClick ='adicionarCategoria()' value=' Adicionar Categoria ' id='btnAddCategoria'><br>`;
+        // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
+        pesquisa_input = document.querySelectorAll(".pesquisa");
+        for (i in pesquisa_input) {
+            pesquisa_input[i].onkeyup = function(e) {
+                document.getElementById('main2').innerHTML = "";
+                reg = new RegExp(this.value.toLowerCase(), "g");
+                lis = this.parentElement.querySelector(".lista");
+                //console.log(lis);
+                for (j of lis.children) {
+                    if (!j.getAttribute("nome").match(reg))
+                        j.style.display = "none";
+                    else
+                        j.removeAttribute("style");
+                };
+            };
+        };
+    };
+
+    function adicionarCategoria(){
+        document.getElementById('main2').innerHTML = "";
+        document.getElementById('main3').innerHTML = "";
+        document.getElementById('main1').innerHTML = `
+            <h3 class="corpoTitle"> Adicionar Categoria </h3><br>
+            <hr class="hrTitle"><br>
+            <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
+            <div class="corpoCadastro">
+            <input class='botVerm pointer' type='button' onClick ='btnCategoria()' value=' Voltar ' id='btnVoltarLivro'><br>
+            <form method='POST' name='addCategoria' onsubmit="return validaraddcategoria(this);">
+                <br>
+                <h3> Nome da Categoria: </h3>
+                <input type='text' id='txtCateADD' maxlength="60"> <br>
+                <input class='botVerm pointer' type='submit' value='Adicionar Categoria'>
+            </form>
+            </div>
+        `;
+    };
+
+    function adicionarCategoriaBD(){
+        var categoriaADD = document.getElementById('txtCateADD').value;
+        $.ajax({
+            url: 'others/adicionarcategoria_adm.php',
+            type: 'POST',
+            data: {
+                categoriaADD: categoriaADD
+            },
+            success: function(retornoCategoria) {
+                alert(retornoCategoria);
+                document.location.reload(true);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
+
+    function VerCategoria(id){
+        var codigoadm = document.getElementById('codigoadm').value;
+        document.getElementById('main3').innerHTML = "";
+        var idCategoria = id;
+        if (idCategoria == "-") {
+            document.getElementById('main2').innerHTML = "";
+            alert("Selecione uma Categoria!");
+        } else {
+            $.ajax({
+                url: 'others/vercategoria_adm.php',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    idCategoria: idCategoria
+                },
+                success: function(dados) {
+                    document.getElementById('main2').innerHTML =
+                        `<div class="result">
+                        <hr class='hrMain'>
+                        <div class="corpoCadastro"> <br>
+                        <input class='botVerm pointer' type='button' onClick ='btnCategoria()' value=' Voltar ' id='btnVoltarLivro'><br>
+                        <h3> Código da Categoria: </h3>
+                        <input type='text' id='txtCodiCat' readonly value='` + dados.codigo + `'> <br>
+                        <h3> Nome: </h3>
+                        <input type='text' id='txtNomeCat' value='` + dados.nome + `'><br>
+                        <input class='botVerm pointer' type='button' onClick ='edicaocategoria(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesAluno'><br>
+                        </div>
+                        </div>`;
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+
+    function edicaocategoria(codigo){
+        var codi = document.getElementById('txtCodiCat').value;
+        var newnomec = document.getElementById('txtNomeCat').value;
+        $.ajax({
+            url: 'others/edicaoCategoria_adm.php',
+            type: 'POST',
+            data: {
+                codi: codi,
+                newnomec: newnomec,
+            },
+            success: function(dadosretorno) {
+                alert(dadosretorno);
+                document.location.reload(true);
+            },
+            error: function(jqXHR, textStatus) {
+                console.log('error ' + textStatus + " " + jqXHR);
+            }
+        });
+    };
 
     function atualizarsenha(usuarioadm) {
         var senhaantiga = document.getElementById('senhaantiga').value;
@@ -274,6 +812,7 @@
                         `<div class="result">
                         <hr class='hrMain'>
                         <div class="corpoCadastro"> <br>
+                        <input class='botVerm pointer' type='button' onClick ='alterarCadAlunos()' value=' Voltar ' id='btnVoltarLivro'><br>
                         <h3> Código do Aluno: </h3>
                         <input type='text' id='txtCodi' readonly value='` + dados.codigo + `'> <br>
                         <h3> RM: </h3>
@@ -918,15 +1457,23 @@
         </a>
         <hr class='full'>
         <a tabindex="1" href='home_adm.php?id=4'><?php echo $nome ?></a><br>
+        <a tabindex="1"><?php echo $permi ?></a><br>
         <hr class='full'>
-        <?php echo '<a tabindex="2" href="home_adm.php?id=1" class="btnsidenav" id="btnProcurar">Consultar Empréstimos</a>' ?>
+        <?php echo '<a tabindex="2" href="home_adm.php?id=1" class="btnsidenav" id="btnEmprestimo">Consultar Empréstimos</a>' ?>
         <hr>
-        <?php echo '<a tabindex="3" href="home_adm.php?id=2" class="btnsidenav" id="btnEmprestimos">Cadastrar/Alterar Livros</a>' ?>
+        <?php echo '<a tabindex="3" href="home_adm.php?id=2" class="btnsidenav" id="btnAlterarCadastrarLivro">Cadastrar/Alterar Livros</a>' ?>
         <hr>
-        <?php echo '<a tabindex="4" href="home_adm.php?id=3" class="btnsidenav" id="btnCarrinho">Alterar Cadastro Aluno</a>' ?>
+        <?php echo '<a tabindex="4" href="home_adm.php?id=3" class="btnsidenav" id="btnCadastrarAluno">Alterar Cadastro Aluno</a>' ?>
         <hr>
-        <?php echo '<a tabindex="5" href="home_adm.php?id=4" class="btnsidenav" id="btnEmprestimos">Cadastrar Categoria/Curso</a>' ?>
+        <?php echo '<a tabindex="5" href="home_adm.php?id=9" class="btnsidenav" id="btnCadastrarAlterarCategoria">Cadastrar/Alterar Categoria</a>' ?>
         <hr>
+        <?php echo '<a tabindex="6" href="home_adm.php?id=10" class="btnsidenav" id="btnCadastrarAlterarCurso">Cadastrar/Alterar Curso</a>' ?>
+        <hr>
+        <?php if ($permi == "Administrador"){
+            echo '<a tabindex="6" href="home_adm.php?id=11" class="btnsidenav" id="btnCadastrarAlterarUsuarioADM">Cadastrar/Alterar Usuário</a>';
+            echo '<hr>';}
+        ?>
+        
         <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='loginadministracao.php'
             id='btnSair'>Sair</a>
     </div>

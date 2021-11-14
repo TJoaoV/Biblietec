@@ -8,7 +8,7 @@
     $resultado_produtos3 = mysqli_query($conn, $produtossql3);
     while ($exibir3 = mysqli_fetch_assoc($resultado_produtos3)) {
         $datadevolucao = $exibir3['emp_dtde'];
-        if(strtotime($now) < strtotime($datadevolucao)){
+        if(strtotime($now) > strtotime($datadevolucao)){
             $resultado = "1";
         } else {
             $resultado = "0";
