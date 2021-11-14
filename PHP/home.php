@@ -18,6 +18,7 @@
     $resultado_pre2 = mysqli_query($conn, $sql_pre);
     $resultado_pre3 = mysqli_query($conn, $sql_pre);
     $resultado_pre4 = mysqli_query($conn, $sql_pre);
+    $resultado_pre5 = mysqli_query($conn, $sql_pre);
     $resultado = mysqli_query($conn, $sql);
     $resultado_emprestimoprogresso = mysqli_query($conn, $sql_emprestimoprogresso);
     $resultado_emprestimofinalizado = mysqli_query($conn, $sql_emprestimofinalizado);
@@ -48,22 +49,19 @@
         if (idrecebidoreload == "4") {
             btnNome();
         };
+        if (idrecebidoreload == "5") {
+            btnEmprestimos();
+            EmpEmProgresso();
+        };
         if (idrecebidoreload == "99") {
             validarfinalizacao();
         };
         document.querySelector("#btnProcurar").addEventListener("click", e => {
             btnProcurar();
         });
-        document.querySelector("#btnEmprestimos").addEventListener("click", e => {
-            btnEmprestimos();
-            EmpEmProgresso();
-        });
         document.querySelector("#btnCarrinho").addEventListener("click", e => {
             //btnCarrinho();         
         });
-        // document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
-        //     btnContinuarEmprestimo();
-        // });
     });
 
     function btnNome() {
@@ -203,37 +201,55 @@
             const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24));
             if (days1 <= 30) {
                 $.ajax({
-                    url: 'others/concluirreserva1.php',
+                    url: 'others/checkpendencia.php',
                     type: 'POST',
                     data: {
+                        devolucao: livro1,
                         rmaluno: rmaluno,
-                        now: dataagora
+                        idlivro: idlivro,
+                        now: now
                     },
-                    success: function(tabelaempcodigo) {
+                    success: function(retornovalida) {
                         $.ajax({
-                            url: 'others/concluirreserva2.php',
+                            url: 'others/concluirreserva1.php',
                             type: 'POST',
                             data: {
-                                devolucao: livro1,
                                 rmaluno: rmaluno,
-                                idlivro: idlivro,
-                                now: now
+                                now: dataagora,
+                                retornovalida: retornovalida
                             },
-                            success: function(mensagemretorno) {
-                                alert(mensagemretorno);
-                                document.location.reload(true);
-                                //
+                            success: function(tabelaempcodigo) {
+                                $.ajax({
+                                    url: 'others/concluirreserva2.php',
+                                    type: 'POST',
+                                    data: {
+                                        devolucao: livro1,
+                                        rmaluno: rmaluno,
+                                        idlivro: idlivro,
+                                        now: now,
+                                        tabelaempcodigo: tabelaempcodigo
+                                    },
+                                    success: function(mensagemretorno) {
+                                        alert(mensagemretorno);
+                                        document.location.reload(true);
+                                    },
+                                    error: function(jqXHR, textStatus) {
+                                        console.log('error ' + textStatus + " " + jqXHR);
+                                    }
+                                });
                             },
                             error: function(jqXHR, textStatus) {
                                 console.log('error ' + textStatus + " " + jqXHR);
                             }
+
                         });
+
                     },
                     error: function(jqXHR, textStatus) {
                         console.log('error ' + textStatus + " " + jqXHR);
                     }
-
                 });
+                
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
@@ -358,12 +374,15 @@
                     <img src=../img/botao_excluir.png width='20px' height='20px'>
                     </a></td></tr>";
                 }
+                if ($exibir_pre5 = mysqli_fetch_assoc($resultado_pre5)){
+                    echo "</table>";
+                    echo "</div>";
+                    echo "<div class='alinharmeio botpage'>";
+                    echo "<button tabindex='0' href='#' class='botVerm botinpage pointer' onclick='btnContinuarEmprestimo()'> Continuar com a reserva </button>";
+                    echo "</div>";
+                }
             ?>
-        </table>
-        </div>
-        <div class='alinharmeio botpage'>
-        <button tabindex='0' href='#' class='botVerm botinpage pointer' onclick='btnContinuarEmprestimo()'> Continuar com a reserva </button>
-        </div>`;
+        `;
     };
 
     function btnContinuarEmprestimo() {
@@ -371,6 +390,7 @@
         <div class='alinharmeio fundoBranco' style='border-radius: 1vh 1vh;'>
         <h3 style='padding-top: 3vh; margin-bottom: -1vh;'> Selecione as datas para devolução (máximo 30 dias): </h3><br>
         <?php
+
             $datadehoje = date('Y-m-d');
             $a = 1;
             while ($exibir_pre2 = mysqli_fetch_assoc($resultado_pre2)){
@@ -631,7 +651,7 @@
             </a>' ?>
         <hr>
 
-        <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>
+        <a tabindex="3" href='home.php?id=5' class="btnsidenav" id='btnEmprestimos'>
             <p class="big">Empréstimos</p>
             <img class="small" src="../img/botao_emprestimo.png" style="height:3rem; width:auto;">
         </a>

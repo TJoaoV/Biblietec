@@ -58,6 +58,22 @@
         if (idrecebidoreload == "4") {
             btnNome();
         };
+        if (idrecebidoreload == "5") {
+            btnEmprestimos();
+            ParaEntregar();
+        };
+        if (idrecebidoreload == "6") {
+            btnEmprestimos();
+            EmProgresso();
+        };
+        if (idrecebidoreload == "7") {
+            btnEmprestimos();
+            EmAtraso();
+        };
+        if (idrecebidoreload == "8") {
+            btnEmprestimos();
+            Devolvido();
+        };
         if (idrecebidoreload == "99") {
             //validarfinalizacao();
         };
@@ -577,10 +593,10 @@
             <hr class="hrTitle"><br>
             <div class="horNav">
                 <ul>
-                    <li id="entLi"><a onClick="ParaEntregar()"> Para Entregar </a></li>
-                    <li id="proLi"><a onClick="EmProgresso()"> Em Progresso </a></li>
-                    <li id="atrLi"><a onClick="EmAtraso()"> Devolução em Atraso </a></li>
-                    <li id="devLi"><a onClick="Devolvido()"> Devolvidos </a></li>
+                    <li id="entLi"><a href="home_adm.php?id=5"> Para Entregar </a></li>
+                    <li id="proLi"><a href="home_adm.php?id=6"> Em Progresso </a></li>
+                    <li id="atrLi"><a href="home_adm.php?id=7"> Devolução em Atraso </a></li>
+                    <li id="devLi"><a href="home_adm.php?id=8"> Devolvidos </a></li>
                 </ul>
             </div>`;
         ParaEntregar();
@@ -772,6 +788,28 @@
                 success: function(msgretorno) {
                     alert(msgretorno);
                     document.location.reload(true);
+                },
+                error: function(jqXHR, textStatus) {
+                    console.log('error ' + textStatus + " " + jqXHR);
+                }
+            });
+        }
+    };
+
+    function devolver_livro2(codigoemprestimo, usuariocodigo) {
+        var senha = prompt("Digite sua senha para confirmação:");
+        if (senha != null) {
+            $.ajax({
+                url: 'others/devolverlivro_adm.php',
+                type: 'POST',
+                data: {
+                    codigoemprestimo: codigoemprestimo,
+                    usuariocodigo: usuariocodigo,
+                    senha: senha
+                },
+                success: function(msgretorno) {
+                    alert(msgretorno);
+                    window.location.href = "home_adm.php?id=6";
                 },
                 error: function(jqXHR, textStatus) {
                     console.log('error ' + textStatus + " " + jqXHR);
