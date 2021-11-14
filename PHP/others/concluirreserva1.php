@@ -3,8 +3,19 @@
     include_once("../conexao.php");
     $rmaluno= $_POST['rmaluno'];
     $now= $_POST['now'];
-    $retornovalida= $_POST['retornovalida'];
-    if ($retornovalida == "0"){
+    // $retornovalida= $_POST['retornovalida'];
+    $resultado = "0";
+    $produtossql3 = "SELECT * FROM corpo_emprestimo WHERE alu_rm='$rmaluno' and emp_devo='NÃO Devolvido'";
+    $resultado_produtos3 = mysqli_query($conn, $produtossql3);
+    while ($exibir3 = mysqli_fetch_assoc($resultado_produtos3)) {
+        $datadevolucao = $exibir3['emp_dtde'];
+        if(strtotime($now) < strtotime($datadevolucao)){
+            $resultado = "1";
+        } else {
+            $resultado = "0";
+        }
+    }
+    if ($resultado == "0"){
         $produtossql1 = "INSERT INTO emprestimo(alu_rm, emp_data) 
                         VALUES ('$rmaluno','$now');";
         $resultado_produtos1 = mysqli_query($conn, $produtossql1);

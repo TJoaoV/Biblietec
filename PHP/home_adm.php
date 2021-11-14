@@ -28,6 +28,8 @@
     $resultado8 = mysqli_query($conn, $sql8);
     $sql9 = "SELECT * FROM usuario WHERE usu_logi='$login'";
     $resultado9 = mysqli_query($conn, $sql9);
+    $sql10 = "SELECT * FROM categoria";
+    $resultado10 = mysqli_query($conn, $sql10);
     $resultado9_ = mysqli_fetch_assoc($resultado9);
 ?>
 <html lang="pt">
@@ -498,6 +500,7 @@
                             <hr class='hrMain'>
                             <div class="corpoCadastro">
                             <br>
+                                <input class='botVerm pointer' type='button' onClick ='btnConfigLivros()' value=' Voltar ' id='btnVoltarLivro'><br>
                                 <h3> Código do Livro: </h3>
                                     <input type='text' readonly value='` + dados.codigo + `'> <br>
                                 <h3> Título do Livro: </h3>
@@ -508,13 +511,12 @@
                                     <input type='text' id='txtEditora' value='` + dados.editora + `'><br>
                                 
                                 <h3> Antiga Categoria: </h3>
-                                    <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados
-                        .categoria + `' disabled>
+                                    <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados.categoria + `' disabled>
                                 <h3> Nova Categoria: </h3> 
                                 <?php
                                     echo "<select id='categorialivro' name='categorialivro'>";
                                     echo "<option value='-'> Selecione a Nova Categoria </option>";
-                                    while ($exibircat = mysqli_fetch_assoc($resultado6)) {
+                                    while ($exibircat = mysqli_fetch_assoc($resultado10)) {
                                         echo "<option value='$exibircat[cat_codi]'> $exibircat[cat_nome]</option>";
                                     };
                                     echo "</select>";
@@ -525,10 +527,8 @@
                                     <input type='text' id='txtQtdtotal' value='` + dados.qtdtotal + `'><br>
                                 <h3> Quantidade Disponivel: </h3>
                                     <input type='text' id='txtQtddisp' value='` + dados.qtddisp + `'><br>
-                                    <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados
-                        .codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
-                                    <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados
-                        .codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
+                                    <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
+                                    <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados.codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
                             </div>
                         </div>`;
                 },

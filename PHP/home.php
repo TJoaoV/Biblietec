@@ -200,23 +200,23 @@
             const diff1 = Math.abs(now.getTime() - past1.getTime());
             const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24));
             if (days1 <= 30) {
-                $.ajax({
-                    url: 'others/checkpendencia.php',
-                    type: 'POST',
-                    data: {
-                        devolucao: livro1,
-                        rmaluno: rmaluno,
-                        idlivro: idlivro,
-                        now: now
-                    },
-                    success: function(retornovalida) {
+                // $.ajax({
+                //     url: 'others/checkpendencia.php',
+                //     type: 'POST',
+                //     data: {
+                //         devolucao: livro1,
+                //         rmaluno: rmaluno,
+                //         idlivro: idlivro,
+                //         now: now
+                //     },
+                //     success: function(retornovalida) {
                         $.ajax({
                             url: 'others/concluirreserva1.php',
                             type: 'POST',
                             data: {
                                 rmaluno: rmaluno,
                                 now: dataagora,
-                                retornovalida: retornovalida
+                                // retornovalida: retornovalida
                             },
                             success: function(tabelaempcodigo) {
                                 $.ajax({
@@ -227,7 +227,7 @@
                                         rmaluno: rmaluno,
                                         idlivro: idlivro,
                                         now: now,
-                                        tabelaempcodigo: tabelaempcodigo
+                                        // tabelaempcodigo: tabelaempcodigo
                                     },
                                     success: function(mensagemretorno) {
                                         alert(mensagemretorno);
@@ -244,11 +244,11 @@
 
                         });
 
-                    },
-                    error: function(jqXHR, textStatus) {
-                        console.log('error ' + textStatus + " " + jqXHR);
-                    }
-                });
+                    // },
+                    // error: function(jqXHR, textStatus) {
+                    //     console.log('error ' + textStatus + " " + jqXHR);
+                    // }
+                // });
                 
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
