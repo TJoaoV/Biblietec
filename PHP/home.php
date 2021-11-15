@@ -321,7 +321,6 @@
                     <li><p><b> Empréstimos: </b>Onde é possível verificar todos seus empréstimos feitos, em andamento e Finalizados.</p></li>
                     <li><p><b> Sair: </b>Volta para a página de login.</p>
                 </ul>
-            
         </div>`;
     };
 
