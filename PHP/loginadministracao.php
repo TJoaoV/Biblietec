@@ -22,7 +22,7 @@ session_start();
             <h3>Senha:</h3>
             <input type='password' id='txtsenha' name='txtsenha' placeholder='Digite sua senha'><br><br>
             <input id='btnesquecisenha' type='button' name='btnesquecisenha' value='Esqueci a senha'
-                onClick="location.href = 'PHP/teste2.php';">
+                onClick="location.href = 'esquecisenhaadm.php';">
             <input id='btnlogin' type='submit' name='btnlogin' value='Entrar'>
         </div>
     </form>

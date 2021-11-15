@@ -18,6 +18,7 @@
     $resultado_pre2 = mysqli_query($conn, $sql_pre);
     $resultado_pre3 = mysqli_query($conn, $sql_pre);
     $resultado_pre4 = mysqli_query($conn, $sql_pre);
+    $resultado_pre5 = mysqli_query($conn, $sql_pre);
     $resultado = mysqli_query($conn, $sql);
     $resultado_emprestimoprogresso = mysqli_query($conn, $sql_emprestimoprogresso);
     $resultado_emprestimofinalizado = mysqli_query($conn, $sql_emprestimofinalizado);
@@ -48,22 +49,13 @@
         if (idrecebidoreload == "4") {
             btnNome();
         };
+        if (idrecebidoreload == "5") {
+            btnEmprestimos();
+            EmpEmProgresso();
+        };
         if (idrecebidoreload == "99") {
             validarfinalizacao();
         };
-        document.querySelector("#btnProcurar").addEventListener("click", e => {
-            btnProcurar();
-        });
-        document.querySelector("#btnEmprestimos").addEventListener("click", e => {
-            btnEmprestimos();
-            EmpEmProgresso();
-        });
-        document.querySelector("#btnCarrinho").addEventListener("click", e => {
-            //btnCarrinho();         
-        });
-        // document.querySelector("#btnContinuarEmprestimo").addEventListener("click", e => {
-        //     btnContinuarEmprestimo();
-        // });
     });
 
     function btnNome() {
@@ -92,14 +84,18 @@
             <h3> Celular: </h3>
             <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_celu']?>'>
             <h3> Email: </h3>
-            <input type='email' id='emailnovo' value='<?php echo $exibiralunos['alu_emai']?>'>
+            <input type='email' id='emailnovo' maxlength="150" value='<?php echo $exibiralunos['alu_emai']?>'>
             <h3> Curso: </h3>
             <?php
                 
                 echo "<select id='cursonovo' name='cursonovo'>";
                 echo "<option value='-'> Selecione o Curso </option>";
                 while ($exibircurso = mysqli_fetch_assoc($resultadocurso)) {
-                    echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome]</option>";
+                    if($exibircurso['cur_codi'] == $exibiralunos['cur_codi']){
+                        echo "<option value='$exibircurso[cur_codi]' selected> $exibircurso[cur_nome] - Duração $exibircurso[cur_dura] - Período $exibircurso[cur_peri]</option>";
+                    } else {
+                        echo "<option value='$exibircurso[cur_codi]'> $exibircurso[cur_nome] - Duração $exibircurso[cur_dura] - Período $exibircurso[cur_peri]</option>";
+                    }
                 } 
                 echo "</select>";
                 echo "<br><br> <input class='botVerm pointer' type='button' href='home.php' onclick='atualizarcadastro($exibiralunos[alu_rm])' value='Salvar Alterações'>";
@@ -157,7 +153,7 @@
         var newcelular = document.getElementById('celularnovo').value;
         var newemail = document.getElementById('emailnovo').value;
         var newcurso = document.getElementById('cursonovo').value;
-        if (newtelefone && newcelular == "") {
+        if (newtelefone == "" && newcelular == "") {
             alert('Preencher pelo menos um telefone!');
         } else if (newemail == "") {
             alert('Preencher email!');
@@ -192,6 +188,7 @@
         var tabelaempcodi = "";
         var rmaluno = document.getElementById('rmdoaluno').value;
         var dataagora = document.getElementById('dataemprestimo').value;
+        
         var livro1;
         var livro2;
         var livro3;
@@ -202,43 +199,65 @@
             const diff1 = Math.abs(now.getTime() - past1.getTime());
             const days1 = Math.ceil(diff1 / (1000 * 60 * 60 * 24));
             if (days1 <= 30) {
+                document.getElementById("btnContinuarEmprestimo").disabled = true;
                 $.ajax({
-                    url: 'others/concluirreserva1.php',
+                    url: 'others/checkpendencia.php',
                     type: 'POST',
                     data: {
+                        devolucao: livro1,
                         rmaluno: rmaluno,
-                        now: dataagora
+                        idlivro: idlivro,
+                        now: now
                     },
-                    success: function(tabelaempcodigo) {
-                        $.ajax({
-                            url: 'others/concluirreserva2.php',
-                            type: 'POST',
-                            data: {
-                                devolucao: livro1,
-                                rmaluno: rmaluno,
-                                idlivro: idlivro,
-                                now: now
-                            },
-                            success: function(mensagemretorno) {
-                                alert(mensagemretorno);
-                                document.location.reload(true);
-                                //
-                            },
-                            error: function(jqXHR, textStatus) {
-                                console.log('error ' + textStatus + " " + jqXHR);
-                            }
-                        });
+                    success: function(retornovalida) {
+                        alert("Aguarde!");
+                        if (retornovalida == "0"){
+                            $.ajax({
+                                url: 'others/concluirreserva1.php',
+                                type: 'POST',
+                                data: {
+                                    rmaluno: rmaluno,
+                                    now: dataagora,
+                                },
+                                success: function(tabelaempcodigo) {
+                                    $.ajax({
+                                        url: 'others/concluirreserva2.php',
+                                        type: 'POST',
+                                        data: {
+                                            devolucao: livro1,
+                                            rmaluno: rmaluno,
+                                            idlivro: idlivro,
+                                            now: now,
+                                        },
+                                        success: function(mensagemretorno) {
+                                            alert(mensagemretorno);
+                                            document.location.reload(true);
+                                        },
+                                        error: function(jqXHR, textStatus) {
+                                            console.log('error ' + textStatus + " " + jqXHR);
+                                        }
+                                    });
+                                },
+                                error: function(jqXHR, textStatus) {
+                                    console.log('error ' + textStatus + " " + jqXHR);
+                                }
+
+                            });
+                        } else {
+                            alert("Você deve devolver o livro com empréstimo em atraso primeiro!");
+                        }
+
                     },
                     error: function(jqXHR, textStatus) {
                         console.log('error ' + textStatus + " " + jqXHR);
                     }
-
                 });
+                
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
         } catch {
-            document.location.reload(true);
+            //document.location.reload(true);
         };
         try {
             var livro2 = document.getElementById('livro2').value;
@@ -259,7 +278,6 @@
                     success: function(mensagemretorno) {
                         alert(mensagemretorno);
                         document.location.reload(true);
-                        //
                     },
                     error: function(jqXHR, textStatus) {
                         console.log('error ' + textStatus + " " + jqXHR);
@@ -270,7 +288,7 @@
             }
 
         } catch {
-            document.location.reload(true);
+            //document.location.reload(true);
         };
         try {
             var livro3 = document.getElementById('livro3').value;
@@ -300,7 +318,7 @@
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
         } catch {
-            document.location.reload(true);
+            //document.location.reload(true);
         };
     };
 
@@ -357,12 +375,15 @@
                     <img src=../img/botao_excluir.png width='20px' height='20px'>
                     </a></td></tr>";
                 }
+                if ($exibir_pre5 = mysqli_fetch_assoc($resultado_pre5)){
+                    echo "</table>";
+                    echo "</div>";
+                    echo "<div class='alinharmeio botpage'>";
+                    echo "<button tabindex='0' href='#' class='botVerm botinpage pointer' onclick='btnContinuarEmprestimo()'> Continuar com a reserva </button>";
+                    echo "</div>";
+                }
             ?>
-        </table>
-        </div>
-        <div class='alinharmeio botpage'>
-        <button tabindex='0' href='#' class='botVerm botinpage pointer' onclick='btnContinuarEmprestimo()'> Continuar com a reserva </button>
-        </div>`;
+        `;
     };
 
     function btnContinuarEmprestimo() {
@@ -370,6 +391,7 @@
         <div class='alinharmeio fundoBranco' style='border-radius: 1vh 1vh;'>
         <h3 style='padding-top: 3vh; margin-bottom: -1vh;'> Selecione as datas para devolução (máximo 30 dias): </h3><br>
         <?php
+
             $datadehoje = date('Y-m-d');
             $a = 1;
             while ($exibir_pre2 = mysqli_fetch_assoc($resultado_pre2)){
@@ -630,7 +652,7 @@
             </a>' ?>
         <hr>
 
-        <a tabindex="3" href='#' class="btnsidenav" id='btnEmprestimos'>
+        <a tabindex="3" href='home.php?id=5' class="btnsidenav" id='btnEmprestimos'>
             <p class="big">Empréstimos</p>
             <img class="small" src="../img/botao_emprestimo.png" style="height:3rem; width:auto;">
         </a>
