@@ -6,7 +6,7 @@ $id = $_SESSION['id'];
 <html lang="PT">
 
 <head>
-    <?php include('../imports.php'); ?>
+    <?php include('importsothers.php'); ?>
     <script type="text/javascript" src="../JS/alterarsenhaadm.js"></script>
     <title> Biblietec- Alterar Senha </title>
 </head>
@@ -14,8 +14,8 @@ $id = $_SESSION['id'];
 <body>
     <div class="login-box">
         <h2> Alterar Senha </h2>
-        <form action='../finish/alterarsenhaadm_finish.php' onsubmit="return validarprimeiro(this);" name='alterarsenhaadm'
-            method="post">
+        <form action='../finish/alterarsenhaadm_finish.php' onsubmit="return validarprimeiro(this);"
+            name='alterarsenhaadm' method="post">
             <h3> Senha atual: </h3>
             <input type='password' name='txtsenhaatualADM' placeholder='Digite sua senha atual'><br>
             <h3> Nova senha: </h3>

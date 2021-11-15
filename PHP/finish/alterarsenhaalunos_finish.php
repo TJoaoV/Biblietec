@@ -26,7 +26,7 @@ if($resultado_usuario == TRUE){
         $senhanova = md5($senha1);
         $sql = "UPDATE alunos SET alu_senh='$senhanova', alu_reds='0' WHERE alu_codi = '$id'";
         $resultadoupdate = mysqli_query($conn, $sql);
-        echo "<h3>Senha alterada com sucesso!</h3>";
+        echo "<div class='alinharmeio'><h3>Senha alterada com sucesso!</h3></div>";
         
     }
     

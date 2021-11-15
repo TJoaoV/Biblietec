@@ -13,7 +13,9 @@ $mensagem = $_SESSION['msg'];
 
 <body>
     <div class="login-box" style="height: 22vh">
+        <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <h2><?php echo $mensagem ?></h2>
-        <button class="botVerm pointer" style="width: 15vw;" onclick="location.href='../loginadministracao.php'">Voltar</button>
+        <button class="botVerm pointer" style="width: 15vw;"
+            onclick="location.href='../loginadministracao.php'">Voltar</button>
     </div>
 </body>
