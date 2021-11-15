@@ -188,7 +188,7 @@
         var tabelaempcodi = "";
         var rmaluno = document.getElementById('rmdoaluno').value;
         var dataagora = document.getElementById('dataemprestimo').value;
-        
+
         var livro1;
         var livro2;
         var livro3;
@@ -211,7 +211,7 @@
                     },
                     success: function(retornovalida) {
                         alert("Aguarde!");
-                        if (retornovalida == "0"){
+                        if (retornovalida == "0") {
                             $.ajax({
                                 url: 'others/concluirreserva1.php',
                                 type: 'POST',
@@ -234,7 +234,8 @@
                                             document.location.reload(true);
                                         },
                                         error: function(jqXHR, textStatus) {
-                                            console.log('error ' + textStatus + " " + jqXHR);
+                                            console.log('error ' + textStatus +
+                                                " " + jqXHR);
                                         }
                                     });
                                 },
@@ -252,7 +253,7 @@
                         console.log('error ' + textStatus + " " + jqXHR);
                     }
                 });
-                
+
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
@@ -331,14 +332,14 @@
                 <p class="intTitle"><b>Intuito</b></p>
                     <p> O objetivo é que seja possível reservar livros pelo site e retirá-los na biblioteca.</h4>
                 <p class="intTitle"><b>Guia</b></p>
-                </div>
-                <ul class="intLista">
-                    <li><p><b> Aluno: </b>Ao clicar no seu próprio nome, irá para a página de configurações do seu perfil.</p></li>
-                    <li><p><b> Procurar: </b>Para procurar dentre os títulos e adicionar no carrinho o(s) livro(s) selecionado(s).</p></li>
-                    <li><p><b> Carrinho: </b>Onde é possível visualizar os livros no carrinho e concluir a reserva.</p></li>
-                    <li><p><b> Empréstimos: </b>Onde é possível verificar todos seus empréstimos feitos, em andamento e Finalizados.</p></li>
-                    <li><p><b> Sair: </b>Volta para a página de login.</p>
-                </ul>
+            </div>
+            <ul class="intLista">
+                <li><p><b> Aluno: </b>Ao clicar no seu próprio nome, irá para a página de configurações do seu perfil.</p></li>
+                <li><p><b> Procurar: </b>Para procurar dentre os títulos e adicionar no carrinho o(s) livro(s) selecionado(s).</p></li>
+                <li><p><b> Carrinho: </b>Onde é possível visualizar os livros no carrinho e concluir a reserva.</p></li>
+                <li><p><b> Empréstimos: </b>Onde é possível verificar todos seus empréstimos feitos, em andamento e Finalizados.</p></li>
+                <li><p><b> Sair: </b>Volta para a página de login.</p>
+            </ul>
         </div>`;
     };
 

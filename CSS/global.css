@@ -61,18 +61,21 @@ body {
 .small {
 	display: none;
 }
-@media only screen and (max-width: 650px){
+@media only screen and (max-width: 650px) {
 	.big {
 		display: none;
 	}
 	.small {
 		display: inline;
 	}
+	#btnSair {
+		left: 1vw !important;
+	}
 }
 #btnSair {
 	position: absolute;
 	bottom: 2vh;
-	left: 5vw;
+	left: 6vw;
 }
 /* Fazer cores do logo
 <span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span> */
