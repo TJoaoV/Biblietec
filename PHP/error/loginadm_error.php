@@ -6,7 +6,7 @@ $mensagem = $_SESSION['msg'];
 <html lang="pt">
 
 <head>
-    <title>Biblietec - Procura</title>
+    <title>Biblietec - Login Adm</title>
     <?php include('importserror.php'); ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>

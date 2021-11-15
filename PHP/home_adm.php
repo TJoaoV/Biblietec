@@ -94,7 +94,7 @@
         };
     });
 
-    function btnUsuario(){
+    function btnUsuario() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
             `<h3 class="corpoTitle"> Procurar Usuário </h3><br>
@@ -110,7 +110,7 @@
             ?>
             </ul>
             </table>`;
-            document.getElementById('main3').innerHTML =
+        document.getElementById('main3').innerHTML =
             `
             <input class='botVerm pointer' type='button' onClick ='adicionarUsuario()' value=' Adicionar Usuário ' id='btnAddUsuario'><br>`;
         // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
@@ -131,7 +131,7 @@
         };
     };
 
-    function adicionarUsuario(){
+    function adicionarUsuario() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main1').innerHTML = `
@@ -175,7 +175,7 @@
         `;
     };
 
-    function adicionarUsuarioBD(){
+    function adicionarUsuarioBD() {
         var nomeUsuADD = document.getElementById('txtNomeUsuADD').value;
         var loginADD = document.getElementById('txtLoginADD').value;
         var cpfUsuADD = document.getElementById('txtCPFADD').value;
@@ -210,7 +210,7 @@
         });
     };
 
-    function VerUsuario(id){
+    function VerUsuario(id) {
         var codigoadm = document.getElementById('codigoadm').value;
         document.getElementById('main3').innerHTML = "";
         var idUsuario = id;
@@ -242,11 +242,16 @@
                         <h3> Endereço: </h3>
                         <input type='text' id='txtEndeUsuario' maxlength="100" value='` + dados.endereco + `'><br>
                         <h3> Data de Nascimento: </h3>
-                        <input type='date' id='txtDtNaUsuario' value='` + dados.dtna + `' readonly><br>
+                        <input type='date' id='txtDtNaUsuario' value='` + dados.dtna +
+                        `' readonly><br>
                         <h3> Telefone: </h3>
-                        <input type='text' id='txtTelefoneUsuario' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" value='` + dados.telefone + `'><br>
+                        <input type='text' id='txtTelefoneUsuario' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" value='` +
+                        dados
+                        .telefone +
+                        `'><br>
                         <h3> Celular: </h3>
-                        <input type='text' id='txtCelularUsuario' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` + dados.celular + `'><br>
+                        <input type='text' id='txtCelularUsuario' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` +
+                        dados.celular + `'><br>
                         <h3> E-mail: </h3>
                         <input type='text' id='txtEmailUsuario' maxlength="150" value='` + dados.email + `'><br>
                         <h3> Permissão Antiga: </h3>
@@ -279,7 +284,7 @@
         }
     };
 
-    function redefinirsenhausuario(idUsuario, usuarioadm){
+    function redefinirsenhausuario(idUsuario, usuarioadm) {
         var senha = prompt("Digite sua senha para confirmação:");
         if (senha != null) {
             $.ajax({
@@ -301,7 +306,7 @@
         };
     }
 
-    function edicaousuario(codigo){
+    function edicaousuario(codigo) {
         var codigoUsu = document.getElementById('txtCodiUsuario').value;
         var nomeUsu = document.getElementById('txtNomeUsuario').value;
         var loginUsu = document.getElementById('txtLoginUsuario').value;
@@ -339,7 +344,7 @@
         });
     };
 
-    function btnCurso(){
+    function btnCurso() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
             `<h3 class="corpoTitle"> Procurar Curso </h3><br>
@@ -355,7 +360,7 @@
             ?>
             </ul>
             </table>`;
-            document.getElementById('main3').innerHTML =
+        document.getElementById('main3').innerHTML =
             `
             <input class='botVerm pointer' type='button' onClick ='adicionarCurso()' value=' Adicionar Curso ' id='btnAddCurso'><br>`;
         // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
@@ -376,7 +381,7 @@
         };
     };
 
-    function adicionarCurso(){
+    function adicionarCurso() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main1').innerHTML = `
@@ -405,7 +410,7 @@
         `;
     };
 
-    function adicionarCursoBD(){
+    function adicionarCursoBD() {
         var nomeADD = document.getElementById('txtNomeADD').value;
         var duracaoADD = document.getElementById('txtDuracaoADD').value;
         var periodoADD = document.getElementById('selectPeriodoADD').value;
@@ -427,7 +432,7 @@
         });
     };
 
-    function VerCurso(id){
+    function VerCurso(id) {
         var codigoadm = document.getElementById('codigoadm').value;
         document.getElementById('main3').innerHTML = "";
         var idCurso = id;
@@ -476,7 +481,7 @@
         }
     };
 
-    function edicaocurso(codigo){
+    function edicaocurso(codigo) {
         var codi = document.getElementById('txtCodiCurso').value;
         var newnomec = document.getElementById('txtNomeCurso').value;
         var newduracao = document.getElementById('txtDuracaoCurso').value;
@@ -502,7 +507,7 @@
         });
     };
 
-    function btnCategoria(){
+    function btnCategoria() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main1').innerHTML =
             `<h3 class="corpoTitle"> Procurar Categoria </h3><br>
@@ -518,7 +523,7 @@
             ?>
             </ul>
             </table>`;
-            document.getElementById('main3').innerHTML =
+        document.getElementById('main3').innerHTML =
             `
             <input class='botVerm pointer' type='button' onClick ='adicionarCategoria()' value=' Adicionar Categoria ' id='btnAddCategoria'><br>`;
         // FUNÇÃO DE "PESQUISA" NA PÁGINA HOME > PROCURAR
@@ -539,7 +544,7 @@
         };
     };
 
-    function adicionarCategoria(){
+    function adicionarCategoria() {
         document.getElementById('main2').innerHTML = "";
         document.getElementById('main3').innerHTML = "";
         document.getElementById('main1').innerHTML = `
@@ -558,7 +563,7 @@
         `;
     };
 
-    function adicionarCategoriaBD(){
+    function adicionarCategoriaBD() {
         var categoriaADD = document.getElementById('txtCateADD').value;
         $.ajax({
             url: 'others/adicionarcategoria_adm.php',
@@ -576,7 +581,7 @@
         });
     };
 
-    function VerCategoria(id){
+    function VerCategoria(id) {
         var codigoadm = document.getElementById('codigoadm').value;
         document.getElementById('main3').innerHTML = "";
         var idCategoria = id;
@@ -612,7 +617,7 @@
         }
     };
 
-    function edicaocategoria(codigo){
+    function edicaocategoria(codigo) {
         var codi = document.getElementById('txtCodiCat').value;
         var newnomec = document.getElementById('txtNomeCat').value;
         $.ajax({
@@ -814,17 +819,23 @@
                         <div class="corpoCadastro"> <br>
                         <input class='botVerm pointer' type='button' onClick ='alterarCadAlunos()' value=' Voltar ' id='btnVoltarLivro'><br>
                         <h3> Código do Aluno: </h3>
-                        <input type='text' id='txtCodi' readonly value='` + dados.codigo + `'> <br>
+                        <input type='text' id='txtCodi' readonly value='` + dados.codigo +
+                        `'> <br>
                         <h3> RM: </h3>
-                        <input type='text' id='txtRM' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` + dados.rm + `'> <br>
+                        <input type='text' id='txtRM' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` +
+                        dados.rm + `'> <br>
                         <h3> Nome: </h3>
                         <input type='text' id='txtNome' maxlength="100" value='` + dados.nome + `'><br>
                         <h3> CPF: </h3>
-                        <input type='text' id='txtCPF' readonly value='` + dados.cpf + `'><br>
+                        <input type='text' id='txtCPF' readonly value='` + dados.cpf +
+                        `'><br>
                         <h3> Telefone: </h3>
-                        <input type='text' id='txtTelefone' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" value='` + dados.telefone + `'><br>
+                        <input type='text' id='txtTelefone' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" value='` +
+                        dados.telefone +
+                        `'><br>
                         <h3> Celular: </h3>
-                        <input type='text'id='txtCelular' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` + dados.celular + `'><br>
+                        <input type='text'id='txtCelular' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` +
+                        dados.celular + `'><br>
                         <h3> Email: </h3>
                         <input type='email' id='txtEmail' maxlength="150" value='` + dados.email + `'><br>
                         <h3> Data de Nascimento: </h3>
@@ -1051,7 +1062,8 @@
                                     <input type='text' id='txtEditora' maxlength="80" value='` + dados.editora + `'><br>
                                 
                                 <h3> Antiga Categoria: </h3>
-                                    <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados.categoria + `' disabled>
+                                    <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados
+                        .categoria + `' disabled>
                                 <h3> Nova Categoria: </h3> 
                                 <?php
                                     echo "<select id='categorialivro' name='categorialivro'>";
@@ -1062,13 +1074,19 @@
                                     echo "</select>";
                                 ?><br>
                                 <h3> Sinopse: </h3>
-                                    <textarea id='txtSinopse' maxlength="900" rows="6">` + dados.sinopse + `</textarea><br>
+                                    <textarea id='txtSinopse' maxlength="900" rows="6">` + dados.sinopse +
+                        `</textarea><br>
                                 <h3> Quantidade Total: </h3>
-                                    <input type='text' id='txtQtdtotal' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="100" value='` + dados.qtdtotal + `'><br>
+                                    <input type='text' id='txtQtdtotal' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="100" value='` +
+                        dados.qtdtotal +
+                        `'><br>
                                 <h3> Quantidade Disponivel: </h3>
-                                    <input type='text' id='txtQtddisp' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="100" value='` + dados.qtddisp + `'><br>
-                                    <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
-                                    <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados.codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
+                                    <input type='text' id='txtQtddisp' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="100" value='` +
+                        dados.qtddisp + `'><br>
+                                    <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados
+                        .codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
+                                    <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados
+                        .codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
                             </div>
                         </div>`;
                 },
@@ -1431,16 +1449,24 @@
 
     function carregou() {
         document.getElementById('main1').innerHTML = `
-        <p> Seja bem vindo a parte Administrativa do Biblietec!!</p>
-        <p> Aqui vicê poderá gerenciar os empréstimos, cadastros e todas funcionalidades do sistema!!</p>
-        <p> Abaixo temos um breve tutorial, para ajudar a se ambientar, ok?</p>
-        <p> Clicando na nossa logo, você será redirecionado para esta tela, idependente de qual estiver</p>
-        <p> Caso você clique no seu próprio nome, irá para a página de configurações do seu perfil</p>
-        <p> Consultar Empréstimos - Para consultar os empréstimos em aberto para entrega, em atraso e devolvidos</p>
-        <p> Cadastrar/Alterar Livros - É possível Cadastrar e Alterar os livros no sistema</p>
-        <p> Alterar Cadastro Aluno - Você pode alterar o cadastro dos alunos, tais como nome, RM, etc</p>
-        <p> Cadastrar Categoria/Curso - Aqui você cadastra as categorias dos livros e os cursos disponíveis na escola</p>
-        <p> Sair - Volta para a página de login</p>`;
+        <h3 class="corpoTitle"> Introdução </h3><br>
+        <hr class="hrTitle"><br>
+        <div class="corpoCadastro" style="width: 95%;">
+            <div class="alinharmeio">
+                <p class="intTitle"><b>Intuito</b></p>
+                    <p> O objetivo é que será possível gerenciar os empréstimos, cadastros e <br> todas funcionalidades do sistema.</p>
+                <p class="intTitle"><b>Guia</b></p>
+            </div>
+            <ul class="intLista">
+                <li><p><b> Nome: </b>Ao clicar no seu próprio nome, irá para a página de configurações do seu perfil.</p></li>
+                <li><p><b> Consultar Empréstimos: </b>Para consultar os empréstimos abertos para entrega, em atraso e devolvidos.</p></li>
+                <li><p><b> Cadastrar/Alterar Livros: </b>Onde é possível cadastrar e Alterar os livros no sistema.</p></li>
+                <li><p><b> Alterar Cadastro Aluno: </b>Para alterar o cadastro dos alunos, tais como nome, RM etc.</p></li>
+                <li><p><b> Alterar/Cadastrar Categoria: </b>Onde é possível cadastrar e alterar as categorias dos livros.</p></li>
+                <li><p><b> Alterar/Cadastrar Curso: </b>Onde é possível cadastrar e alterar os cursos da escola.</p></li>
+                <li><p><b> Sair: </b>Volta para a página de login.</p></li>
+            </ul>
+        </div>`;
     };
     </script>
 
@@ -1474,7 +1500,7 @@
             echo '<a tabindex="6" href="home_adm.php?id=11" class="btnsidenav" id="btnCadastrarAlterarUsuarioADM">Cadastrar/Alterar Usuário</a>';
             echo '<hr>';}
         ?>
-        
+
         <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='loginadministracao.php'
             id='btnSair'>Sair</a>
     </div>
