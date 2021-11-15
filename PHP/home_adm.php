@@ -153,9 +153,9 @@
                 <h3> Data de Nascimento: </h3>
                 <input type='date' id='txtDtnaADD'><br>
                 <h3> Telefone: </h3>
-                <input type='text' id='txtTeleADD' maxlength="10" placeholder='Digite o Telefone (Somente Números)'><br>
+                <input type='text' id='txtTeleADD' maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder='Digite o Telefone (Somente Números)'><br>
                 <h3> Celular: </h3>
-                <input type='text' id='txtCeluADD' maxlength="11" placeholder='Digite o Celular (Somente Números)'><br>
+                <input type='text' id='txtCeluADD' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder='Digite o Celular (Somente Números)'><br>
                 <h3> E-mail: </h3>
                 <input type='email' id='txtEmailADD' maxlength="150" placeholder='Digite o E-mail'><br>
                 <h3> Permissão: </h3>
@@ -234,21 +234,21 @@
                         <h3> Código do Usuário: </h3>
                         <input type='text' id='txtCodiUsuario' readonly value='` + dados.codigo + `'> <br>
                         <h3> Nome: </h3>
-                        <input type='text' id='txtNomeUsuario' value='` + dados.nome + `'><br>
+                        <input type='text' id='txtNomeUsuario' maxlength="100" value='` + dados.nome + `'><br>
                         <h3> Login: </h3>
-                        <input type='text' id='txtLoginUsuario' value='` + dados.login + `'><br>
+                        <input type='text' id='txtLoginUsuario' maxlength="50"  value='` + dados.login + `'><br>
                         <h3> CPF: </h3>
                         <input type='text' id='txtCPFUsuario' value='` + dados.cpf + `' readonly><br>
                         <h3> Endereço: </h3>
-                        <input type='text' id='txtEndeUsuario' value='` + dados.endereco + `'><br>
+                        <input type='text' id='txtEndeUsuario' maxlength="100" value='` + dados.endereco + `'><br>
                         <h3> Data de Nascimento: </h3>
                         <input type='date' id='txtDtNaUsuario' value='` + dados.dtna + `' readonly><br>
                         <h3> Telefone: </h3>
-                        <input type='text' id='txtTelefoneUsuario' value='` + dados.telefone + `'><br>
+                        <input type='text' id='txtTelefoneUsuario' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" value='` + dados.telefone + `'><br>
                         <h3> Celular: </h3>
-                        <input type='text' id='txtCelularUsuario' value='` + dados.celular + `'><br>
+                        <input type='text' id='txtCelularUsuario' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` + dados.celular + `'><br>
                         <h3> E-mail: </h3>
-                        <input type='text' id='txtEmailUsuario' value='` + dados.email + `'><br>
+                        <input type='text' id='txtEmailUsuario' maxlength="150" value='` + dados.email + `'><br>
                         <h3> Permissão Antiga: </h3>
                         <input type='text' id='txtPermiOLDUsuario' value='` + dados.permissao + `' readonly><br>
                         <h3> Permissão Nova: </h3>
@@ -264,10 +264,10 @@
                         <h3> Status Novo: </h3>
                         <select id='selectSituacaoUsuario' name='selectSituacaoUsuario'>
                             <option value='-'> Selecione o Novo Status do Usuário </option>
-                            <option value='Ativo'> Usuário Ativo </option>
-                            <option value='Inativo'> Usuário Inativo </option>
+                            <option value='1'> Usuário Ativo </option>
+                            <option value='0'> Usuário Inativo </option>
                         </select>
-                        <input class='botVerm pointer' type='button' onClick ='redefinirsenhausuario(` + dados.codigo + `)' value=' Redefinir Senha ' id='btnRedefinirSenhaUsuario'><br>
+                        <input class='botVerm pointer' type='button' onClick ='redefinirsenhausuario(` + dados.codigo + `, <?php echo $usuarioadm?>)' value=' Redefinir Senha ' id='btnRedefinirSenhaUsuario'><br>
                         <input class='botVerm pointer' type='button' onClick ='edicaousuario(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesUsuario'><br>
                         </div>
                         </div>`;
@@ -279,7 +279,7 @@
         }
     };
 
-    function redefinirsenhausuario(idUsuario){
+    function redefinirsenhausuario(idUsuario, usuarioadm){
         var senha = prompt("Digite sua senha para confirmação:");
         if (senha != null) {
             $.ajax({
@@ -388,9 +388,9 @@
             <form method='POST' name='addCurso' onsubmit="return validaraddcurso(this);">
                 <br>
                 <h3> Nome do Curso: </h3>
-                <input type='text' id='txtNomeADD' maxlength="100"> <br>
+                <input type='text' id='txtNomeADD' maxlength="100" placeholder="Digite o Nome do Curso"> <br>
                 <h3> Duração: </h3>
-                <input type='text' id='txtDuracaoADD' maxlength="20"><br>
+                <input type='text' id='txtDuracaoADD' maxlength="20" placeholder="Digite a Duração do Curso"><br>
                 <h3> Período: </h3>
                 <select id='selectPeriodoADD' name='selectPeriodoADD'>
                     <option value='-'> Selecione o Período </option>
@@ -451,9 +451,9 @@
                         <h3> Código do Curso: </h3>
                         <input type='text' id='txtCodiCurso' readonly value='` + dados.codigo + `'> <br>
                         <h3> Nome: </h3>
-                        <input type='text' id='txtNomeCurso' value='` + dados.nome + `'><br>
+                        <input type='text' id='txtNomeCurso' maxlength="100"  value='` + dados.nome + `'><br>
                         <h3> Duração: </h3>
-                        <input type='text' id='txtDuracaoCurso' value='` + dados.duracao + `'><br>
+                        <input type='text' id='txtDuracaoCurso' maxlength="20" value='` + dados.duracao + `'><br>
                         <h3> Período Antigo: </h3>
                         <input type='text' id='txtPeriodoAntigoCurso' value='` + dados.periodo + `' readonly><br>
                         <h3> Período Novo: </h3>
@@ -551,7 +551,7 @@
             <form method='POST' name='addCategoria' onsubmit="return validaraddcategoria(this);">
                 <br>
                 <h3> Nome da Categoria: </h3>
-                <input type='text' id='txtCateADD' maxlength="60"> <br>
+                <input type='text' id='txtCateADD' maxlength="60" placeholder="Digite o nome da Categoria"> <br>
                 <input class='botVerm pointer' type='submit' value='Adicionar Categoria'>
             </form>
             </div>
@@ -600,7 +600,7 @@
                         <h3> Código da Categoria: </h3>
                         <input type='text' id='txtCodiCat' readonly value='` + dados.codigo + `'> <br>
                         <h3> Nome: </h3>
-                        <input type='text' id='txtNomeCat' value='` + dados.nome + `'><br>
+                        <input type='text' id='txtNomeCat' maxlength="60" value='` + dados.nome + `'><br>
                         <input class='botVerm pointer' type='button' onClick ='edicaocategoria(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesAluno'><br>
                         </div>
                         </div>`;
@@ -816,17 +816,17 @@
                         <h3> Código do Aluno: </h3>
                         <input type='text' id='txtCodi' readonly value='` + dados.codigo + `'> <br>
                         <h3> RM: </h3>
-                        <input type='number' id='txtRM' value='` + dados.rm + `'> <br>
+                        <input type='text' id='txtRM' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` + dados.rm + `'> <br>
                         <h3> Nome: </h3>
-                        <input type='text' id='txtNome' value='` + dados.nome + `'><br>
+                        <input type='text' id='txtNome' maxlength="100" value='` + dados.nome + `'><br>
                         <h3> CPF: </h3>
-                        <input type='text' id='txtCPF' value='` + dados.cpf + `'><br>
+                        <input type='text' id='txtCPF' readonly value='` + dados.cpf + `'><br>
                         <h3> Telefone: </h3>
-                        <input type='number' id='txtTelefone'value='` + dados.telefone + `'><br>
+                        <input type='text' id='txtTelefone' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" value='` + dados.telefone + `'><br>
                         <h3> Celular: </h3>
-                        <input type='number'id='txtCelular'value='` + dados.celular + `'><br>
+                        <input type='text'id='txtCelular' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11" value='` + dados.celular + `'><br>
                         <h3> Email: </h3>
-                        <input type='email' id='txtEmail' value='` + dados.email + `'><br>
+                        <input type='email' id='txtEmail' maxlength="150" value='` + dados.email + `'><br>
                         <h3> Data de Nascimento: </h3>
                         <input type='date' id='txtDtNascimento' value='` + dados.datanascimento + `'><br>
                         <h3> Antigo Curso: </h3>
@@ -962,12 +962,13 @@
             <div class="corpoCadastro">
             <form method='POST' name='addlivro' onsubmit="return validaraddlivro(this);">
             <br>
+            <input class='botVerm pointer' type='button' onClick ='btnConfigLivros()' value=' Voltar ' id='btnVoltarLivro'><br>
             <h3> Título do Livro: </h3>
-            <input type='text' id='txtTituloADD'> <br>
+            <input type='text' maxlength="100" id='txtTituloADD' placeholder="Digite o Nome do livro"> <br>
             <h3> Autor: </h3>
-            <input type='text' id='txtAutorADD'><br>
+            <input type='text' maxlength="100" id='txtAutorADD' placeholder="Digite o Autor do livro"><br>
             <h3> Editora: </h3>
-            <input type='text' id='txtEditoraADD'><br>
+            <input type='text' maxlength="80" id='txtEditoraADD' placeholder="Digite a Editora do livro"><br>
             <h3> Categoria: </h3>
             <?php
                 echo "<select id='categorialivroADD' name='categorialivro'>";
@@ -978,11 +979,11 @@
                 echo "</select>";
             ?><br>
             <h3> Sinopse: </h3>
-            <textarea id='txtSinopseADD'></textarea><br>
+            <textarea maxlength="900" id='txtSinopseADD' placeholder="Digite a Sinopse do livro"></textarea><br>
             <h3> Quantidade Total: </h3>
-            <input type='number' id='txtQtdtotalADD'><br>
+            <input type='text' maxlength="100" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id='txtQtdtotalADD' placeholder="Digite a Quantidade Total de Livros"><br>
             <h3> Quantidade Disponivel: </h3>
-            <input type='number' id='txtQtddispADD'><br>
+            <input type='text' maxlength="100" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id='txtQtddispADD' placeholder="Digite a Quantidade Disponivel de Livros"><br>
             <input class='botVerm pointer' type='submit' value='Adicionar Livro'>
             </div>
         `;
@@ -1047,7 +1048,7 @@
                                 <h3> Autor: </h3>
                                     <input type='text' readonly value='` + dados.autor + `'><br>
                                 <h3> Editora: </h3>
-                                    <input type='text' id='txtEditora' value='` + dados.editora + `'><br>
+                                    <input type='text' id='txtEditora' maxlength="80" value='` + dados.editora + `'><br>
                                 
                                 <h3> Antiga Categoria: </h3>
                                     <input type='text' id='txtCategoria' name='` + dados.catid + `' value='` + dados.categoria + `' disabled>
@@ -1061,11 +1062,11 @@
                                     echo "</select>";
                                 ?><br>
                                 <h3> Sinopse: </h3>
-                                    <textarea id='txtSinopse' rows="6">` + dados.sinopse + `</textarea><br>
+                                    <textarea id='txtSinopse' maxlength="900" rows="6">` + dados.sinopse + `</textarea><br>
                                 <h3> Quantidade Total: </h3>
-                                    <input type='text' id='txtQtdtotal' value='` + dados.qtdtotal + `'><br>
+                                    <input type='text' id='txtQtdtotal' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="100" value='` + dados.qtdtotal + `'><br>
                                 <h3> Quantidade Disponivel: </h3>
-                                    <input type='text' id='txtQtddisp' value='` + dados.qtddisp + `'><br>
+                                    <input type='text' id='txtQtddisp' onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="100" value='` + dados.qtddisp + `'><br>
                                     <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados.codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
                                     <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados.codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
                             </div>

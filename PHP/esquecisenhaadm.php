@@ -10,7 +10,7 @@ $resultado = mysqli_query($conn, $sql);
 <head>
     <title> Biblietec - Esqueci a senha </title>
     <?php include('imports.php'); ?>
-    <script type="text/javascript" src="../JS/esquecisenhaalunosjs.js"></script>
+    <script type="text/javascript" src="../JS/esquecisenhaadm.js"></script>
 </head>
 
 <body>
@@ -19,12 +19,12 @@ $resultado = mysqli_query($conn, $sql);
             <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         </a>
         <h2>Redefinir Senha</h2>
-        <form action="finish/esquecisenhaalunos_finish.php" onsubmit="return validarprimeiro(this);" name="esquecisenha"
+        <form action="finish/esquecisenhaadm_finish.php" onsubmit="return validarprimeiro(this);" name="esquecisenhaadm"
             method="post">
             <h3>CPF:</h3>
             <input type='text' onkeypress="return event.charCode >= 48 && event.charCode <= 57" name='txtCPF' id='txtCPF' maxlength="11" placeholder='Digite o CPF (Sem pontuação)'><br>
-            <h3>RM:</h3>
-            <input type='text' onkeypress="return event.charCode >= 48 && event.charCode <= 57" name='txtRM' id='txtRM' maxlength="11" placeholder='Digite o RM'><br><br>
+            <h3>Login:</h3>
+            <input type='text' name='txtLogin' id='txtLogin' maxlength="50" placeholder='Digite o Login'><br><br>
             <input id='btnlogin' type='submit' name='btncontinuar' value='Continuar'>
         </form>
     </div>

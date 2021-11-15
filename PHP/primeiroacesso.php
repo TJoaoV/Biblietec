@@ -23,13 +23,13 @@ $resultado = mysqli_query($conn, $sql);
             <h2>Cadastro</h2>
 
             <h3>RM:</h3>
-            <input type='text' name='txtrm' maxlength="11" placeholder='Digite o RM'><br>
+            <input type='text' name='txtrm' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="15" placeholder='Digite o RM'><br>
 
             <h3>Nome Completo: </h3>
             <input type='text' name='txtnome' maxlength="100" placeholder='Digite o nome completo'><br>
 
             <h3>CPF:</h3>
-            <input type='text' id='txtCPF' name='txtCPF'
+            <input type='text' id='txtCPF' name='txtCPF' maxlength="11"
                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="15"
                 placeholder='Digite o CPF (Sem pontuação)'><br>
 
@@ -48,10 +48,10 @@ $resultado = mysqli_query($conn, $sql);
             <input type='date' name='txtdtnascimento' placeholder='Digite a Data de Nascimento'><br>
 
             <h3>Senha:</h3>
-            <input type='password' name='txtsenha' placeholder='Digite sua senha'><br>
+            <input type='password' maxlength="150" name='txtsenha' placeholder='Digite sua senha'><br>
 
             <h3>Repita a Senha:</h3>
-            <input type='password' name='txtsenha2' placeholder='Digite sua senha novamente'><br>
+            <input type='password' maxlength="150" name='txtsenha2' placeholder='Digite sua senha novamente'><br>
 
             <h3>Curso:</h3>
             <?php

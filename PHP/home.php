@@ -84,7 +84,7 @@
             <h3> Celular: </h3>
             <input type='text' id='celularnovo' maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value='<?php echo $exibiralunos['alu_celu']?>'>
             <h3> Email: </h3>
-            <input type='email' id='emailnovo' value='<?php echo $exibiralunos['alu_emai']?>'>
+            <input type='email' id='emailnovo' maxlength="150" value='<?php echo $exibiralunos['alu_emai']?>'>
             <h3> Curso: </h3>
             <?php
                 
