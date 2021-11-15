@@ -158,6 +158,9 @@
 .redSenhaA h3 {
 	text-align: center;
 }
+.livrDetail {
+	padding-left: 5%;
+}
 /* ------------------Css do corpo da main page--------------- */
 .corpoMain {
 	margin-left: 16vw;
@@ -324,4 +327,10 @@
 }
 .pointer {
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 650px) {
+	.corpoCadastro {
+		width: 95%;
+	}
 }

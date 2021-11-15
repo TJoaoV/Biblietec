@@ -1483,8 +1483,7 @@
                     class="cor2">e</span><span class="cor3">tec</span></h1>
         </a>
         <hr class='full'>
-        <a tabindex="1" href='home_adm.php?id=4'><?php echo $nome ?></a><br>
-        <a tabindex="1"><?php echo $permi ?></a><br>
+        <a tabindex="1" href='home_adm.php?id=4'><?php echo $nome ?><br> - <?php echo $permi ?> - </a><br>
         <hr class='full'>
         <?php echo '<a tabindex="2" href="home_adm.php?id=1" class="btnsidenav" id="btnEmprestimo">Consultar Empréstimos</a>' ?>
         <hr>

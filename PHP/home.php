@@ -352,7 +352,7 @@
         <div class="empTableDiv">
         <table name='carrinhotable' id='carrinhotable'>
             <tr>
-                <th width="5%">Id</th>
+                <th width="5%">ID</th>
                 <th width="35%">Titulo</th>
                 <th width="25%">Autor</th>
                 <th width="15%">Data Reserva</th>
@@ -574,23 +574,25 @@
                 success: function(dados) {
                     document.getElementById('main2').innerHTML =
                         `<div class="result">
-                        <hr class='hrMain'> 
-                        <label><b> Código do Livro: </b></label>
-                        <label> ` + dados.codigo + ` </label> <br>
-                        <label><b> Título do Livro: </b></label>
-                        <label> ` + dados.nome + ` </label> <br>
-                        <label><b> Autor: </b></label>
-                        <label> ` + dados.autor + ` </label><br>
-                        <label><b> Editora: </b></label>
-                        <label> ` + dados.editora + ` </label><br>
-                        <label><b> Categoria: </b></label>
-                        <label> ` + dados.categoria + ` </label><br>
-                        <label><b> Sinopse: </b></label>
-                        <label> ` + dados.sinopse + ` </label>
-                        <div class='alinharmeio'>
-                        <input class='botVerm pointer' type='button' onClick ='fazerReserva(` + dados
-                        .codigo + `)' value=' Adicionar no Carrinho ' id='btnAddCarrinho'><br>
-                        </div>
+                            <hr class='hrMain'>
+                            <div class="corpoCadastro">
+                            <div class="livrDetail">
+                            <br>
+                                <span><b>Código do Livro:</b></span>
+                                <label> ` + dados.codigo + ` </label> <br>
+                                <label><b> Título do Livro: </b></label>
+                                <label> ` + dados.nome + ` </label> <br>
+                                <label><b> Autor: </b></label>
+                                <label> ` + dados.autor + ` </label><br>
+                                <label><b> Editora: </b></label>
+                                <label> ` + dados.editora + ` </label><br>
+                                <label><b> Categoria: </b></label>
+                                <label> ` + dados.categoria + ` </label><br>
+                                <label><b> Sinopse: </b></label>
+                                <label> ` + dados.sinopse + ` </label>
+                                <input class='botVerm pointer' type='button' onClick ='fazerReserva(` + dados
+                        .codigo + `)' value=' Adicionar ao Carrinho ' id='btnAddCarrinho'><br>
+                            </div></div>
                         </div>`;
                 },
                 error: function(jqXHR, textStatus) {
@@ -634,7 +636,7 @@
         </a>
         <hr class='full'>
         <a tabindex="1" href='home.php?id=4'>
-            <p class="big">Aluno: <?php echo $nome ?> </p>
+            <p class="big"><?php echo $nome ?> <br> - Aluno -</p>
             <img class="small" src="../img/botao_pessoa.png" style="height:3rem; width:auto;">
 
         </a><br>
