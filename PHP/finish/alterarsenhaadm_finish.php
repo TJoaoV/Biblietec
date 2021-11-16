@@ -28,6 +28,8 @@
                     $resultadoupdate = mysqli_query($conn, $sql);
                     echo "<h3>Senha alterada com sucesso!</h3>";
                     
+                } else {
+                    echo "<h3>Senha antiga incorreta!</h3>";
                 }
                 
             }
