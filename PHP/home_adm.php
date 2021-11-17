@@ -1318,7 +1318,7 @@
                             $mes= substr($exibirprogresso['emp_dtde'], 5,2);
                             $dia= substr($exibirprogresso['emp_dtde'], 8,2);
                             echo "<td nome='1' id='1'> $dia/$mes/$ano </td>";
-                            echo "<td><a class='btnsidenav' id='$exibirprogresso[emp_codi]' onclick='devolver_livro($exibirprogresso[cor_codi], $usuarioadm)'><img src=../img/botao_devolver.png width='20px' height='20px'></a></td>";
+                            echo "<td><a class='btnsidenav' id='$exibirprogresso[cor_codi]' onclick='devolver_livro($exibirprogresso[cor_codi], $usuarioadm)'><img src=../img/botao_devolver.png width='20px' height='20px'></a></td>";
                             echo "</tr>";
                         };
                     };
@@ -1401,9 +1401,6 @@
                             $sql_ano = "SELECT * FROM livros WHERE liv_codi = $exibir2[liv_codi]";
                             $resultado_ano = mysqli_query($conn, $sql_ano);
                             $exibir_ano = mysqli_fetch_assoc($resultado_ano);
-                            $sql_ano2 = "SELECT * FROM emprestimo WHERE emp_codi = $exibir2[emp_codi]";
-                            $resultado_ano2 = mysqli_query($conn, $sql_ano2);
-                            $exibir_ano2 = mysqli_fetch_assoc($resultado_ano2);
                             $sql_ano3 = "SELECT * FROM alunos WHERE alu_rm = $exibir2[alu_rm]";
                             $resultado_ano3 = mysqli_query($conn, $sql_ano3);
                             $exibir_ano3 = mysqli_fetch_assoc($resultado_ano3);
