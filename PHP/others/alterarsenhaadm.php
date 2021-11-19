@@ -13,6 +13,7 @@ $id = $_SESSION['id'];
 
 <body>
     <div class="login-box">
+    <h1 class='titulo'><span class="cor3">Bibli</span><span class="cor2">e</span>tec</h1>
         <h2> Alterar Senha </h2>
         <form action='../finish/alterarsenhaadm_finish.php' onsubmit="return validarprimeiro(this);"
             name='alterarsenhaadm' method="post">

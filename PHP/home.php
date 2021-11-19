@@ -213,37 +213,84 @@
                         alert("Aguarde!");
                         if (retornovalida == "0") {
                             $.ajax({
-                                url: 'others/concluirreserva1.php',
+                                url: 'others/concluirreserva2.php',
                                 type: 'POST',
                                 data: {
+                                    devolucao: livro1,
                                     rmaluno: rmaluno,
-                                    now: dataagora,
+                                    idlivro: idlivro,
+                                    now: now,
                                 },
-                                success: function(tabelaempcodigo) {
+                                success: function(mensagemretorno) {
+                                    alert(mensagemretorno);
+                                    document.location.reload(true);
+                                },
+                                error: function(jqXHR, textStatus) {
+                                    console.log('error ' + textStatus +
+                                        " " + jqXHR);
+                                }
+                            });
+                            try {
+                                var livro2 = document.getElementById('livro2').value;
+                                var idlivro2 = document.getElementById('livro2').name;
+                                const past2 = new Date(livro2);
+                                const diff2 = Math.abs(now.getTime() - past2.getTime());
+                                const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
+                                if (days2 <= 30) {
                                     $.ajax({
                                         url: 'others/concluirreserva2.php',
                                         type: 'POST',
                                         data: {
-                                            devolucao: livro1,
+                                            devolucao: livro2,
                                             rmaluno: rmaluno,
-                                            idlivro: idlivro,
-                                            now: now,
+                                            idlivro: idlivro2,
+                                            now: now
                                         },
                                         success: function(mensagemretorno) {
                                             alert(mensagemretorno);
                                             document.location.reload(true);
                                         },
                                         error: function(jqXHR, textStatus) {
-                                            console.log('error ' + textStatus +
-                                                " " + jqXHR);
+                                            console.log('error ' + textStatus + " " + jqXHR);
                                         }
                                     });
-                                },
-                                error: function(jqXHR, textStatus) {
-                                    console.log('error ' + textStatus + " " + jqXHR);
+                                } else {
+                                    alert('O Prazo máximo para devolução do livro é de 30 dias!');
                                 }
 
-                            });
+                            } catch {
+                                //document.location.reload(true);
+                            };
+                            try {
+                                var livro3 = document.getElementById('livro3').value;
+                                var idlivro3 = document.getElementById('livro3').name;
+                                const past3 = new Date(livro3);
+                                const diff3 = Math.abs(now.getTime() - past3.getTime());
+                                const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
+                                if (days3 <= 30) {
+                                    $.ajax({
+                                        url: 'others/concluirreserva2.php',
+                                        type: 'POST',
+                                        data: {
+                                            devolucao: livro3,
+                                            rmaluno: rmaluno,
+                                            idlivro: idlivro3,
+                                            now: now
+                                        },
+                                        success: function(mensagemretorno) {
+                                            alert(mensagemretorno);
+                                            document.location.reload(true);
+                                        },
+                                        error: function(jqXHR, textStatus) {
+                                            console.log('error ' + textStatus + " " + jqXHR);
+                                        }
+                                    });
+                                } else {
+                                    alert('O Prazo máximo para devolução do livro é de 30 dias!');
+                                }
+                            } catch {
+                                //document.location.reload(true);
+                            };
                         } else {
                             alert("Você deve devolver o livro com empréstimo em atraso primeiro!");
                         }
@@ -260,67 +307,7 @@
         } catch {
             //document.location.reload(true);
         };
-        try {
-            var livro2 = document.getElementById('livro2').value;
-            var idlivro2 = document.getElementById('livro2').name;
-            const past2 = new Date(livro2);
-            const diff2 = Math.abs(now.getTime() - past2.getTime());
-            const days2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
-            if (days2 <= 30) {
-                $.ajax({
-                    url: 'others/concluirreserva2.php',
-                    type: 'POST',
-                    data: {
-                        devolucao: livro2,
-                        rmaluno: rmaluno,
-                        idlivro: idlivro2,
-                        now: now
-                    },
-                    success: function(mensagemretorno) {
-                        alert(mensagemretorno);
-                        document.location.reload(true);
-                    },
-                    error: function(jqXHR, textStatus) {
-                        console.log('error ' + textStatus + " " + jqXHR);
-                    }
-                });
-            } else {
-                alert('O Prazo máximo para devolução do livro é de 30 dias!');
-            }
-
-        } catch {
-            //document.location.reload(true);
-        };
-        try {
-            var livro3 = document.getElementById('livro3').value;
-            var idlivro3 = document.getElementById('livro3').name;
-            const past3 = new Date(livro3);
-            const diff3 = Math.abs(now.getTime() - past3.getTime());
-            const days3 = Math.ceil(diff3 / (1000 * 60 * 60 * 24));
-            if (days3 <= 30) {
-                $.ajax({
-                    url: 'others/concluirreserva2.php',
-                    type: 'POST',
-                    data: {
-                        devolucao: livro3,
-                        rmaluno: rmaluno,
-                        idlivro: idlivro3,
-                        now: now
-                    },
-                    success: function(mensagemretorno) {
-                        alert(mensagemretorno);
-                        document.location.reload(true);
-                    },
-                    error: function(jqXHR, textStatus) {
-                        console.log('error ' + textStatus + " " + jqXHR);
-                    }
-                });
-            } else {
-                alert('O Prazo máximo para devolução do livro é de 30 dias!');
-            }
-        } catch {
-            //document.location.reload(true);
-        };
+        
     };
 
     function carregou() {
@@ -390,7 +377,7 @@
     function btnContinuarEmprestimo() {
         document.getElementById('main2').innerHTML = `
         <div class='alinharmeio fundoBranco' style='border-radius: 1vh 1vh;'>
-        <h3 style='padding-top: 3vh; margin-bottom: -1vh;'> Selecione as datas para devolução (máximo 30 dias): </h3><br>
+        <h3 style='padding-top: 3vh; margin-bottom: -1vh;'> Selecione o prazo para devolução (máximo 30 dias): </h3><br>
         <?php
 
             $datadehoje = date('Y-m-d');
@@ -399,7 +386,7 @@
                 $sql_buscalista2 = "SELECT * FROM livros WHERE liv_codi='$exibir_pre2[liv_codi]'";
                 $resultado_buscalista2 = mysqli_query($conn, $sql_buscalista2);
                 $exibir_buscalista2 = mysqli_fetch_assoc($resultado_buscalista2);
-                echo "<label><b> $exibir_buscalista2[liv_titu] </b></label><br>";
+                echo "<label><b> '$exibir_buscalista2[liv_titu]' </b></label><br>";
                 echo "<input style='margin-bottom: 2vh; width: 30%;' name='$exibir_pre2[liv_codi]' type='date' min='$datadehoje' id='livro$a'><br>";
                 $a++;
             }
@@ -483,9 +470,8 @@
         <div class="empTableDiv">
             <table>
                 <tr>
-                    <th style="width:10%;">ID</th>
-                    <th style="width:50%;">Título</th>
-                    <th style="width:20%;">Data Empréstimo</th>
+                    <th style="width:60%;">Título</th>
+                    <th style="width:20%;">Data Entrega Livro</th>
                     <th style="width:20%;">Previsão Devolução</th>
                 </tr>
                 <?php 
@@ -494,16 +480,17 @@
                         $sql_emprestimoprogresso2 = "SELECT * FROM livros WHERE liv_codi = $exibir_emp_progresso[liv_codi]";
                         $resultado_produtos_sql_emprestimoprogresso2 = mysqli_query($conn, $sql_emprestimoprogresso2);
                         $exibir_sql_emprestimoprogresso2 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimoprogresso2);
-                        $sql_emprestimoprogresso3 = "SELECT * FROM emprestimo WHERE emp_codi = $exibir_emp_progresso[emp_codi]";
-                        $resultado_produtos_sql_emprestimoprogresso3 = mysqli_query($conn, $sql_emprestimoprogresso3);
-                        $exibir_sql_emprestimoprogresso3 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimoprogresso3);
                         echo "<tr>";
-                        echo "<td nome='1' id='1'> $exibir_emp_progresso[emp_codi]</td>";
                         echo "<td nome='1' id='1'> $exibir_sql_emprestimoprogresso2[liv_titu]</td>";
-                        $ano= substr($exibir_sql_emprestimoprogresso3['emp_data'], 0,4);
-                        $mes= substr($exibir_sql_emprestimoprogresso3['emp_data'], 5,2);
-                        $dia= substr($exibir_sql_emprestimoprogresso3['emp_data'], 8,2);
-                        echo "<td nome='1' id='1'> $dia/$mes/$ano</td>";
+                        if($exibir_emp_progresso['cor_dten'] == ""){
+                            echo "<td nome='1' id='1'> - </td>";
+                        } else {
+                            $ano= substr($exibir_emp_progresso['cor_dten'], 0,4);
+                            $mes= substr($exibir_emp_progresso['cor_dten'], 5,2);
+                            $dia= substr($exibir_emp_progresso['cor_dten'], 8,2);
+                            echo "<td nome='1' id='1'> $dia/$mes/$ano</td>";
+                        }
+                        
                         $ano2= substr($exibir_emp_progresso['emp_dtde'], 0,4);
                         $mes2= substr($exibir_emp_progresso['emp_dtde'], 5,2);
                         $dia2= substr($exibir_emp_progresso['emp_dtde'], 8,2);
@@ -523,25 +510,20 @@
         <div class="empTableDiv">
             <table>
                 <tr>
-                    <th style="width:10%;">ID</th>
                     <th style="width:60%;">Título</th>
-                    <th style="width:15%;">Data Empréstimo</th>
-                    <th style="width:15%;">Data Devolução</th>
+                    <th style="width:20%;">Data Entrega Livro</th>
+                    <th style="width:20%;">Data Devolução</th>
                 </tr>
                 <?php 
                     while ($exibir_emp_finalizado = mysqli_fetch_assoc($resultado_emprestimofinalizado)) {
                         $sql_emprestimofinalizado2 = "SELECT * FROM livros WHERE liv_codi = $exibir_emp_finalizado[liv_codi]";
                         $resultado_produtos_sql_emprestimofinalizado2 = mysqli_query($conn, $sql_emprestimofinalizado2);
                         $exibir_sql_emprestimofinalizado2 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimofinalizado2);
-                        $sql_emprestimofinalizado3 = "SELECT * FROM emprestimo WHERE emp_codi = $exibir_emp_finalizado[emp_codi]";
-                        $resultado_produtos_sql_emprestimofinalizado3 = mysqli_query($conn, $sql_emprestimofinalizado3);
-                        $exibir_sql_emprestimofinalizado3 = mysqli_fetch_assoc($resultado_produtos_sql_emprestimofinalizado3);
                         echo "<tr>";
-                        echo "<td nome='1' id='1'> $exibir_emp_finalizado[emp_codi]</td>";
                         echo "<td nome='1' id='1'> $exibir_sql_emprestimofinalizado2[liv_titu]</td>";
-                        $ano= substr($exibir_sql_emprestimofinalizado3['emp_data'], 0,4);
-                        $mes= substr($exibir_sql_emprestimofinalizado3['emp_data'], 5,2);
-                        $dia= substr($exibir_sql_emprestimofinalizado3['emp_data'], 8,2);
+                        $ano= substr($exibir_emp_finalizado['cor_dten'], 0,4);
+                        $mes= substr($exibir_emp_finalizado['cor_dten'], 5,2);
+                        $dia= substr($exibir_emp_finalizado['cor_dten'], 8,2);
                         echo "<td nome='1' id='1'> $dia/$mes/$ano</td>";
                         $ano2= substr($exibir_emp_finalizado['cor_dtde'], 0,4);
                         $mes2= substr($exibir_emp_finalizado['cor_dtde'], 5,2);

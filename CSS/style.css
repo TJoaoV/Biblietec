@@ -265,7 +265,7 @@
 	border-bottom-left-radius: 1vh 1vh;
 	border-bottom-right-radius: 1vh 1vh;
 	background-color: hsl(0, 0%, 95%);
-	text-align: center;
+	text-align: center !important;
 }
 .empTableDiv table {
 	border-collapse: collapse;

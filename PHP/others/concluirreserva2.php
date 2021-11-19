@@ -12,17 +12,10 @@
     $dia= substr($devolucao, 8,2);
     $ano2= substr($datadehoje, 0,4);
     $mes2= substr($datadehoje, 5,2);
-    $dia2= substr($datadehoje, 8,2);
-    $resultado = "0";
-    $produtossql3 = "SELECT * FROM corpo_emprestimo WHERE alu_rm='$rmaluno' and emp_devo='NÃO Devolvido'";
-    $resultado_produtos3 = mysqli_query($conn, $produtossql3);
-    $codigo = "SELECT * FROM emprestimo WHERE alu_rm='$rmaluno' and emp_data='$datadehoje'";
-    $cod = mysqli_query($conn, $codigo);
-    $exibircod = mysqli_fetch_assoc($cod);
-    $idemprestimo = $exibircod['emp_codi'];
+    $dia2= substr($datadehoje, 8,2);    
 
-    $produtossql1 = "INSERT INTO corpo_emprestimo(emp_codi, liv_codi, emp_dtde, emp_devo, alu_rm) 
-                    VALUES ('$idemprestimo','$idlivro', '$devolucao', 'NÃO Devolvido', '$rmaluno');";
+    $produtossql1 = "INSERT INTO corpo_emprestimo(liv_codi, emp_dtde, emp_devo, alu_rm) 
+                    VALUES ('$idlivro', '$devolucao', 'NÃO Devolvido', '$rmaluno');";
     $resultado_produtos1 = mysqli_query($conn, $produtossql1);
 
     $produtossql3 = "DELETE FROM preemprestimo where liv_codi='$idlivro' and alu_rm='$rmaluno'";

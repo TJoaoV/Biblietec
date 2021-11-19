@@ -26,8 +26,10 @@
                     $senhanova = md5($senha1);
                     $sql = "UPDATE usuario SET usu_senh='$senhanova', usu_reds='0' WHERE usu_codi = '$id'";
                     $resultadoupdate = mysqli_query($conn, $sql);
-                    echo "<h3>Senha alterada com sucesso!</h3>";
+                    echo "<div class='alinharmeio' style='font-size: 1.4rem;'><b>Senha alterada com sucesso!</b></div>";
                     
+                } else {
+                    echo "<div class='alinharmeio' style='font-size: 1.4rem;'><b>Senha antiga incorreta!</b></div>";
                 }
                 
             }

@@ -44,9 +44,6 @@
 <head>
     <title>Biblietec - Administração</title>
     <?php include('imports.php'); ?>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" src="../JS/home_adm.js"></script>
     <script>
@@ -139,9 +136,10 @@
             <hr class="hrTitle"><br>
             <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
             <div class="corpoCadastro">
+            <br>
             <input class='botVerm pointer' type='button' onClick ='btnUsuario()' value=' Voltar ' id='btnVoltarUsuario'><br>
             <form method='POST' name='addUsuario' onsubmit="return validaraddusuario(this);">
-                <br>
+                
                 <h3> Nome: </h3>
                 <input type='text' id='txtNomeUsuADD' maxlength="100" placeholder='Digite o Nome'> <br>
                 <h3> Login: </h3>
@@ -389,9 +387,9 @@
             <hr class="hrTitle"><br>
             <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
             <div class="corpoCadastro">
+            <br>
             <input class='botVerm pointer' type='button' onClick ='btnCurso()' value=' Voltar ' id='btnVoltarLivro'><br>
             <form method='POST' name='addCurso' onsubmit="return validaraddcurso(this);">
-                <br>
                 <h3> Nome do Curso: </h3>
                 <input type='text' id='txtNomeADD' maxlength="100" placeholder="Digite o Nome do Curso"> <br>
                 <h3> Duração: </h3>
@@ -424,7 +422,7 @@
             },
             success: function(retornoCurso) {
                 alert(retornoCurso);
-                document.location.reload(true);
+                window.location.reload();
             },
             error: function(jqXHR, textStatus) {
                 console.log('error ' + textStatus + " " + jqXHR);
@@ -552,9 +550,9 @@
             <hr class="hrTitle"><br>
             <p class="corpoText"><b>Preencha as informações abaixo para adicionar</b></p>
             <div class="corpoCadastro">
+            <br>
             <input class='botVerm pointer' type='button' onClick ='btnCategoria()' value=' Voltar ' id='btnVoltarLivro'><br>
             <form method='POST' name='addCategoria' onsubmit="return validaraddcategoria(this);">
-                <br>
                 <h3> Nome da Categoria: </h3>
                 <input type='text' id='txtCateADD' maxlength="60" placeholder="Digite o nome da Categoria"> <br>
                 <input class='botVerm pointer' type='submit' value='Adicionar Categoria'>
@@ -1085,8 +1083,6 @@
                         dados.qtddisp + `'><br>
                                     <input class='botVerm pointer' type='button' onClick ='edicaoLivro(` + dados
                         .codigo + `)' value=' Salvar Alterações ' id='btnSalvarAlteracoesLivros'><br>
-                                    <input class='botVerm pointer' type='button' onClick ='excluirLivro(` + dados
-                        .codigo + `)' value=' Excluir Livro ' id='btnExcluirLivro'><br>
                             </div>
                         </div>`;
                 },
@@ -1095,23 +1091,6 @@
                 }
             });
         }
-    };
-
-    function excluirLivro(idlivro) {
-        $.ajax({
-            url: 'others/excluirlivro_adm.php',
-            type: 'POST',
-            data: {
-                idlivro: idlivro
-            },
-            success: function(dadosretorno) {
-                alert(dadosretorno);
-                document.location.reload(true);
-            },
-            error: function(jqXHR, textStatus) {
-                console.log('error ' + textStatus + " " + jqXHR);
-            }
-        });
     };
 
     function edicaoLivro(idlivro) {
@@ -1185,13 +1164,13 @@
                         $resultado_buscaaluno = mysqli_query($conn, $sql_buscaaluno);
                         $exibir_buscaaluno = mysqli_fetch_assoc($resultado_buscaaluno);
                         echo "<tr>";
-                        echo "<td nome='1' id='1'> $exibir_buscaaluno[alu_rm]</td>";
-                        echo "<td nome='1' id='1'> $exibir_buscatitulo[liv_titu]</td>";
-                        echo "<td nome='1' id='1'> $exibir_buscaaluno[alu_nome]</td>";
+                        echo "<td> $exibir_buscaaluno[alu_rm]</td>";
+                        echo "<td> $exibir_buscatitulo[liv_titu]</td>";
+                        echo "<td> $exibir_buscaaluno[alu_nome]</td>";
                         $ano= substr($resultadoemprestimos['emp_dtde'], 0,4);
                         $mes= substr($resultadoemprestimos['emp_dtde'], 5,2);
                         $dia= substr($resultadoemprestimos['emp_dtde'], 8,2);
-                        echo "<td nome='1' id='1'> $dia/$mes/$ano </td>";
+                        echo "<td> $dia/$mes/$ano </td>";
                         echo "<td>
                         <a class='btnsidenav' id='$resultadoemprestimos[cor_codi]' onclick='entregar_livro($resultadoemprestimos[cor_codi], $usuarioadm)'>
                         <img src=../img/botao_entregar.png width='20px' height='20px'>
@@ -1318,7 +1297,7 @@
                             $mes= substr($exibirprogresso['emp_dtde'], 5,2);
                             $dia= substr($exibirprogresso['emp_dtde'], 8,2);
                             echo "<td nome='1' id='1'> $dia/$mes/$ano </td>";
-                            echo "<td><a class='btnsidenav' id='$exibirprogresso[emp_codi]' onclick='devolver_livro($exibirprogresso[cor_codi], $usuarioadm)'><img src=../img/botao_devolver.png width='20px' height='20px'></a></td>";
+                            echo "<td><a class='btnsidenav' id='$exibirprogresso[cor_codi]' onclick='devolver_livro($exibirprogresso[cor_codi], $usuarioadm)'><img src=../img/botao_devolver.png width='20px' height='20px'></a></td>";
                             echo "</tr>";
                         };
                     };
@@ -1401,9 +1380,6 @@
                             $sql_ano = "SELECT * FROM livros WHERE liv_codi = $exibir2[liv_codi]";
                             $resultado_ano = mysqli_query($conn, $sql_ano);
                             $exibir_ano = mysqli_fetch_assoc($resultado_ano);
-                            $sql_ano2 = "SELECT * FROM emprestimo WHERE emp_codi = $exibir2[emp_codi]";
-                            $resultado_ano2 = mysqli_query($conn, $sql_ano2);
-                            $exibir_ano2 = mysqli_fetch_assoc($resultado_ano2);
                             $sql_ano3 = "SELECT * FROM alunos WHERE alu_rm = $exibir2[alu_rm]";
                             $resultado_ano3 = mysqli_query($conn, $sql_ano3);
                             $exibir_ano3 = mysqli_fetch_assoc($resultado_ano3);
