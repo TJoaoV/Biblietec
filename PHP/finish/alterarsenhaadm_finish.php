@@ -29,7 +29,11 @@
                     echo "<div class='alinharmeio' style='font-size: 1.4rem;'><b>Senha alterada com sucesso!</b></div>";
                     
                 } else {
+<<<<<<< HEAD
                     echo "<div class='alinharmeio' style='font-size: 1.4rem;'><b>Senha antiga incorreta!</b></div>";
+=======
+                    echo "<h3>Senha antiga incorreta!</h3>";
+>>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
                 }
                 
             }

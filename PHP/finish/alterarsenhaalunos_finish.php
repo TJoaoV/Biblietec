@@ -28,11 +28,19 @@ if($resultado_usuario == TRUE){
             $senhanova = md5($senha1);
             $sql = "UPDATE alunos SET alu_senh='$senhanova', alu_reds='0' WHERE alu_codi = '$id'";
             $resultadoupdate = mysqli_query($conn, $sql);
+<<<<<<< HEAD
             echo "<div class='alinharmeio' style='font-size: 1.4rem;'><b>Senha alterada com sucesso!</b></div>";
             
         }
     } else {
         echo "<div class='alinharmeio' style='font-size: 1.4rem;'><b>Senha antiga incorreta!</b></div>";
+=======
+            echo "<div class='alinharmeio'><h3>Senha alterada com sucesso!</h3></div>";
+            
+        }
+    } else {
+        echo "<div class='alinharmeio'><h3>Senha antiga incorreta!</h3></div>";
+>>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
     }
     
     
