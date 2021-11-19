@@ -307,7 +307,7 @@
         } catch {
             //document.location.reload(true);
         };
-        
+
     };
 
     function carregou() {
@@ -612,14 +612,16 @@
         <input hidden type='text' id='rmdoaluno' value='<?php echo $rm;?>'>
         <input hidden type='date' id='dataemprestimo' value='<?php echo date('Y-m-d');?>'>
         <a href='home.php' class="textdecor" style="margin-top: -1.8vh;">
-            <h1 tabindex="0" class='titulo' style='text-align: center;'>
+            <h1 tabindex="0" class='titulo big' style='text-align: center;'>
                 <span class="cor1">Bibli</span><span class="cor2">e</span><span class="cor3">tec</span>
             </h1>
+            <img class="small" src="../img/logo.png" style="height:3rem; width:auto;">
+            <br>
         </a>
         <hr class='full'>
         <a tabindex="1" href='home.php?id=4'>
             <p class="big"><?php echo $nome ?> <br> - Aluno -</p>
-            <img class="small" src="../img/botao_pessoa.png" style="height:3rem; width:auto;">
+            <img class="small" src="../img/botao_pessoa.png" style="height:2.5rem; width:auto;">
 
         </a><br>
         <input type="text" id='rmcontent' name='rmcontent' value='<?php echo $rm ?>' hidden>
@@ -627,19 +629,19 @@
 
         <?php echo '<a tabindex="2"  href="home.php?id=3" class="btnsidenav" id="btnProcurar">
             <p class="big">Procurar</p>
-            <img class="small" src="../img/botao_procurar.png" style="height:3rem; width:auto;">
+            <img class="small" src="../img/botao_procurar.png" style="height:2.5rem; width:auto;">
             </a>' ?>
 
         <hr>
         <?php echo '<a tabindex="5" href="home.php?id=2" class="btnsidenav" id="btnCarrinho">
             <p class="big">Carrinho</p>
-            <img class="small" src="../img/botao_carrinho.png" style="height:3rem; width:auto;">
+            <img class="small" src="../img/botao_carrinho.png" style="height:2.5rem; width:auto;">
             </a>' ?>
         <hr>
 
         <a tabindex="3" href='home.php?id=5' class="btnsidenav" id='btnEmprestimos'>
             <p class="big">Empréstimos</p>
-            <img class="small" src="../img/botao_emprestimo.png" style="height:3rem; width:auto;">
+            <img class="small" src="../img/botao_emprestimo.png" style="height:2.5rem; width:auto;">
         </a>
         <hr>
         <a tabindex="6" class="btnsidenav" style="text-decoration:none;" href='../index.php' id='btnSair'>Sair</a>
