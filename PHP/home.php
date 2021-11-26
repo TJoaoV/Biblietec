@@ -300,7 +300,6 @@
                         console.log('error ' + textStatus + " " + jqXHR);
                     }
                 });
-
             } else {
                 alert('O Prazo máximo para devolução do livro é de 30 dias!');
             }
@@ -339,7 +338,6 @@
         <div class="empTableDiv">
         <table name='carrinhotable' id='carrinhotable'>
             <tr>
-                <th width="5%">ID</th>
                 <th width="35%">Titulo</th>
                 <th width="25%">Autor</th>
                 <th width="15%">Data Reserva</th>
@@ -351,7 +349,6 @@
                     $resultado_buscalista = mysqli_query($conn, $sql_buscalista);
                     $exibir_buscalista = mysqli_fetch_assoc($resultado_buscalista);
                     echo "<tr>";
-                    echo "<td>$exibir_pre[liv_codi]</td>";
                     echo "<td>$exibir_buscalista[liv_titu]</td>";
                     echo "<td>$exibir_buscalista[liv_auto]</td>";
                     $ano= substr($exibir_pre['pre_data'], 0,4);
@@ -560,8 +557,6 @@
                             <div class="corpoCadastro">
                             <div class="livrDetail">
                             <br>
-                                <span><b>Código do Livro:</b></span>
-                                <label> ` + dados.codigo + ` </label> <br>
                                 <label><b> Título do Livro: </b></label>
                                 <label> ` + dados.nome + ` </label> <br>
                                 <label><b> Autor: </b></label>

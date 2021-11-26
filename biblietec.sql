@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Tempo de geração: 17-Nov-2021 às 13:17
-=======
--- Tempo de geração: 17-Nov-2021 às 02:04
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
+-- Tempo de geração: 26-Nov-2021 às 20:52
 -- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.12
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -51,11 +47,7 @@ CREATE TABLE `alunos` (
 
 INSERT INTO `alunos` (`alu_codi`, `alu_rm`, `alu_nome`, `alu_senh`, `alu_cpf`, `alu_tele`, `alu_celu`, `alu_emai`, `alu_dtna`, `alu_reds`, `cur_codi`) VALUES
 (1, 19229, 'GUILHERME SPERANDINI COSTA', '202cb962ac59075b964b07152d234b70', '44115123869', '', '16991624093', 'guispcosta@gmail.com', '2004-06-15', 0, 1),
-<<<<<<< HEAD
-(2, 19999, 'JOÃO VITOR RIBEIRO LOPES', '202cb962ac59075b964b07152d234b70', '08987288005', '', '16994432975', 'joaovitorlopes05@hotmail.com', '2004-03-15', 0, 1);
-=======
 (2, 19999, 'JOÃO VITOR RIBEIRO LOPES', '202cb962ac59075b964b07152d234b70', '08987288005', '1631341254', '', 'guisperandinicosta@yahoo.com.br', '2004-06-15', 0, 2);
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
 
 -- --------------------------------------------------------
 
@@ -109,18 +101,11 @@ CREATE TABLE `corpo_emprestimo` (
 --
 
 INSERT INTO `corpo_emprestimo` (`cor_codi`, `liv_codi`, `emp_dtde`, `emp_devo`, `cor_pego`, `cor_dten`, `cor_dtde`, `alu_rm`, `usu_codi`) VALUES
-(9, 1, '2021-11-15', 'Devolvido', 1, '2021-11-15', '2021-11-16', 19229, 1),
-<<<<<<< HEAD
-(11, 2, '2021-11-15', 'Devolvido', 1, '2021-11-15', '2021-11-17', 19229, 1),
-(12, 4, '2021-11-17', 'Devolvido', 1, '2021-11-16', '2021-11-16', 19229, 1),
-(13, 6, '2021-11-17', 'NÃO Devolvido', 1, '2021-11-16', NULL, 19229, 1),
-(15, 9, '2021-11-17', 'NÃO Devolvido', 0, NULL, NULL, 19229, NULL);
-=======
-(11, 2, '2021-11-15', 'NÃO Devolvido', 1, '2021-11-15', NULL, 19229, 1),
-(12, 4, '2021-11-17', 'Devolvido', 1, '2021-11-16', '2021-11-16', 19229, 1),
-(13, 6, '2021-11-17', 'NÃO Devolvido', 1, '2021-11-16', NULL, 19229, 1),
-(14, 9, '2021-11-17', 'NÃO Devolvido', 0, NULL, NULL, 19229, NULL);
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
+(17, 1, '2021-11-25', 'Devolvido', 1, '2021-11-25', '2021-11-26', 19229, 1),
+(18, 9, '2021-11-25', 'Devolvido', 1, '2021-11-22', '2021-11-25', 19229, 1),
+(19, 5, '2021-11-23', 'NÃO Devolvido', 1, '2021-11-22', NULL, 19229, 1),
+(20, 2, '2021-11-30', 'NÃO Devolvido', 0, NULL, NULL, 19229, NULL),
+(21, 6, '2021-11-30', 'NÃO Devolvido', 1, '2021-11-26', NULL, 19229, 1);
 
 -- --------------------------------------------------------
 
@@ -140,16 +125,9 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`cur_codi`, `cur_nome`, `cur_dura`, `cur_peri`) VALUES
-(1, 'ETIM Desenvolvimento de Sistemas', '3 ANOS', 'INTEGRAL'),
+(1, 'ETIM DESENVOLVIMENTO DE SISTEMAS', '3 ANOS', 'INTEGRAL'),
 (2, 'ETIM Meio Ambiente', '3 Anos', 'INTEGRAL'),
-<<<<<<< HEAD
-(3, 'MTEC Meio Ambiente', '3 Anos', 'MANHÃ'),
-(4, 'MTEC Desenvolvimento de Sistemas', '3 Anos', 'MANHÃ'),
-(5, 'MTEC Serviços Jurídicos', '3 Anos', 'TARDE'),
-(6, 'Técnico em Farmácia', '1,5 Anos', 'NOITE');
-=======
 (3, 'MTEC Meio Ambiente', '3 Anos', 'MANHÃ');
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
 
 -- --------------------------------------------------------
 
@@ -176,9 +154,9 @@ INSERT INTO `livros` (`liv_codi`, `liv_titu`, `liv_auto`, `liv_edit`, `cat_codi`
 (1, 'O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'ViaLeitura', 2, 'Le Petit Prince é uma novela do escritor, aviador aristocrata francês Antoine de Saint-Exupéry, originalmente publicada em inglês e francês em abril de 1943 nos Estados Unidos. Durante a Segunda Guerra Mundial, Saint-Exupéry foi exilado para a América do Norte.', 2, 2),
 (2, 'Dom Quixote de la Mancha', 'Miguel de Cervantes', 'D.QUIXOTE', 3, 'Dom Quixote de la Mancha é um livro escrito pelo espanhol Miguel de Cervantes. O título e ortografia originais eram El ingenioso hidalgo Don Quixote de La Mancha, com sua primeira edição publicada em Madrid no ano de 1605.', 5, 4),
 (4, 'Guerra e Paz', 'Liev Tolstói', 'Paulus', 1, 'Guerra e Paz é um romance histórico escrito pelo autor russo Liev Tolstói e publicado entre 1865 e 1869 no Russkii Vestnik, um periódico da época. É uma das obras mais volumosas da história da literatura universal. O livro narra a história da Rússia à época de Napoleão Bonaparte.', 3, 3),
-(5, 'O Patinho Feio', 'Hans Christian Andersen', 'Zahar', 2, 'O Patinho Feio é um conto de fadas do escritor dinamarquês Hans Christian Andersen, publicado pela primeira vez em 11 de Novembro de 1843 em Nye Eventyr. Første Bind. Første Samling. 1844.', 4, 4),
+(5, 'O Patinho Feio', 'Hans Christian Andersen', 'Zahar', 2, 'O Patinho Feio é um conto de fadas do escritor dinamarquês Hans Christian Andersen, publicado pela primeira vez em 11 de Novembro de 1843 em Nye Eventyr. Første Bind. Første Samling. 1844.', 4, 3),
 (6, 'O Homem de Giz', 'C.J. Tudor', 'editorateste', 11, 'Assassinato e sinais misteriosos em uma trama para fãs de Stranger Things e Stephen King   Em 1986, Eddie e os amigos passam a maior parte dos dias andando de bicicleta pela pacata vizinhança em busca de aventuras.', 1, 0),
-(9, '1984', 'George Orwell', 'Nova Fronteira', 1, 'Winston Smith é um funcionário do Ministério da Verdade, órgão responsável por notícias, entretenimento, educação e belas-artes do Estado. Seu trabalho consiste em reescrever a história para satisfazer as demandas do Partido, que busca o poder em benefício próprio e persegue todos os que se atrevem a cometer os chamados \"pensamentos-crime\". Um dia, porém, cansado daquela realidade, ele decide desafiar o sistema, mas o Grande Irmão está sempre de olho em tudo e em todos... Romance surpreendente, \"1984\" cria um mundo imaginário assustadoramente verossímil do início ao fim. Nesta distopia, uma das mais celebradas e influentes da literatura mundial, George Orwell nos apresenta presságios que podem estar mais perto da realidade de hoje do que gostaríamos. Esta edição conta com a tradução de Adalgisa Campos da Silva e o prefácio do advogado e escritor José Roberto de Castro Neves.', 25, 24);
+(9, '1984', 'George Orwell', 'Nova Fronteira', 1, 'Winston Smith é um funcionário do Ministério da Verdade, órgão responsável por notícias, entretenimento, educação e belas-artes do Estado. Seu trabalho consiste em reescrever a história para satisfazer as demandas do Partido, que busca o poder em benefício próprio e persegue todos os que se atrevem a cometer os chamados \"pensamentos-crime\". Um dia, porém, cansado daquela realidade, ele decide desafiar o sistema, mas o Grande Irmão está sempre de olho em tudo e em todos... Romance surpreendente, \"1984\" cria um mundo imaginário assustadoramente verossímil do início ao fim. Nesta distopia, uma das mais celebradas e influentes da literatura mundial, George Orwell nos apresenta presságios que podem estar mais perto da realidade de hoje do que gostaríamos. Esta edição conta com a tradução de Adalgisa Campos da Silva e o prefácio do advogado e escritor José Roberto de Castro Neves.', 25, 25);
 
 -- --------------------------------------------------------
 
@@ -221,7 +199,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`usu_codi`, `usu_nome`, `usu_logi`, `usu_cpf`, `usu_ende`, `usu_dtna`, `usu_tele`, `usu_celu`, `usu_emai`, `usu_senh`, `usu_perm`, `usu_reds`, `usu_ativ`) VALUES
 (1, 'NOME DO USUÁRIO ADMINISTRADOR', 'administrador', '44115123869', 'Rua Abilio dos Santos, 150, Jd Roselandia, Jeriquara/SP', '2004-06-15', '1631341254', '16991624093', 'guispcosta@gmail.com', '202cb962ac59075b964b07152d234b70', 'Administrador', 0, 1),
-(2, 'NOME DO USUÁRIO BILIOTECÁRIO', 'bibliotecario', '18828752068', 'Rua do Guara', '2021-11-17', '', '16999999999', 'joaozinhopokabala123@gmail.com', '202cb962ac59075b964b07152d234b70', 'Bibliotecario', 0, 1);
+(2, 'NOME DO USUÁRIO BILIOTECÁRIO', 'bibliotecario', '18828752068', 'Rua do Guara', '2021-11-17', '', '16999999999', 'usuariobibliotecario@gmail.com', '202cb962ac59075b964b07152d234b70', 'Bibliotecario', 0, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -298,21 +276,13 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `corpo_emprestimo`
 --
 ALTER TABLE `corpo_emprestimo`
-<<<<<<< HEAD
-  MODIFY `cor_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-=======
-  MODIFY `cor_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
+  MODIFY `cor_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-<<<<<<< HEAD
-  MODIFY `cur_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-=======
   MODIFY `cur_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
 
 --
 -- AUTO_INCREMENT de tabela `livros`
@@ -324,11 +294,7 @@ ALTER TABLE `livros`
 -- AUTO_INCREMENT de tabela `preemprestimo`
 --
 ALTER TABLE `preemprestimo`
-<<<<<<< HEAD
-  MODIFY `pre_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-=======
-  MODIFY `pre_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
->>>>>>> 7c8373ea620e02974013bad3cea42f30d2157184
+  MODIFY `pre_codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
